@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{48ED2666-F296-423F-BD53-5213D5A3924B}</ProjectGuid>
+    <ProjectGuid>{975905AE-D7E7-44A3-8C09-3F5CEBE61E45}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Business</RootNamespace>
@@ -41,18 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Articulo\ArticuloBussines.cs" />
+    <Compile Include="Categoria\CategoriaBusiness.cs" />
+    <Compile Include="Marca\MarcaBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dao\Dao.csproj">
-      <Project>{0af9ee05-f8bc-492a-83e8-7465b76b8e31}</Project>
+      <Project>{cb4b9f5f-532f-42ab-b40a-3e9a24006f9b}</Project>
       <Name>Dao</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{839ad87f-0cce-46e9-9685-c8b3ec830b1e}</Project>
+      <Project>{846a619d-4858-45ca-ad5c-bf7a5e2b05bd}</Project>
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

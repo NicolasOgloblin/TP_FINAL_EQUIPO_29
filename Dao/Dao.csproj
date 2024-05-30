@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0AF9EE05-F8BC-492A-83E8-7465B76B8E31}</ProjectGuid>
+    <ProjectGuid>{CB4B9F5F-532F-42AB-B40A-3E9A24006F9B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dao</RootNamespace>
@@ -41,18 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DataAccess\DataAccess.cs" />
+    <Compile Include="Implements\ArticuloImp.cs" />
+    <Compile Include="Implements\CategoriaImp.cs" />
+    <Compile Include="Implements\MarcaImp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{839ad87f-0cce-46e9-9685-c8b3ec830b1e}</Project>
+      <Project>{846a619d-4858-45ca-ad5c-bf7a5e2b05bd}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataAccess\" />
-    <Folder Include="Implements\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
