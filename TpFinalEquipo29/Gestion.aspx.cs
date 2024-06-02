@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace TpFinalEquipo29
 {
-    public partial class Administrador : System.Web.UI.Page
+    public partial class Gestión : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

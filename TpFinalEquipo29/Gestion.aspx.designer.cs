@@ -11,7 +11,7 @@ namespace TpFinalEquipo29
 {
 
 
-    public partial class Administrador
+    public partial class Gestión
     {
     }
 }
