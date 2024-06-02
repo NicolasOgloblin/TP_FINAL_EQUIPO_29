@@ -11,7 +11,7 @@ namespace TpFinalEquipo29
 {
 
 
-    public partial class _Default
+    public partial class Carrito
     {
     }
 }
