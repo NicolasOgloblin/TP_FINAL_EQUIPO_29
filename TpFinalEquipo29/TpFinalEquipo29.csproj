@@ -102,6 +102,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Articulo.aspx" />
+    <Content Include="Categoria.aspx" />
     <Content Include="Carrito.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -126,6 +128,8 @@
     <Content Include="Gestion.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
+    <Content Include="Marca.aspx" />
+    <Content Include="miCuenta.aspx" />
     <Content Include="Pagos.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -190,6 +194,20 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Articulo.aspx.cs">
+      <DependentUpon>Articulo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Articulo.aspx.designer.cs">
+      <DependentUpon>Articulo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Categoria.aspx.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categoria.aspx.designer.cs">
+      <DependentUpon>Categoria.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Carrito.aspx.cs">
@@ -229,6 +247,20 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Marca.aspx.cs">
+      <DependentUpon>Marca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Marca.aspx.designer.cs">
+      <DependentUpon>Marca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="miCuenta.aspx.cs">
+      <DependentUpon>miCuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="miCuenta.aspx.designer.cs">
+      <DependentUpon>miCuenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pagos.aspx.cs">
       <DependentUpon>Pagos.aspx</DependentUpon>
