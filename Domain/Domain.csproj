@@ -45,6 +45,8 @@
     <Compile Include="Entities\CategoriaEntity.cs" />
     <Compile Include="Entities\ImagenEntity.cs" />
     <Compile Include="Entities\MarcaEntity.cs" />
+    <Compile Include="Entities\RolesEntity.cs" />
+    <Compile Include="Entities\UsuarioEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

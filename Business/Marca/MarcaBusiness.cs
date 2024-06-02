@@ -70,19 +70,5 @@ namespace Business
             }
         }
 
-        public int Corrobar (int id)
-        {
-            MarcaImp marca = new MarcaImp();
-            try
-            {
-                return marca.Corroborar(id);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
     }
 }

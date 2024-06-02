@@ -17,14 +17,14 @@ namespace Dao.Implements
            DataAccess datos = new DataAccess();
             try
             {
-                datos.setearConsulta("SELECT Id, Descripcion FROM CATEGORIAS");
+                datos.setearConsulta("SELECT Id, Nombre FROM CATEGORIAS");
                 datos.ejecutarLectura();
 
                 while (datos.Reader.Read())
                 {
                     var categoria = new CategoriaEntity();
                    categoria.Id = (int)datos.Reader["Id"];
-                   categoria.Descripcion = (string)datos.Reader["Descripcion"];
+                   categoria.Nombre = (string)datos.Reader["Nombre"];
                         listaCategorias.Add(categoria);
 
                 }
@@ -47,7 +47,7 @@ namespace Dao.Implements
             try
             {
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@descripcion", categoria.Descripcion);
+                datos.setearParametro("@descripcion", categoria.Nombre);
                 return datos.ejecutarAccion();
 
             }
@@ -69,7 +69,7 @@ namespace Dao.Implements
             {
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@id", categoria.Id);
-                datos.setearParametro("@descripcion", categoria.Descripcion);
+                datos.setearParametro("@descripcion", categoria.Nombre);
                 return datos.ejecutarAccion();
 
             }
@@ -96,36 +96,7 @@ namespace Dao.Implements
                 throw ex;
             }
         }
-        public int Corroborar(int id)
-        {
-            DataAccess datos = new DataAccess();
-            string consulta = @"SELECT COUNT (*) AS CONTADOR 
-                                FROM CATEGORIAS C
-                                INNER JOIN ARTICULOS A ON(C.Id = A.IdCategoria)
-                                WHERE C.Id = @id";
-            int contador = 0;
-            try
-            {
-                datos.setearConsulta(consulta);
-                datos.setearParametro("@id", id);
-                datos.ejecutarLectura();
-
-                while (datos.Reader.Read())
-                {
-
-                    contador = (int)datos.Reader["CONTADOR"];
-
-                }
-                return contador;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally { datos.cerrarConexion(); }
-
-        }
+        
 
     }
 }

@@ -48,15 +48,13 @@ namespace Dao.Implements
 
                     articulo.Marca = new MarcaEntity();
                     articulo.Categoria = new CategoriaEntity();
-                    articulo.Imagen = new ImagenEntity();
 
                     articulo.Marca.Id = (int)datos.Reader["IdMarca"];
-                    articulo.Marca.Descripcion = (string)datos.Reader["DSM"];
+                    articulo.Marca.Nombre = (string)datos.Reader["DSM"];
                     articulo.Categoria.Id = (int)datos.Reader["IdCategoria"];
-                    articulo.Categoria.Descripcion = (string)datos.Reader["DSC"];
+                    articulo.Categoria.Nombre = (string)datos.Reader["DSC"];
                     articulo.Precio = (decimal)datos.Reader["Precio"];
-                    articulo.Imagen.UrlImagen = (string)datos.Reader["ImagenUrl"];
-
+                   
                     listArticulos.Add(articulo);
                 }
 
@@ -106,7 +104,7 @@ namespace Dao.Implements
                 datos.setearParametro("@idMarca", art.Marca.Id);
                 datos.setearParametro("@idCategoria", art.Categoria.Id);
                 datos.setearParametro("@precio", art.Precio);
-                datos.setearParametro("@imagenUrl",art.Imagen.UrlImagen);
+              
                 return datos.ejecutarAccion(); 
             }
             catch (Exception ex)
@@ -154,8 +152,8 @@ namespace Dao.Implements
                 datos.setearParametro("@idMarca", art.Marca.Id);
                 datos.setearParametro("@idCategoria", art.Categoria.Id);
                 datos.setearParametro("@precio", art.Precio);
-                datos.setearParametro("@imagenUrl", art.Imagen.UrlImagen);
                 datos.setearParametro("@id", art.Id);
+
                 return datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -225,14 +223,13 @@ namespace Dao.Implements
 
                     articulo.Marca = new MarcaEntity();
                     articulo.Categoria = new CategoriaEntity();
-                    articulo.Imagen = new ImagenEntity();
+                    
 
                     articulo.Marca.Id = (int)datos.Reader["IdMarca"];
-                    articulo.Marca.Descripcion = (string)datos.Reader["DSM"];
+                    articulo.Marca.Nombre = (string)datos.Reader["DSM"];
                     articulo.Categoria.Id = (int)datos.Reader["IdCategoria"];
-                    articulo.Categoria.Descripcion = (string)datos.Reader["DSC"];
+                    articulo.Categoria.Nombre = (string)datos.Reader["DSC"];
                     articulo.Precio = (decimal)datos.Reader["Precio"];
-                    articulo.Imagen.UrlImagen = (string)datos.Reader["ImagenUrl"];
 
                     
                 }

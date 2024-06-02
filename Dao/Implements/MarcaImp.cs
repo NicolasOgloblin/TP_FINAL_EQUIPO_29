@@ -16,14 +16,14 @@ namespace Dao.Implements
 
             try
             {
-                datos.setearConsulta("SELECT Id, Descripcion FROM MARCAS");
+                datos.setearConsulta("SELECT Id, Nombre FROM MARCAS");
                 datos.ejecutarLectura();
 
                 while (datos.Reader.Read())
                 {
                     var marca = new MarcaEntity();
                     marca.Id = (int)datos.Reader["Id"];
-                    marca.Descripcion = (string)datos.Reader["Descripcion"];
+                    marca.Nombre = (string)datos.Reader["Descripcion"];
 
                     listMarcas.Add(marca);
                 }
@@ -47,7 +47,7 @@ namespace Dao.Implements
             try
             {
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@descripcion",marca.Descripcion);
+                datos.setearParametro("@descripcion",marca.Nombre);
                 return datos.ejecutarAccion(); 
                 
             }
@@ -71,7 +71,7 @@ namespace Dao.Implements
             {
                 datos.setearConsulta(consulta);  
                 datos.setearParametro("@id", marca.Id);
-                datos.setearParametro("@descripcion", marca.Descripcion);
+                datos.setearParametro("@descripcion", marca.Nombre);
                 return datos.ejecutarAccion(); 
 
             }
@@ -101,39 +101,6 @@ namespace Dao.Implements
             {
                 throw ex;
             }
-        }
-
-        public int Corroborar (int id) 
-        { 
-            DataAccess datos = new DataAccess();
-            string consulta = @"SELECT COUNT (*) AS CONTADOR 
-                                FROM MARCAS M
-                                INNER JOIN ARTICULOS A ON(M.Id = A.IdMarca)
-                                WHERE M.Id = @id";
-
-            
-            int contador = 0;
-            try
-            {
-                datos.setearConsulta(consulta);
-                datos.setearParametro("@id", id);
-                datos.ejecutarLectura();
-
-                while (datos.Reader.Read())
-                {
-                    
-                    contador = (int)datos.Reader["CONTADOR"];
-
-                }
-                return contador;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally { datos.cerrarConexion();}
-
         }
 
     }

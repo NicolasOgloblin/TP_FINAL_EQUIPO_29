@@ -67,18 +67,6 @@ namespace Business.Marca
 
             }
         }
-        public int Corroborar(int id)
-        {
-           CategoriaImp catego = new CategoriaImp();
-            try
-            {
-                return catego.Corroborar(id);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
+        
     }
 }
