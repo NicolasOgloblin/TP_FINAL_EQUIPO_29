@@ -65,19 +65,22 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Estadistica">Estadística</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Pagos">Pagos</a></li>
                      </ul>
-                    <!--
-                    <div class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+
+                    <div class="container mt-3 mb-3">
+                         <div class="row">
+                              <div class="col">
+                                     <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar">
+                                          </div>
+                                          <div class="col-auto">
+                                     <button class="btn btn-outline-success" type="submit">Buscar</button>
+                             </div>
+                         </div>
                     </div>
-                    -->
+
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Carrito"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
                     </ul>
-
-                   
-
                 </div>
             </div>
         </nav>
