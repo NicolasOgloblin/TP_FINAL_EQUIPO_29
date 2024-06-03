@@ -21,9 +21,19 @@
         .navbar-nav .nav-item {
             margin-right: 15px;
         }
+        .search-bar {
+        width: 700px; /* Ancho de la barra de búsqueda en 300 píxeles */
+        }   
+        .search-container {
+            width: 100%;
+        }
+        input, select, textarea {
+            max-width: none; /* Anula la propiedad max-width */
+        }
     </style>
 
 </head>
+
 <body>
     <form runat="server">
         <asp:ScriptManager runat="server">
@@ -56,24 +66,22 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    
 
                      <ul class="navbar-nav flex-grow-1 mr-auto">
-                       
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Gestion">Gestión</a></li>
                      </ul>
-
-                    <div class="container mt-3 mb-3">
-                         <div class="row">
-                              <div class="col">
-                                     <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar">
-                                          </div>
-                                          <div class="col-auto align-self-center">
-                                     <button class="btn btn-outline-light" type="submit">Buscar</button>
-                             </div>
-                         </div>
+                   
+                    <div class="container search-container mt-3 mb-3">
+                       <div class="row">
+                           <div class="col-10">
+                               <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Buscar">
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-outline-light" type="submit">Buscar</button>
+                           </div>
+                        </div>
                     </div>
-
+                     
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Carrito"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
@@ -81,6 +89,7 @@
                 </div>
             </div>
         </nav>
+
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
@@ -91,6 +100,9 @@
             </footer>
         </div>
     </form>
+
+        
+
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
