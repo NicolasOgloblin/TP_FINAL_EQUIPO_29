@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Business.Articulo
 {
-    public class ArticuloBussines
+    public class ArticuloBusiness
     {
         public List<ArticuloEntity> GetArticulos()
         {

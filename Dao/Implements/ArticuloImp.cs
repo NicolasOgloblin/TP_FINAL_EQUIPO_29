@@ -11,26 +11,21 @@ namespace Dao.Implements
         {
             var listArticulos = new List<ArticuloEntity>();
             DataAccess datos = new DataAccess();
-
+            //Consulta actualizada. Todas las demas no estan actualizadas !
             #region Consulta
             string consulta = @"SELECT  
                                 A.ID, 
-                                A.CODIGO, 
+                                A.CODIGO_ARTICULO, 
                                 A.NOMBRE, 
                                 A.DESCRIPCION, 
-                                A.IdMarca, 
-                                M.Descripcion AS DSM,
-                                A.IdCategoria, 
-                                C.Descripcion AS DSC,
-                                A.Precio,
-                                I.ImagenUrl,
-                                ROW_NUMBER() OVER (ORDER BY A.ID) AS RowNumber
-                                FROM ARTICULOS A 
-                                INNER JOIN MARCAS M ON (A.IdMarca=M.Id)
-                                INNER JOIN CATEGORIAS C ON (A.IdCategoria=C.Id)
-                                INNER JOIN IMAGENES I ON(A.Id = I.IdArticulo)
-                                GROUP BY A.Id,A.CODIGO, A.NOMBRE, A.DESCRIPCION, A.IdMarca, 
-                                M.Descripcion,A.IdCategoria, C.Descripcion,A.Precio,I.ImagenUrl";
+                                ISNULL(AD.PRECIO,0) AS PRECIO,
+                                ISNULL(AD.STOCK,0) AS STOCK,
+                                M.NOMBRE AS NOMBREMARCA,
+                                C.NOMBRE AS NOMBRECATEGORIA
+                                FROM ARTICULOS A
+                                INNER JOIN ARTICULOS_DETALLE AD ON (A.ID = AD.ARTICULOID)
+                                INNER JOIN MARCAS M ON (A.MARCAID=M.ID)
+                                INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)";
             #endregion
 
             try
@@ -41,19 +36,19 @@ namespace Dao.Implements
                 while (datos.Reader.Read())
                 {
                     var articulo = new ArticuloEntity(); 
-                    articulo.Id = (int)datos.Reader["id"];
-                    articulo.CodArticulo = (string)datos.Reader["Codigo"];
-                    articulo.Nombre = (string)datos.Reader["Nombre"];
-                    articulo.Descripcion = (string)datos.Reader["Descripcion"];
+                    articulo.Id = (int)datos.Reader["ID"];
+                    articulo.CodArticulo = (string)datos.Reader["CODIGO_ARTICULO"];
+                    articulo.Nombre = (string)datos.Reader["NOMBRE"];
+                    articulo.Descripcion = (string)datos.Reader["DESCRIPCION"];
 
                     articulo.Marca = new MarcaEntity();
                     articulo.Categoria = new CategoriaEntity();
 
-                    articulo.Marca.Id = (int)datos.Reader["IdMarca"];
-                    articulo.Marca.Nombre = (string)datos.Reader["DSM"];
-                    articulo.Categoria.Id = (int)datos.Reader["IdCategoria"];
-                    articulo.Categoria.Nombre = (string)datos.Reader["DSC"];
-                    articulo.Precio = (decimal)datos.Reader["Precio"];
+                    
+                    articulo.Marca.Nombre = (string)datos.Reader["NOMBREMARCA"];
+                   
+                    articulo.Categoria.Nombre = (string)datos.Reader["CATEGORIANOMBRE"];
+                    articulo.Precio = (decimal)datos.Reader["PRECIO"];
                    
                     listArticulos.Add(articulo);
                 }
