@@ -11,7 +11,7 @@ namespace Dao.Implements
         {
             var listArticulos = new List<ArticuloEntity>();
             DataAccess datos = new DataAccess();
-            //Consulta actualizada. Todas las demas no estan actualizadas !
+           
             #region Consulta
             string consulta = @"SELECT  
                                 A.ID, 
@@ -25,7 +25,9 @@ namespace Dao.Implements
                                 FROM ARTICULOS A
                                 INNER JOIN ARTICULOS_DETALLE AD ON (A.ID = AD.ARTICULOID)
                                 INNER JOIN MARCAS M ON (A.MARCAID=M.ID)
-                                INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)";
+                                INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)
+                                GROUP BY A.ID, A.NOMBRE, A.DESCRIPCION, M.NOMBRE, C.NOMBRE,
+                                         AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
             #endregion
 
             try
@@ -36,7 +38,7 @@ namespace Dao.Implements
                 while (datos.Reader.Read())
                 {
                     var articulo = new ArticuloEntity(); 
-                    articulo.Id = (int)datos.Reader["ID"];
+                    articulo.Id = (long)datos.Reader["ID"];
                     articulo.CodArticulo = (string)datos.Reader["CODIGO_ARTICULO"];
                     articulo.Nombre = (string)datos.Reader["NOMBRE"];
                     articulo.Descripcion = (string)datos.Reader["DESCRIPCION"];
@@ -47,9 +49,10 @@ namespace Dao.Implements
                     
                     articulo.Marca.Nombre = (string)datos.Reader["NOMBREMARCA"];
                    
-                    articulo.Categoria.Nombre = (string)datos.Reader["CATEGORIANOMBRE"];
+                    articulo.Categoria.Nombre = (string)datos.Reader["NOMBRECATEGORIA"];
                     articulo.Precio = (decimal)datos.Reader["PRECIO"];
-                   
+                    articulo.Stock = (int)datos.Reader["STOCK"];
+
                     listArticulos.Add(articulo);
                 }
 
@@ -61,6 +64,84 @@ namespace Dao.Implements
             }
             finally
             {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<ImagenEntity> GetImagenes()
+        {
+            var listImagenes = new List<ImagenEntity>();
+            DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta = @"SELECT 
+                                ARTICULOID,
+                                IMAGEN
+                                FROM IMAGENES";
+            #endregion
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+
+                while (datos.Reader.Read())
+                {
+                    var imagen = new ImagenEntity();
+                    imagen.ArticuloId = (long)datos.Reader["ARTICULOID"];
+                    imagen.UrlImagen = (string)datos.Reader["IMAGEN"];
+
+                    listImagenes.Add(imagen);
+                }
+
+                return listImagenes;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<ImagenEntity> GetImagenById(long artId)
+        {
+            DataAccess datos = new DataAccess();
+            var listImagenes = new List<ImagenEntity>();
+
+            string consulta = @"SELECT 
+                                ARTICULOID,
+                                IMAGEN
+                                FROM IMAGENES
+                                WHERE ARTICULOID = @artId";
+
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@artId", artId);
+                datos.ejecutarLectura();
+
+                while (datos.Reader.Read())
+                {
+                    var imagen = new ImagenEntity();
+                    imagen.ArticuloId = (long)datos.Reader["ARTICULOID"];
+                    imagen.UrlImagen = (string)datos.Reader["IMAGEN"];
+
+                    listImagenes.Add(imagen);
+                }
+
+                return listImagenes;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally 
+            { 
                 datos.cerrarConexion();
             }
         }
@@ -177,7 +258,7 @@ namespace Dao.Implements
             }
         }
 
-        public ArticuloEntity getByID (int id)
+        public ArticuloEntity getByID (long id)
         {
             
             DataAccess datos = new DataAccess();
@@ -185,20 +266,20 @@ namespace Dao.Implements
 
             string consulta = @"SELECT  
                                 A.ID, 
-                                A.CODIGO, 
+                                A.CODIGO_ARTICULO, 
                                 A.NOMBRE, 
                                 A.DESCRIPCION, 
-                                A.IdMarca, 
-                                M.Descripcion AS DSM,
-                                A.IdCategoria, 
-                                C.Descripcion AS DSC,
-                                A.Precio,
-                                I.ImagenUrl
-                                FROM ARTICULOS A 
-                                INNER JOIN MARCAS M ON (A.IdMarca=M.Id)
-                                INNER JOIN CATEGORIAS C ON (A.IdCategoria=C.Id)
-                                INNER JOIN IMAGENES I ON(A.Id = I.IdArticulo)
-                                WHERE A.ID = @id ";
+                                ISNULL(AD.PRECIO,0) AS PRECIO,
+                                ISNULL(AD.STOCK,0) AS STOCK,
+                                M.NOMBRE AS NOMBREMARCA,
+                                C.NOMBRE AS NOMBRECATEGORIA
+                                FROM ARTICULOS A
+                                INNER JOIN ARTICULOS_DETALLE AD ON (A.ID = AD.ARTICULOID)
+                                INNER JOIN MARCAS M ON (A.MARCAID=M.ID)
+                                INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)
+                                WHERE A.ID = @id
+                                GROUP BY A.ID, A.NOMBRE, A.DESCRIPCION, M.NOMBRE, C.NOMBRE,
+                                         AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
 
 
             try
@@ -211,30 +292,28 @@ namespace Dao.Implements
 
                 if (datos.Reader.Read())
                 {
-                    articulo.Id = (int)datos.Reader["id"];
-                    articulo.CodArticulo = (string)datos.Reader["Codigo"];
-                    articulo.Nombre = (string)datos.Reader["Nombre"];
-                    articulo.Descripcion = (string)datos.Reader["Descripcion"];
-
+                    articulo.Id = (long)datos.Reader["ID"];
+                    articulo.CodArticulo = (string)datos.Reader["CODIGO_ARTICULO"];
+                    articulo.Nombre = (string)datos.Reader["NOMBRE"];
+                    articulo.Descripcion = (string)datos.Reader["DESCRIPCION"];
                     articulo.Marca = new MarcaEntity();
                     articulo.Categoria = new CategoriaEntity();
-                    
+                    articulo.Marca.Nombre = (string)datos.Reader["NOMBREMARCA"];
+                    articulo.Categoria.Nombre = (string)datos.Reader["NOMBRECATEGORIA"];
+                    articulo.Precio = (decimal)datos.Reader["PRECIO"];
+                    articulo.Stock = (int)datos.Reader["STOCK"];
 
-                    articulo.Marca.Id = (int)datos.Reader["IdMarca"];
-                    articulo.Marca.Nombre = (string)datos.Reader["DSM"];
-                    articulo.Categoria.Id = (int)datos.Reader["IdCategoria"];
-                    articulo.Categoria.Nombre = (string)datos.Reader["DSC"];
-                    articulo.Precio = (decimal)datos.Reader["Precio"];
-
-                    
                 }
                 return articulo;
-
             }
             catch (Exception ex)
             {
 
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
     }

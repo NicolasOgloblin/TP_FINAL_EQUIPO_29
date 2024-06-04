@@ -5,7 +5,7 @@ namespace Domain.Entities
     [Serializable]
     public class ImagenEntity
     {
-        public int ArticuloId { get; set; }
+        public long ArticuloId { get; set; }
         public string UrlImagen { get; set; }
 
         public override string ToString()

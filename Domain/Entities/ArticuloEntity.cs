@@ -13,7 +13,6 @@ namespace Domain.Entities
         public MarcaEntity Marca { get; set; }
         public CategoriaEntity Categoria { get; set; }
         public List<ImagenEntity> Imagenes { get; set; }
-        public ImagenEntity Imagen { get; set; } // sólo para que no salte el error en default. borrar despues de hacer la consulta para imagenes !
         public DateTime FechaAgregado { get; set; }
         public decimal Precio { get; set; } = 0;
         public int Stock { get; set; } = 0;

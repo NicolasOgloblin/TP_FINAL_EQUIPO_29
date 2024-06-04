@@ -14,6 +14,11 @@
      #txtBuscar {
          width: 253.18px;
      }
+     #imgArticulos {
+    width: 100%;
+    height: 250px; /* Ajusta la altura según tus necesidades */
+    object-fit: cover; /* Ajusta la imagen para que se recorte en lugar de deformarse */
+}
  </style>
   
  <div class="d-flex flex-column mb-3" style="width: 1000px;">
@@ -39,7 +44,7 @@
              <div class="col">
                  <div class="card">
                      <asp:Image runat="server" ID="imgArticulo" CssClass="card-img-top" />
-                     <img class="card-img-top" src='<%# Eval("Imagen.UrlImagen") %>' alt="Imagen del artículo">
+                     <img ID="imgArticulos" src='<%# Eval("Imagenes[0].UrlImagen") %>' alt="Imagen del artículo">
                      <div class="card-body">
                          <h5 class="card-title"><%# Eval("Nombre") %></h5>
                          <p class="card-text">Precio: <b>$<%# Eval("Precio") %></b></p> 

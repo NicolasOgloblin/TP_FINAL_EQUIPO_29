@@ -62,11 +62,27 @@ namespace TpFinalEquipo29
             {
                 listArticulos = articuloBusinees.GetArticulos();
 
-                foreach (var item in listArticulos)
+                var listImagenesArt = articuloBusinees.GetImagenes();
+
+                foreach (var item in listImagenesArt)
                 {
-                    if (!CargarImagen(item.Imagen.UrlImagen))
+                    if (!CargarImagen(item.UrlImagen))
                     {
-                        item.Imagen.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
+                        item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
+                    }
+                }
+
+                var agruparImagenes = listImagenesArt.GroupBy(s => s.ArticuloId);
+
+                foreach(var item in agruparImagenes)
+                {
+                    foreach(var elmnt in listArticulos)
+                    {
+                        if(item.Key == elmnt.Id)
+                        {
+                            elmnt.Imagenes = new List<ImagenEntity>();
+                            elmnt.Imagenes = item.ToList();
+                        }
                     }
                 }
 
@@ -219,9 +235,7 @@ namespace TpFinalEquipo29
             var articulosFiltrados = new List<ArticuloEntity>();
 
             try
-
             {
-
                 listArticulos = articuloBusinees.GetArticulos();
                 switch (param)
                 {
@@ -229,9 +243,11 @@ namespace TpFinalEquipo29
                         articulosFiltrados = listArticulos.OrderBy(s => s.Precio).ToList();
                         foreach (var item in articulosFiltrados)
                         {
-                            if (!CargarImagen(item.Imagen.UrlImagen))
-                            { item.Imagen.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
-
+                            foreach(var elmnt in item.Imagenes)
+                            {
+                                if (!CargarImagen(elmnt.UrlImagen))
+                                { elmnt.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
+                            }
                         }
                         break;
 
@@ -239,8 +255,11 @@ namespace TpFinalEquipo29
                         articulosFiltrados = listArticulos.OrderByDescending(s => s.Precio).ToList();
                         foreach (var item in articulosFiltrados)
                         {
-                            if (!CargarImagen(item.Imagen.UrlImagen))
-                            { item.Imagen.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
+                            foreach (var elmnt in item.Imagenes)
+                            {
+                                if (!CargarImagen(elmnt.UrlImagen))
+                                { elmnt.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
+                            }
 
                         }
                         break;
@@ -252,8 +271,11 @@ namespace TpFinalEquipo29
 
                         foreach (var item in articulosFiltrados)
                         {
-                            if (!CargarImagen(item.Imagen.UrlImagen))
-                            { item.Imagen.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
+                            foreach (var elmnt in item.Imagenes)
+                            {
+                                if (!CargarImagen(elmnt.UrlImagen))
+                                { elmnt.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
+                            }
 
                         }
                         break;
