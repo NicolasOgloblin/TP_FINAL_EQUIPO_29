@@ -62,11 +62,11 @@ namespace TpFinalEquipo29
             var articuloBusiness = new ArticuloBusiness();
             try
             {
-                // Obtener los artículos y las imágenes
+                
                 listArticulos = articuloBusiness.GetArticulos();
                 var listImagenesArt = articuloBusiness.GetImagenes();
 
-                // Validar las URL de las imágenes
+               
                 foreach (var item in listImagenesArt)
                 {
                     if (!CargarImagen(item.UrlImagen))
@@ -75,10 +75,10 @@ namespace TpFinalEquipo29
                     }
                 }
 
-                // Agrupar imágenes por ID de artículo
+                
                 var agruparImagenes = listImagenesArt.GroupBy(s => s.ArticuloId);
 
-                // Asignar imágenes a sus respectivos artículos
+                
                 foreach (var item in agruparImagenes)
                 {
                     var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
@@ -88,19 +88,19 @@ namespace TpFinalEquipo29
                     }
                 }
 
-                // Buscar el artículo específico por ID
+              
                 var articuloSeleccionado = listArticulos.FirstOrDefault(a => a.Id == id);
 
                 if (articuloSeleccionado != null)
                 {
-                    // Asignar la primera imagen al control imgArticulo
+                    
                     var primeraImagen = articuloSeleccionado.Imagenes.FirstOrDefault();
                     if (primeraImagen != null)
                     {
                         imgArticulo.ImageUrl = primeraImagen.UrlImagen;
                     }
 
-                    // Asignar detalles del artículo
+                   
                     litNombre.Text = articuloSeleccionado.Nombre;
                     litPrecio.Text = articuloSeleccionado.Precio.ToString("F2");
                     litMarca.Text = articuloSeleccionado.Marca.Nombre;

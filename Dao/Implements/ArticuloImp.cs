@@ -151,24 +151,25 @@ namespace Dao.Implements
             DataAccess datos = new DataAccess();
 
             #region Consulta
-            string consulta = @"BEGIN TRY
-                                BEGIN TRAN
+            string consulta = @"
+                           BEGIN TRY
+                           BEGIN TRAN
 
-                                INSERT ARTICULOS 
-                                VALUES(@codigo,@nombre,@descripcion,@idMarca,@idCategoria,@precio)
+                           INSERT INTO ARTICULOS (CODIGO_ARTICULO, NOMBRE, DESCRIPCION, CATEGORIAID, MARCAID, FECHA_AGREGADO)
+                           VALUES (@codigo, @nombre, @descripcion, @idCategoria, @idMarca, GETDATE());
 
-                                DECLARE @ID INT;
-                                SET @ID = SCOPE_IDENTITY();
+                           DECLARE @ID INT;
+                           SET @ID = SCOPE_IDENTITY();
 
-                                INSERT IMAGENES 
-                                VALUES(@ID,@imagenUrl)
+                           INSERT INTO IMAGENES (ARTICULOID, IMAGEN)
+                           VALUES (@ID, @imagenUrl);
 
-                                COMMIT TRAN
-                                END TRY
-                                BEGIN CATCH
-                                IF @@TRANCOUNT > 0
-                                ROLLBACK TRAN;
-                                END CATCH";
+                           COMMIT TRAN
+                           END TRY
+                           BEGIN CATCH
+                              IF @@TRANCOUNT > 0
+                                            ROLLBACK TRAN;
+                          END CATCH";
             #endregion
 
             try
@@ -181,6 +182,7 @@ namespace Dao.Implements
                 datos.setearParametro("@idCategoria", art.Categoria.Id);
                 datos.setearParametro("@precio", art.Precio);
               
+
                 return datos.ejecutarAccion(); 
             }
             catch (Exception ex)
