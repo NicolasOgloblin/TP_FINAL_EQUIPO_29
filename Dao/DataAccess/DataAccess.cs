@@ -15,7 +15,7 @@ namespace Dao.DataAccessObject
 
         public DataAccess()
         {
-            connection = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_P3_DB; integrated security=true");
+            connection = new SqlConnection("server=.\\SQLEXPRESS; database=ECOMMERCE; integrated security=true");
             command = new SqlCommand();
         }
 

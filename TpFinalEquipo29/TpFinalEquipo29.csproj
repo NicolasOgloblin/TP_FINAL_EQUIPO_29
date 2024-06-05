@@ -123,6 +123,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="DetalleArticulos.aspx" />
     <Content Include="Estadistica.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Gestion.aspx" />
@@ -223,6 +224,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleArticulos.aspx.cs">
+      <DependentUpon>DetalleArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleArticulos.aspx.designer.cs">
+      <DependentUpon>DetalleArticulos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Estadistica.aspx.cs">
       <DependentUpon>Estadistica.aspx</DependentUpon>
