@@ -15,13 +15,22 @@ namespace TpFinalEquipo29
     {
 
         /// <summary>
-        /// Control imgArticulo.
+        /// Control litCarouselIndicators.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgArticulo;
+        protected global::System.Web.UI.WebControls.Literal litCarouselIndicators;
+
+        /// <summary>
+        /// Control litCarouselImages.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litCarouselImages;
 
         /// <summary>
         /// Control litNombre.

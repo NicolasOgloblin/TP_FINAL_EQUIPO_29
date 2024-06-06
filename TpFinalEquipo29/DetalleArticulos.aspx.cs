@@ -62,11 +62,9 @@ namespace TpFinalEquipo29
             var articuloBusiness = new ArticuloBusiness();
             try
             {
-                
                 listArticulos = articuloBusiness.GetArticulos();
                 var listImagenesArt = articuloBusiness.GetImagenes();
 
-               
                 foreach (var item in listImagenesArt)
                 {
                     if (!CargarImagen(item.UrlImagen))
@@ -75,10 +73,8 @@ namespace TpFinalEquipo29
                     }
                 }
 
-                
                 var agruparImagenes = listImagenesArt.GroupBy(s => s.ArticuloId);
 
-                
                 foreach (var item in agruparImagenes)
                 {
                     var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
@@ -88,24 +84,20 @@ namespace TpFinalEquipo29
                     }
                 }
 
-              
                 var articuloSeleccionado = listArticulos.FirstOrDefault(a => a.Id == id);
 
                 if (articuloSeleccionado != null)
                 {
-                    
-                    var primeraImagen = articuloSeleccionado.Imagenes.FirstOrDefault();
-                    if (primeraImagen != null)
-                    {
-                        imgArticulo.ImageUrl = primeraImagen.UrlImagen;
-                    }
-
-                   
                     litNombre.Text = articuloSeleccionado.Nombre;
                     litPrecio.Text = articuloSeleccionado.Precio.ToString("F2");
+
+                    litCarouselIndicators.Text = GenerarIndicadoresCarrusel(articuloSeleccionado.Imagenes.Count);
+                    litCarouselImages.Text = GenerarImagenesCarrusel(articuloSeleccionado.Imagenes);
+
                     litMarca.Text = articuloSeleccionado.Marca.Nombre;
                     litCategoria.Text = articuloSeleccionado.Categoria.Nombre;
                     litDescripcion.Text = articuloSeleccionado.Descripcion;
+
                     btnAgregarDetalle.CommandArgument = articuloSeleccionado.Id.ToString();
                 }
                 else
@@ -117,6 +109,34 @@ namespace TpFinalEquipo29
             {
                 throw new Exception("Ocurrió un error al intentar obtener los artículos: " + ex.Message);
             }
+        }
+
+        private string GenerarIndicadoresCarrusel(int count)
+        {
+            string result = "";
+            for (int i = 0; i < count; i++)
+            {
+                if (i == 0)
+                    result += "<li data-target=\"#carouselExampleIndicators\" data-slide-to=\"" + i + "\" class=\"active\"></li>";
+                else
+                    result += "<li data-target=\"#carouselExampleIndicators\" data-slide-to=\"" + i + "\"></li>";
+            }
+            return result;
+        }
+
+        private string GenerarImagenesCarrusel(List<ImagenEntity> imagenes)
+        {
+            string result = "";
+            for (int i = 0; i < imagenes.Count; i++)
+            {
+                if (i == 0)
+                    result += "<div class=\"carousel-item active\">";
+                else
+                    result += "<div class=\"carousel-item\">";
+                result += "<img class=\"d-block w-100\" src=\"" + imagenes[i].UrlImagen + "\" alt=\"Imagen " + (i + 1) + "\">";
+                result += "</div>";
+            }
+            return result;
         }
 
         private void ActualizarCarrito()
