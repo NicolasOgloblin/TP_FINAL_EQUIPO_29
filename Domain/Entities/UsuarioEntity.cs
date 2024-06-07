@@ -1,7 +1,8 @@
 ﻿using System;
 
 namespace Domain.Entities
-{
+{   
+    
     public class UsuarioEntity
     {
         public long Id { get; set; }
