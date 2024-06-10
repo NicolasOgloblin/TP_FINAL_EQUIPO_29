@@ -16,6 +16,7 @@ namespace Dao.DataAccessObject
         public DataAccess()
         {
             connection = new SqlConnection("server=.\\SQLEXPRESS; database=ECOMMERCE; integrated security=true");
+            //connection = new SqlConnection("server=ALEEXX; database=ECOMMERCE; integrated security=true");
             command = new SqlCommand();
         }
 
@@ -51,6 +52,22 @@ namespace Dao.DataAccessObject
             {
                 connection.Open();
                return command.ExecuteNonQuery(); //Si no pudo hacerse la insercion va a devolver 0
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public object ejecutarScalar()
+        {
+            command.Connection = connection;
+            try
+            {
+                connection.Open();
+                return command.ExecuteScalar(); 
 
             }
             catch (Exception ex)
