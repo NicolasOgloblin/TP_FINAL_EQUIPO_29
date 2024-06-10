@@ -17,7 +17,9 @@ namespace Domain.Entities
         public string Localidad { get; set; }
         public string Calle { get; set; }
         public string Altura { get; set;}
+        public string CodPostal { get; set; }
         public string Telefono { get; set;}
+        public bool Estado { get; set; }
         public DateTime FechaRegistro { get; set; }
     }
 }

@@ -1,33 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dao.Encrypts;
 using Dao.Implements;
-using Domain;
-using Dao;
 using Domain.Entities;
-using Microsoft.SqlServer.Server;
+using System;
 
 namespace Business.Usuario
 {
     public class UsuarioBusiness
     {
-        /*public bool Loguear(UsuarioEntity usuario)
+        public UsuarioEntity Registrarse(UsuarioEntity usuario)
         {
-            var Usuario = new UsuarioEntity();
-            var UsuarioDao = new UsuarioImp();
+            var usuarioDao = new UsuarioImp();
+            var encrypt = new Encrypt();
+
             try
             {
-                Usuario = UsuarioDao.Loguear(usuario);
+                string salt = encrypt.GenerateSalt();
 
-                return Usuario;
+                var pass = encrypt.HashPasswordWithSalt(usuario.Contrasenia, salt);
+
+                usuario.Contrasenia = pass;
+
+                var result = usuarioDao.Registrarse(usuario);
+
+                var login = usuarioDao.Loguear(usuario);
+
+                return login;
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }*/
+
+        }
 
         public UsuarioEntity Loguear(UsuarioEntity usuario)
         {

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dao.DataAccessObject;
+﻿using Dao.DataAccessObject;
 using Domain.Entities;
+using System;
 
 namespace Dao.Implements
 {
@@ -53,5 +49,49 @@ namespace Dao.Implements
                 datos.cerrarConexion(); 
             }
         }
+
+        public int Registrarse(UsuarioEntity usuario)
+        {
+            DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta = @"INSERT INTO USUARIOS
+                                VALUES(@nombre,@apellido,@dni,@usuario,@email,@contrasenia,@rolId,@provincia,@localidad,@calle,@altura,@telefono,GETDATE())
+                                SELECT SCOPE_IDENTITY() AS ID";
+            #endregion
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@nombre", usuario.Nombre);
+                datos.setearParametro("@apellido", usuario.Apellido);
+                datos.setearParametro("@dni", usuario.Dni);
+                datos.setearParametro("@usuario", usuario.Usuario);
+                datos.setearParametro("@email", usuario.Email);
+                datos.setearParametro("@contrasenia", usuario.Contrasenia);
+                datos.setearParametro("@rolId", usuario.Rol.Id);
+                datos.setearParametro("@provincia", usuario.Provincia);
+                datos.setearParametro("@localidad", usuario.Localidad);
+                datos.setearParametro("@calle", usuario.Calle);
+                datos.setearParametro("@altura", usuario.Altura);
+                datos.setearParametro("@telefono", usuario.Telefono);
+
+
+                var result = datos.ejecutarScalar();
+
+                return Convert.ToInt32(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally 
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+
     }
 }

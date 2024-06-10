@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Business.Usuario;
 using Domain.Entities;
-using Business.Usuario;
+using System;
 
 namespace TpFinalEquipo29
 {
@@ -22,7 +17,7 @@ namespace TpFinalEquipo29
             try
             {
                 var usuario = new UsuarioEntity();
-                usuario.Usuario = txtUsusario.Text;
+                usuario.Usuario = txtUsuario.Text;
                 usuario.Contrasenia = txtPassword.Text;
                 var usuarioDB = usuarioBusiness.Loguear(usuario);
 
