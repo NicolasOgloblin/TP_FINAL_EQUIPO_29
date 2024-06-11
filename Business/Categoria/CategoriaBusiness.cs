@@ -5,9 +5,9 @@ using System;
 
 namespace Business.Marca
 {
-  public class CategoriaBusiness
+    public class CategoriaBusiness
     {
-        public List <CategoriaEntity> GetCategorias()
+        public List<CategoriaEntity> GetCategorias()
         {
             var listCategorias = new List<CategoriaEntity>();
             var categoriaDao = new CategoriaImp();
@@ -17,7 +17,7 @@ namespace Business.Marca
                 return listCategorias;
 
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
 
                 throw ex;
@@ -67,6 +67,18 @@ namespace Business.Marca
 
             }
         }
-        
+        public bool CategoriaExiste(string nombre)
+        {
+            CategoriaImp catImp = new CategoriaImp();
+            try
+            {
+                return catImp.CategoriaExiste(nombre);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
+    

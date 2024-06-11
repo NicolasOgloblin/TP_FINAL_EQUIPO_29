@@ -42,12 +42,12 @@ namespace Dao.Implements
         public int AgregarCategoria(CategoriaEntity categoria)
         {
             DataAccess datos = new DataAccess();
-            string consulta = "insert categorias (Descripcion) values (@descripcion)";
+            string consulta = "insert categorias (NOMBRE) values (@NOMBRE)";
 
             try
             {
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@descripcion", categoria.Nombre);
+                datos.setearParametro("@NOMBRE", categoria.Nombre);
                 return datos.ejecutarAccion();
 
             }
@@ -63,15 +63,21 @@ namespace Dao.Implements
         public int ModificarCategoria(CategoriaEntity categoria)
         {
             DataAccess datos = new DataAccess();
-            string consulta = "update categorias set Descripcion = @descripcion where Id = @id ";
-
             try
             {
-                datos.setearConsulta(consulta);
-                datos.setearParametro("@id", categoria.Id);
-                datos.setearParametro("@descripcion", categoria.Nombre);
-                return datos.ejecutarAccion();
+               
+                if (CategoriaExiste(categoria.Nombre) && !EsMismaCategoria(categoria.Id, categoria.Nombre))
+                {
+                    throw new Exception("Ya existe una categoría con ese nombre.");
+                }
 
+                
+                datos.setearConsulta("UPDATE CATEGORIAS SET NOMBRE = @NOMBRE WHERE Id = @id ");
+                datos.setearParametro("@id", categoria.Id);
+                datos.setearParametro("@NOMBRE", categoria.Nombre);
+                return datos.ejecutarAccion(); 
+
+               
             }
             catch (Exception ex)
             {
@@ -96,8 +102,75 @@ namespace Dao.Implements
                 throw ex;
             }
         }
-        
+        public bool CategoriaExiste(string nombre)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM CATEGORIAS WHERE Nombre = @nombre");
+                datos.setearParametro("@nombre", nombre);
+                datos.ejecutarLectura();
+                datos.Reader.Read();
+                return datos.Reader.GetInt32(0) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void ModificarCategoriaExiste(CategoriaEntity categoria)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+               
+                if (CategoriaExiste(categoria.Nombre) && !EsMismaCategoria(categoria.Id, categoria.Nombre))
+                {
+                    throw new Exception("Ya existe una categoría con ese nombre.");
+                }
 
+                
+                datos.setearConsulta("update categorias set NOMBRE = @NOMBRE where ID = @id ");
+                datos.setearParametro("@id", categoria.Id);
+                datos.setearParametro("@NOMBRE", categoria.Nombre);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        private bool EsMismaCategoria(int id, string nombre)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM CATEGORIAS WHERE Id = @id AND Nombre = @nombre");
+                datos.setearParametro("@id", id);
+                datos.setearParametro("@nombre", nombre);
+                datos.ejecutarLectura();
+                datos.Reader.Read();
+                return datos.Reader.GetInt32(0) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
+
 }
+
 
