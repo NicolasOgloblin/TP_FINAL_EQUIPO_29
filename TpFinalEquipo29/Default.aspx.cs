@@ -216,7 +216,7 @@ namespace TpFinalEquipo29
         }
 
 
-        
+       
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             string texto = txtBuscar.Text;

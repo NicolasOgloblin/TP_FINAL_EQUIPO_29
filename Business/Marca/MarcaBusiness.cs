@@ -39,7 +39,7 @@ namespace Business
             }
 
         }
-        //ésto está del modificar
+       
         public int ModificarMarca(MarcaEntity marca)
         {
             MarcaImp marcaImp = new MarcaImp();
@@ -67,6 +67,19 @@ namespace Business
             {
                 throw ex;
 
+            }
+        }
+
+        public bool MarcaExiste(string nombre)
+        {
+            MarcaImp marcaImp = new MarcaImp();
+            try
+            {
+                return marcaImp.MarcaExiste(nombre);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
