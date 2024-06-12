@@ -142,7 +142,14 @@ namespace TpFinalEquipo29
 
             try
             {
-                marcaBusiness.EliminarMarca(id);
+
+                int resultado = marcaBusiness.EliminarMarca(id);
+                if(resultado != 1)
+                {
+                    lblMensaje.Text = "Ésta marca no puede ser eliminada porque tiene un articulo.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
                 CargarMarcas();
                 lblMensaje.Text = "Marca eliminada exitosamente.";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;

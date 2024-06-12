@@ -66,16 +66,8 @@ namespace Dao.Implements
             DataAccess dataAccess = new DataAccess();
             try
             {
-                string consulta = @"IF EXISTS (SELECT 1 FROM MARCAS M
-                                    INNER JOIN ARTICULOS A ON (M.ID=A.MARCAID)
-                                    WHERE M.ID = @id)
-                                    BEGIN
-                                    SELECT 1
-                                    END
-                                    ELSE 
-                                    BEGIN
-                                    SELECT 0
-                                    END";
+                
+                string consulta = @"SELECT CASE WHEN EXISTS (SELECT 1 FROM ARTICULOS WHERE MARCAID = @id) THEN 1 ELSE 0 END";
                 dataAccess.setearConsulta(consulta);
                 dataAccess.setearParametro("@id", id);
 

@@ -143,10 +143,18 @@ namespace TpFinalEquipo29
 
             try
             {
-                categoriaBusiness.EliminarCategoria(id);
+                int resultado = categoriaBusiness.EliminarCategoria(id);
+                
+                if(resultado != 1)
+                {
+                    lblMensaje.Text = "Ésta categoría no puede ser eliminada porque tiene un articulo.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
                 CargarCategorias();
                 lblMensaje.Text = "Categoría eliminada exitosamente.";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
+                
             }
             catch (Exception ex)
             {
