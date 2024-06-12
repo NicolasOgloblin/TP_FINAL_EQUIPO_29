@@ -111,7 +111,18 @@ namespace Business.Articulo
             }
 
         }
-
+        public bool ArticuloExiste(string codigoArticulo)
+        {
+            ArticuloImp articulo = new ArticuloImp();
+            try
+            {
+                return articulo.ArticuloExiste(codigoArticulo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
 }

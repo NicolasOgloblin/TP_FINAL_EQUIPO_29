@@ -336,5 +336,35 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+        public bool ArticuloExiste(string codigoArticulo)
+        {
+            DataAccess datos = new DataAccess();
+
+            string consulta = "SELECT COUNT(*) FROM ARTICULOS WHERE CODIGO_ARTICULO = @codigoArticulo";
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@codigoArticulo", codigoArticulo);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    int count = Convert.ToInt32(datos.Reader[0]);
+                    return count > 0;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
