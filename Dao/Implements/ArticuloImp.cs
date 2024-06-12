@@ -14,20 +14,30 @@ namespace Dao.Implements
            
             #region Consulta
             string consulta = @"SELECT  
-                                A.ID, 
-                                A.CODIGO_ARTICULO, 
-                                A.NOMBRE, 
-                                A.DESCRIPCION, 
-                                ISNULL(AD.PRECIO,0) AS PRECIO,
-                                ISNULL(AD.STOCK,0) AS STOCK,
-                                M.NOMBRE AS NOMBREMARCA,
-                                C.NOMBRE AS NOMBRECATEGORIA
-                                FROM ARTICULOS A
-                                INNER JOIN ARTICULOS_DETALLE AD ON (A.ID = AD.ARTICULOID)
-                                INNER JOIN MARCAS M ON (A.MARCAID=M.ID)
-                                INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)
-                                GROUP BY A.ID, A.NOMBRE, A.DESCRIPCION, M.NOMBRE, C.NOMBRE,
-                                         AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
+                                 A.ID, 
+                                 A.CODIGO_ARTICULO, 
+                                 AD.NOMBRE, 
+                                 ISNULL(AD.DESCRIPCION,'') AS DESCRIPCION, 
+                                 ISNULL(AD.ALTO,0) AS ALTO,
+                                 ISNULL(AD.ANCHO,0) AS ANCHO,
+                                 ISNULL(AD.COLOR,'') AS COLOR,
+                                 ISNULL(AD.MODELO,'') AS MODELO,
+                                 ISNULL(AD.ORIGEN,'') AS ORIGEN,
+                                 ISNULL(AD.PESO,0) AS PESO,
+                                 ISNULL(AD.GARANTIA_ANIOS,0) AS GARANTIA_ANIOS,
+                                 ISNULL(AD.GARANTIA_MESES,0) AS GARANTIA_MESES,
+                                 ISNULL(AD.PRECIO,0) AS PRECIO,
+                                 ISNULL(AD.STOCK,0) AS STOCK,
+                                 M.NOMBRE AS NOMBREMARCA,
+                                 C.NOMBRE AS NOMBRECATEGORIA
+                                 FROM ARTICULOS A
+                                 INNER JOIN ARTICULOS_DETALLE AD ON (A.ID = AD.ARTICULOID)
+                                 INNER JOIN MARCAS M ON (A.MARCAID=M.ID)
+                                 INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)
+                                 GROUP BY A.ID, A.CODIGO_ARTICULO, AD.NOMBRE, AD.DESCRIPCION,
+                                 AD.ALTO, AD.ANCHO, AD.COLOR,AD.MODELO,AD.ORIGEN,AD.PESO,AD.GARANTIA_ANIOS,
+                                 AD.GARANTIA_MESES, M.NOMBRE, C.NOMBRE,
+                                 AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
             #endregion
 
             try
@@ -42,7 +52,15 @@ namespace Dao.Implements
                     articulo.CodArticulo = (string)datos.Reader["CODIGO_ARTICULO"];
                     articulo.Nombre = (string)datos.Reader["NOMBRE"];
                     articulo.Descripcion = (string)datos.Reader["DESCRIPCION"];
-
+                    articulo.Alto = (decimal)datos.Reader["ALTO"];
+                    articulo.Ancho = (decimal)datos.Reader["ANCHO"];
+                    articulo.Color = (string)datos.Reader["COLOR"];
+                    articulo.Modelo = (string)datos.Reader["MODELO"];
+                    articulo.Origen = (string)datos.Reader["ORIGEN"];
+                    articulo.Peso = (decimal)datos.Reader["PESO"];
+                    articulo.Garantia_Anios = (int)datos.Reader["GARANTIA_ANIOS"];
+                    articulo.Garantia_Meses = (int)datos.Reader["GARANTIA_MESES"];
+                   
                     articulo.Marca = new MarcaEntity();
                     articulo.Categoria = new CategoriaEntity();
 

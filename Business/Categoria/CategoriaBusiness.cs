@@ -59,7 +59,11 @@ namespace Business.Marca
 
             try
             {
-                return categoImp.EliminarCategoria(id);
+                if (!categoImp.VerificarExistenciaCategoriaXArticulo(id))
+                {
+                    return categoImp.EliminarCategoria(id);
+                }
+                return -1;   
             }
             catch (Exception ex)
             {

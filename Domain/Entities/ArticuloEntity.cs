@@ -17,5 +17,20 @@ namespace Domain.Entities
         public decimal Precio { get; set; } = 0;
         public int Stock { get; set; } = 0;
         public int Cantidad { get; set; } = 1;
+        public decimal Alto { get; set; }
+        public decimal Peso { get; set; }
+        public decimal Ancho { get; set;}
+        public string Color { get; set; }
+        public string Modelo { get; set; }
+        public string Origen { get; set; }
+        public int Garantia_Anios { get; set; }
+        public int Garantia_Meses { get; set; }
+
+
+
+
+
+
+
     }
 }

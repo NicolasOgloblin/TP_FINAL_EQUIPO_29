@@ -42,7 +42,7 @@ namespace Dao.Implements
        public int AgregarMarca(MarcaEntity marca) 
         {
             DataAccess datos = new DataAccess();
-            string consulta = "insert categorias (NOMBRE) values (@NOMBRE)"; 
+            string consulta = "insert MARCAS (NOMBRE) values (@NOMBRE)"; 
 
             try
             {
@@ -61,7 +61,43 @@ namespace Dao.Implements
             }
         }
 
-        //Modificar (update).
+        public bool VerificarExistenciaCategoriaXArticulo(int id)
+        {
+            DataAccess dataAccess = new DataAccess();
+            try
+            {
+                string consulta = @"IF EXISTS (SELECT 1 FROM MARCAS M
+                                    INNER JOIN ARTICULOS A ON (M.ID=A.MARCAID)
+                                    WHERE M.ID = @id)
+                                    BEGIN
+                                    SELECT 1
+                                    END
+                                    ELSE 
+                                    BEGIN
+                                    SELECT 0
+                                    END";
+                dataAccess.setearConsulta(consulta);
+                dataAccess.setearParametro("@id", id);
+
+                var result = dataAccess.ejecutarScalar();
+
+                if (Convert.ToInt32(result) == 1)
+                {
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                dataAccess.cerrarConexion();
+            }
+        }
+
         public int ModificarMarca(MarcaEntity marca)
         {
             DataAccess datos = new DataAccess();

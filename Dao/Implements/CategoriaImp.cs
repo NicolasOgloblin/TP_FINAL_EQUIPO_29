@@ -60,6 +60,43 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+
+        public bool VerificarExistenciaCategoriaXArticulo(int id)
+        {
+            DataAccess dataAccess = new DataAccess();
+            try 
+            {
+                string consulta = @"IF EXISTS (SELECT 1 FROM CATEGORIAS C
+                                    INNER JOIN ARTICULOS A ON (C.ID=A.CATEGORIAID)
+                                    WHERE C.ID = @id)
+                                    BEGIN
+                                    SELECT 1
+                                    END
+                                    ELSE 
+                                    BEGIN
+                                    SELECT 0
+                                    END";
+                dataAccess.setearConsulta(consulta);
+                dataAccess.setearParametro("@id", id);
+                
+                var result = dataAccess.ejecutarScalar();
+                
+               if (Convert.ToInt32(result) == 1)
+                {
+                    return true;
+                }
+               return false;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                dataAccess.cerrarConexion();
+            }
+        } 
         public int ModificarCategoria(CategoriaEntity categoria)
         {
             DataAccess datos = new DataAccess();
@@ -122,6 +159,8 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+
+
         public void ModificarCategoriaExiste(CategoriaEntity categoria)
         {
             DataAccess datos = new DataAccess();

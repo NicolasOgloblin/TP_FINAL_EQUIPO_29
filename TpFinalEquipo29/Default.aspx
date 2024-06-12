@@ -11,20 +11,23 @@
      #pagination a:hover {
          background-color: white; 
      }
+     #txtBuscar {
+         width: 253.18px;
+     }
      #imgArticulos {
     width: 100%;
-    height: 250px; 
-    object-fit: cover; 
+    height: 250px; /* Ajusta la altura según tus necesidades */
+    object-fit: cover; /* Ajusta la imagen para que se recorte en lugar de deformarse */
 }
  </style>
   
  <div class="d-flex flex-column mb-3" style="width: 1000px;">
 
  <div class="input-group d-flex mb-3" style="width: 253.18px; height: 40px;"> 
-     <asp:TextBox ID="txtBuscar" class="form-control me-2"  style="flex: 1;" runat="server" placeholder="Buscar..."></asp:TextBox>
+     <asp:TextBox ID="txtBuscar" class="form-control me-2"  style="flex: 1;" runat="server" placeholder="Buscar..."></asp:TextBox><%= GetBuscarValue() %>
      <asp:LinkButton ID="btnBuscar" runat="server" CssClass="btn btn-outline-info" OnClick="btnBuscar_Click" Text="Buscar" style="width: auto; height: 100%;"/>
  </div>
-     
+    
  <div class="d-flex">
      <asp:DropDownList ID="ddlFiltroPrecio" class="form-control me-2" style="width: 253.18px;" OnSelectedIndexChanged="ddlFiltroPrecio_Click" runat="server" AutoPostBack="true"></asp:DropDownList>
  </div>

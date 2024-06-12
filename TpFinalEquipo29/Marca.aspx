@@ -6,7 +6,7 @@
 <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
 <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre es obligatorio." ForeColor="Red" ValidationGroup="AgregarMarca"></asp:RequiredFieldValidator>
 <br /><br />
-<asp:Button ID="btnAgregar" runat="server" Text="Agregar Marca" OnClick="btnAgregar_Click" CssClass="btn btn-primary" ValidationGroup="AgregarMarca" />
+<asp:Button ID="btnAgregarM" runat="server" Text="Agregar Marca" OnClick="btnAgregarM_Click" CssClass="btn btn-primary" ValidationGroup="AgregarMarca" />
 <br /><br />
 <asp:Label ID="lblMensaje" runat="server" ForeColor="Green"></asp:Label>
 
