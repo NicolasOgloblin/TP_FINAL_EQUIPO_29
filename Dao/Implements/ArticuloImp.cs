@@ -262,20 +262,19 @@ namespace Dao.Implements
             }
         }
        
-        public void Eliminar(int id)
+        public void Eliminar(long id)
         {
             try
-            {
-                DataAccess datos = new DataAccess();
-                datos.setearConsulta("delete ARTICULOS where Id = @id delete IMAGENES where IdArticulo = @id");
-
-                datos.setearParametro("@id", id);
-                datos.ejecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+    {
+        DataAccess datos = new DataAccess();
+        datos.setearConsulta("DELETE FROM IMAGENES WHERE IdArticulo = @id; DELETE FROM ARTICULOS WHERE Id = @id");
+        datos.setearParametro("@id", id);
+        datos.ejecutarAccion();
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
         }
 
         public ArticuloEntity getByID (long id)
