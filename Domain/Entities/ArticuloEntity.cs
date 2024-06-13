@@ -26,11 +26,5 @@ namespace Domain.Entities
         public int Garantia_Anios { get; set; }
         public int Garantia_Meses { get; set; }
 
-
-
-
-
-
-
     }
 }

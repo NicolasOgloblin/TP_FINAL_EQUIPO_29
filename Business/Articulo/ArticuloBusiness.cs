@@ -54,13 +54,13 @@ namespace Business.Articulo
             }
         }
 
-        public int Eliminar(long id)
+        public bool Eliminar(long id)
         {
             ArticuloImp articuloImp = new ArticuloImp();
             try
             {
-                articuloImp.Eliminar(id);
-                return 1;
+                bool result = articuloImp.Eliminar(id);
+                return result;
             }
             catch (Exception ex)
             {

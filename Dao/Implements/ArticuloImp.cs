@@ -7,6 +7,7 @@ namespace Dao.Implements
 {
     public class ArticuloImp
     {
+        
         public List<ArticuloEntity> GetArticulos()
         {
             var listArticulos = new List<ArticuloEntity>();
@@ -63,7 +64,6 @@ namespace Dao.Implements
                    
                     articulo.Marca = new MarcaEntity();
                     articulo.Categoria = new CategoriaEntity();
-
                     
                     articulo.Marca.Nombre = (string)datos.Reader["NOMBREMARCA"];
                    
@@ -173,8 +173,8 @@ namespace Dao.Implements
                            BEGIN TRY
                            BEGIN TRAN
 
-                           INSERT INTO ARTICULOS (CODIGO_ARTICULO, NOMBRE, DESCRIPCION, CATEGORIAID, MARCAID, FECHA_AGREGADO)
-                           VALUES (@codigo, @nombre, @descripcion, @idCategoria, @idMarca, GETDATE());
+                           INSERT INTO ARTICULOS (CODIGO_ARTICULO, CATEGORIAID, MARCAID, FECHA_AGREGADO)
+                           VALUES (@codigo, @idCategoria, @idMarca, GETDATE());
 
                            DECLARE @ID INT;
                            SET @ID = SCOPE_IDENTITY();
@@ -194,12 +194,11 @@ namespace Dao.Implements
             {
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@codigo", art.CodArticulo);
-                datos.setearParametro("@nombre", art.Nombre);
-                datos.setearParametro("@descripcion", art.Descripcion);
                 datos.setearParametro("@idMarca", art.Marca.Id);
                 datos.setearParametro("@idCategoria", art.Categoria.Id);
                 datos.setearParametro("@precio", art.Precio);
-              
+                datos.setearParametro("@imagenUrl", art.Imagenes[0].UrlImagen);
+
 
                 return datos.ejecutarAccion(); 
             }
@@ -262,20 +261,40 @@ namespace Dao.Implements
             }
         }
        
-        public void Eliminar(long id)
+        public bool Eliminar(long id)
         {
             try
     {
         DataAccess datos = new DataAccess();
-        datos.setearConsulta("DELETE FROM IMAGENES WHERE IdArticulo = @id; DELETE FROM ARTICULOS WHERE Id = @id");
-        datos.setearParametro("@id", id);
-        datos.ejecutarAccion();
-    }
-    catch (Exception ex)
-    {
-        throw ex;
-    }
-        }
+                datos.setearConsulta(@"BEGIN TRY
+                                BEGIN TRAN
+
+                                DELETE FROM IMAGENES
+                                WHERE ARTICULOID = @id
+
+                                DELETE FROM ARTICULOS_DETALLE
+                                WHERE ARTICULOID = @id;
+
+                                DELETE FROM ARTICULOS
+                                WHERE ID = @id;
+
+                                COMMIT TRAN
+                                END TRY
+                                BEGIN CATCH
+                                IF @@TRANCOUNT > 0
+                                ROLLBACK TRAN;
+                                END CATCH");
+
+                datos.setearParametro("@id", id);
+                 var result = datos.ejecutarAccion();
+                if(result > 0) return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+                }
 
         public ArticuloEntity getByID (long id)
         {

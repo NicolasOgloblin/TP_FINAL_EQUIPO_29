@@ -14,7 +14,24 @@ namespace TpFinalEquipo29
 {
     public partial class Articulo : System.Web.UI.Page
     {
+
         private ArticuloBusiness articuloBusiness;
+
+        private List<string> imagenesUrls
+        {
+            get
+            {
+                if (ViewState["ImagenesUrls"] == null)
+                {
+                    ViewState["ImagenesUrls"] = new List<string>();
+                }
+                return (List<string>)ViewState["ImagenesUrls"];
+            }
+            set
+            {
+                ViewState["ImagenesUrls"] = value;
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,6 +41,23 @@ namespace TpFinalEquipo29
                 CargarDropDownListCategorias();
                 CargarDropDownListMarcas();
                 CargarArticulos();
+            }
+        }
+
+        protected void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            string urlImagen = txtUrlImagen.Text;
+            if (!string.IsNullOrEmpty(urlImagen))
+            {
+                imagenesUrls.Add(urlImagen);
+                txtUrlImagen.Text = ""; // Limpiar el campo de entrada después de agregar la imagen
+                lblMensaje.Text = "Imagen agregada a la lista temporal.";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                lblMensaje.Text = "La URL de la imagen no puede estar vacía.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -48,16 +82,23 @@ namespace TpFinalEquipo29
                         return;
                     }
 
-                    var nuevoArticulo = new ArticuloEntity();
-                    nuevoArticulo.CodArticulo = codigoArticulo;
-                    nuevoArticulo.Nombre = nombreArticulo;
-                    nuevoArticulo.Descripcion = descripcionArticulo;
-                    nuevoArticulo.Categoria = new CategoriaEntity();
-                    nuevoArticulo.Categoria.Id = categoriaId;
-                    nuevoArticulo.Marca = new MarcaEntity();
-                    nuevoArticulo.Marca.Id = marcaId;
-                    nuevoArticulo.Precio = precioArticulo;
-                    nuevoArticulo.Stock = stockArticulo;
+                    var nuevoArticulo = new ArticuloEntity
+                    {
+                        CodArticulo = codigoArticulo,
+                        Nombre = nombreArticulo,
+                        Descripcion = descripcionArticulo,
+                        Categoria = new CategoriaEntity { Id = categoriaId },
+                        Marca = new MarcaEntity { Id = marcaId },
+                        Precio = precioArticulo,
+                        Stock = stockArticulo,
+                        Imagenes = new List<ImagenEntity>()
+                    };
+
+                    // Agregar las URLs de las imágenes a la lista de Imagenes
+                    foreach (var url in imagenesUrls)
+                    {
+                        nuevoArticulo.Imagenes.Add(new ImagenEntity { UrlImagen = url });
+                    }
 
                     int resultado = articuloBusiness.agregarArticulo(nuevoArticulo);
 
@@ -67,6 +108,7 @@ namespace TpFinalEquipo29
                         lblMensaje.ForeColor = System.Drawing.Color.Green;
                         LimpiarCampos();
                         CargarArticulos();
+                        imagenesUrls.Clear(); // Limpiar la lista temporal después de agregar el artículo
                     }
                     else
                     {
@@ -81,6 +123,7 @@ namespace TpFinalEquipo29
                 }
             }
         }
+
 
         private void CargarDropDownListCategorias()
         {
@@ -202,9 +245,9 @@ namespace TpFinalEquipo29
             try
             {
                 long id = Convert.ToInt64(gvArticulos.DataKeys[e.RowIndex].Value);
-                int resultado = articuloBusiness.Eliminar(id);
+                bool resultado = articuloBusiness.Eliminar(id);
 
-                if (resultado > 0)
+                if (resultado)
                 {
                     lblMensaje.Text = "Artículo eliminado correctamente.";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
@@ -225,7 +268,7 @@ namespace TpFinalEquipo29
 
         protected void gvArticulos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow && gvArticulos.EditIndex == e.Row.RowIndex)
+            if (e.Row.RowType == DataControlRowType.DataRow && (gvArticulos.EditIndex == e.Row.RowIndex || e.Row.RowIndex == -1))
             {
                 DropDownList ddlMarcas = (DropDownList)e.Row.FindControl("ddlMarcas");
                 if (ddlMarcas != null)
@@ -235,8 +278,12 @@ namespace TpFinalEquipo29
                     ddlMarcas.DataValueField = "Id";
                     ddlMarcas.DataBind();
 
-                    DataRowView drv = e.Row.DataItem as DataRowView;
-                    ddlMarcas.SelectedValue = drv["Marca.Id"].ToString();
+                    // Obtener el valor de Marca.Id usando DataBinder.Eval
+                    Label lblMarcaId = (Label)e.Row.FindControl("lblMarcaId");
+                    if (lblMarcaId != null)
+                    {
+                        ddlMarcas.SelectedValue = lblMarcaId.Text;
+                    }
                 }
 
                 DropDownList ddlCategorias = (DropDownList)e.Row.FindControl("ddlCategorias");
@@ -247,10 +294,15 @@ namespace TpFinalEquipo29
                     ddlCategorias.DataValueField = "Id";
                     ddlCategorias.DataBind();
 
-                    DataRowView drv = e.Row.DataItem as DataRowView;
-                    ddlCategorias.SelectedValue = drv["Categoria.Id"].ToString();
+                    // Obtener el valor de Categoria.Id usando DataBinder.Eval
+                    Label lblCategoriaId = (Label)e.Row.FindControl("lblCategoriaId");
+                    if (lblCategoriaId != null)
+                    {
+                        ddlCategorias.SelectedValue = lblCategoriaId.Text;
+                    }
                 }
             }
         }
+
     }
 }
