@@ -50,7 +50,7 @@ namespace TpFinalEquipo29
             if (!string.IsNullOrEmpty(urlImagen))
             {
                 imagenesUrls.Add(urlImagen);
-                txtUrlImagen.Text = ""; // Limpiar el campo de entrada después de agregar la imagen
+                txtUrlImagen.Text = ""; 
                 lblMensaje.Text = "Imagen agregada a la lista temporal.";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
             }
@@ -60,7 +60,7 @@ namespace TpFinalEquipo29
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
-
+        
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
@@ -74,6 +74,14 @@ namespace TpFinalEquipo29
                     int marcaId = Convert.ToInt32(ddlMarcas.SelectedValue);
                     decimal precioArticulo = Convert.ToDecimal(txtPrecio.Text);
                     int stockArticulo = Convert.ToInt32(txtStock.Text);
+                    decimal pesoArticulo = Convert.ToDecimal(txtPeso.Text);
+                    decimal anchoArticulo = Convert.ToDecimal(txtAncho.Text);
+                    decimal altoArticulo = Convert.ToDecimal(txtAlto.Text);
+                    string colorArticulo = txtColor.Text;
+                    string modeloArticulo = txtModelo.Text;
+                    string origenArticulo = txtOrigen.Text;
+                    int garantiaAnios = Convert.ToInt32(txtGarantiaAnios.Text);
+                    int garantiaMeses = Convert.ToInt32(txtGarantiaMeses.Text);
 
                     if (articuloBusiness.ArticuloExiste(codigoArticulo))
                     {
@@ -91,6 +99,14 @@ namespace TpFinalEquipo29
                         Marca = new MarcaEntity { Id = marcaId },
                         Precio = precioArticulo,
                         Stock = stockArticulo,
+                        Peso = pesoArticulo,
+                        Ancho = anchoArticulo,
+                        Alto = altoArticulo,
+                        Color = colorArticulo,
+                        Modelo = modeloArticulo,
+                        Origen = origenArticulo,
+                        Garantia_Anios = garantiaAnios,
+                        Garantia_Meses = garantiaMeses,
                         Imagenes = new List<ImagenEntity>()
                     };
 
@@ -108,7 +124,7 @@ namespace TpFinalEquipo29
                         lblMensaje.ForeColor = System.Drawing.Color.Green;
                         LimpiarCampos();
                         CargarArticulos();
-                        imagenesUrls.Clear(); // Limpiar la lista temporal después de agregar el artículo
+                        imagenesUrls.Clear();
                     }
                     else
                     {
@@ -134,8 +150,7 @@ namespace TpFinalEquipo29
             ddlCategorias.DataTextField = "Nombre";
             ddlCategorias.DataValueField = "Id";
             ddlCategorias.DataBind();
-
-            // Agregar un elemento vacío para selección inicial
+            
             ddlCategorias.Items.Insert(0, new ListItem("--Seleccione--", "0"));
         }
 
@@ -277,8 +292,7 @@ namespace TpFinalEquipo29
                     ddlMarcas.DataTextField = "Nombre";
                     ddlMarcas.DataValueField = "Id";
                     ddlMarcas.DataBind();
-
-                    // Obtener el valor de Marca.Id usando DataBinder.Eval
+                    
                     Label lblMarcaId = (Label)e.Row.FindControl("lblMarcaId");
                     if (lblMarcaId != null)
                     {
@@ -293,8 +307,7 @@ namespace TpFinalEquipo29
                     ddlCategorias.DataTextField = "Nombre";
                     ddlCategorias.DataValueField = "Id";
                     ddlCategorias.DataBind();
-
-                    // Obtener el valor de Categoria.Id usando DataBinder.Eval
+                   
                     Label lblCategoriaId = (Label)e.Row.FindControl("lblCategoriaId");
                     if (lblCategoriaId != null)
                     {
@@ -303,6 +316,6 @@ namespace TpFinalEquipo29
                 }
             }
         }
-
+       
     }
 }

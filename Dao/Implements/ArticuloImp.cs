@@ -163,7 +163,7 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-
+        /*
         public int AgregarArticulo(ArticuloEntity art)
         {
             DataAccess datos = new DataAccess();
@@ -211,7 +211,86 @@ namespace Dao.Implements
             {
                 datos.cerrarConexion();
             }
+        }*/
+
+        public int AgregarArticulo(ArticuloEntity art)
+        {
+            DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta =   @"
+                                BEGIN TRY
+                                BEGIN TRAN
+
+                                INSERT INTO ARTICULOS (CODIGO_ARTICULO, CATEGORIAID, MARCAID, FECHA_AGREGADO)
+                                VALUES (@codigo, @idCategoria, @idMarca, GETDATE());
+
+                                DECLARE @ID INT;
+                                SET @ID = SCOPE_IDENTITY();
+
+                                INSERT INTO ARTICULOS_DETALLE 
+                                (ARTICULOID, NOMBRE, DESCRIPCION, ALTO, ANCHO, COLOR, MODELO, ORIGEN, PESO, GARANTIA_ANIOS, GARANTIA_MESES, PRECIO, STOCK)
+                                VALUES 
+                                (@ID, @nombre, @descripcion, @alto, @ancho, @color, @modelo, @origen, @peso, @garantiaAnios, @garantiaMeses, @precio, @stock);
+
+                                INSERT INTO IMAGENES (ARTICULOID, IMAGEN)
+                                VALUES (@ID, @imagenUrl);
+
+                                COMMIT TRAN
+                                END TRY
+                                BEGIN CATCH
+                                IF @@TRANCOUNT > 0
+                                ROLLBACK TRAN;
+                                END CATCH";
+            #endregion
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@codigo", art.CodArticulo);
+                datos.setearParametro("@idCategoria", art.Categoria.Id);
+                datos.setearParametro("@idMarca", art.Marca.Id);
+                datos.setearParametro("@nombre", art.Nombre);
+                datos.setearParametro("@descripcion", art.Descripcion);
+                datos.setearParametro("@alto", art.Alto);
+                datos.setearParametro("@ancho", art.Ancho);
+                datos.setearParametro("@color", art.Color);
+                datos.setearParametro("@modelo", art.Modelo);
+                datos.setearParametro("@origen", art.Origen);
+                datos.setearParametro("@peso", art.Peso);
+                datos.setearParametro("@garantiaAnios", art.Garantia_Anios);
+                datos.setearParametro("@garantiaMeses", art.Garantia_Meses);
+                datos.setearParametro("@precio", art.Precio);
+                datos.setearParametro("@stock", art.Stock);
+                datos.setearParametro("@imagenUrl", art.Imagenes[0].UrlImagen);
+
+                datos.ejecutarAccion();
+
+                
+                for (int i = 1; i < art.Imagenes.Count; i++)
+                {
+                    string consultaImagen = @"
+                INSERT INTO IMAGENES (ARTICULOID, IMAGEN)
+                VALUES (@ID, @imagenUrl)";
+                    datos.setearConsulta(consultaImagen);
+                    datos.setearParametro("@ID", art.Id); 
+                    datos.setearParametro("@imagenUrl", art.Imagenes[i].UrlImagen);
+                    datos.ejecutarAccion();
+                }
+
+                return 1; 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al agregar el artículo", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
+
+
 
         public int ModificarArticulo(ArticuloEntity art)
         {
