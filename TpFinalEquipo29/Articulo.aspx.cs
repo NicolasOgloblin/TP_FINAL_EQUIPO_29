@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TpFinalEquipo29
 {
@@ -50,7 +51,7 @@ namespace TpFinalEquipo29
             if (!string.IsNullOrEmpty(urlImagen))
             {
                 imagenesUrls.Add(urlImagen);
-                txtUrlImagen.Text = ""; 
+                txtUrlImagen.Text = "";
                 lblMensaje.Text = "Imagen agregada a la lista temporal.";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
             }
@@ -60,7 +61,7 @@ namespace TpFinalEquipo29
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
-        
+
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
@@ -110,7 +111,7 @@ namespace TpFinalEquipo29
                         Imagenes = new List<ImagenEntity>()
                     };
 
-                    // Agregar las URLs de las imágenes a la lista de Imagenes
+                    
                     foreach (var url in imagenesUrls)
                     {
                         nuevoArticulo.Imagenes.Add(new ImagenEntity { UrlImagen = url });
@@ -140,7 +141,6 @@ namespace TpFinalEquipo29
             }
         }
 
-
         private void CargarDropDownListCategorias()
         {
             var categoriaBusiness = new CategoriaBusiness();
@@ -150,7 +150,7 @@ namespace TpFinalEquipo29
             ddlCategorias.DataTextField = "Nombre";
             ddlCategorias.DataValueField = "Id";
             ddlCategorias.DataBind();
-            
+
             ddlCategorias.Items.Insert(0, new ListItem("--Seleccione--", "0"));
         }
 
@@ -164,7 +164,7 @@ namespace TpFinalEquipo29
             ddlMarcas.DataValueField = "Id";
             ddlMarcas.DataBind();
 
-            // Agregar un elemento vacío para selección inicial
+            
             ddlMarcas.Items.Insert(0, new ListItem("--Seleccione--", "0"));
         }
 
@@ -193,6 +193,15 @@ namespace TpFinalEquipo29
             ddlMarcas.SelectedIndex = 0;
             txtPrecio.Text = string.Empty;
             txtStock.Text = string.Empty;
+            txtPeso.Text = string.Empty;
+            txtAncho.Text = string.Empty;
+            txtAlto.Text = string.Empty;
+            txtColor.Text = string.Empty;
+            txtModelo.Text = string.Empty;
+            txtOrigen.Text = string.Empty;
+            txtGarantiaAnios.Text = string.Empty;
+            txtGarantiaMeses.Text = string.Empty;
+            txtUrlImagen.Text = string.Empty;
         }
 
         protected void gvArticulos_RowEditing(object sender, GridViewEditEventArgs e)
@@ -207,13 +216,44 @@ namespace TpFinalEquipo29
             {
                 GridViewRow row = gvArticulos.Rows[e.RowIndex];
                 long id = Convert.ToInt64(gvArticulos.DataKeys[e.RowIndex].Value);
-                string codigo = ((TextBox)row.FindControl("txtCodigo")).Text;
-                string nombre = ((TextBox)row.FindControl("txtNombre")).Text;
-                string descripcion = ((TextBox)row.FindControl("txtDescripcion")).Text;
-                int marcaId = Convert.ToInt32(((DropDownList)row.FindControl("ddlMarcas")).SelectedValue);
-                int categoriaId = Convert.ToInt32(((DropDownList)row.FindControl("ddlCategorias")).SelectedValue);
-                decimal precio = Convert.ToDecimal(((TextBox)row.FindControl("txtPrecio")).Text);
-                int stock = Convert.ToInt32(((TextBox)row.FindControl("txtStock")).Text);
+
+                
+                TextBox txtCodigo = (TextBox)row.FindControl("txtCodigo");
+                TextBox txtNombre = (TextBox)row.FindControl("txtNombre");
+                TextBox txtDescripcion = (TextBox)row.FindControl("txtDescripcion");
+                DropDownList ddlMarcas = (DropDownList)row.FindControl("ddlMarcas");
+                DropDownList ddlCategorias = (DropDownList)row.FindControl("ddlCategorias");
+                TextBox txtPrecio = (TextBox)row.FindControl("txtPrecio");
+                TextBox txtStock = (TextBox)row.FindControl("txtStock");
+
+                
+                TextBox txtAlto = (TextBox)row.FindControl("txtAlto");
+                TextBox txtAncho = (TextBox)row.FindControl("txtAncho");
+                TextBox txtColor = (TextBox)row.FindControl("txtColor");
+                TextBox txtModelo = (TextBox)row.FindControl("txtModelo");
+                TextBox txtOrigen = (TextBox)row.FindControl("txtOrigen");
+                TextBox txtPeso = (TextBox)row.FindControl("txtPeso");
+                TextBox txtGarantiaAnios = (TextBox)row.FindControl("txtGarantiaAnios");
+                TextBox txtGarantiaMeses = (TextBox)row.FindControl("txtGarantiaMeses");
+
+                
+                string codigo = txtCodigo.Text;
+                string nombre = txtNombre.Text;
+                string descripcion = txtDescripcion.Text;
+                int marcaId = Convert.ToInt32(ddlMarcas.SelectedValue);
+                int categoriaId = Convert.ToInt32(ddlCategorias.SelectedValue);
+                decimal precio = Convert.ToDecimal(txtPrecio.Text);
+                int stock = Convert.ToInt32(txtStock.Text);
+
+               
+                decimal alto = Convert.ToDecimal(txtAlto.Text);
+                decimal ancho = Convert.ToDecimal(txtAncho.Text);
+                string color = txtColor.Text;
+                string modelo = txtModelo.Text;
+                string origen = txtOrigen.Text;
+                decimal peso = Convert.ToDecimal(txtPeso.Text);
+                int garantiaAnios = Convert.ToInt32(txtGarantiaAnios.Text);
+                int garantiaMeses = Convert.ToInt32(txtGarantiaMeses.Text);
 
                 var articulo = new ArticuloEntity
                 {
@@ -224,11 +264,21 @@ namespace TpFinalEquipo29
                     Marca = new MarcaEntity { Id = marcaId },
                     Categoria = new CategoriaEntity { Id = categoriaId },
                     Precio = precio,
-                    Stock = stock
+                    Stock = stock,
+                    Alto = alto,
+                    Ancho = ancho,
+                    Color = color,
+                    Modelo = modelo,
+                    Origen = origen,
+                    Peso = peso,
+                    Garantia_Anios = garantiaAnios,
+                    Garantia_Meses = garantiaMeses
                 };
 
+                
                 int resultado = articuloBusiness.ModificarArticulo(articulo);
 
+                
                 if (resultado > 0)
                 {
                     lblMensaje.Text = "Artículo actualizado correctamente.";
@@ -248,6 +298,7 @@ namespace TpFinalEquipo29
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
+
 
         protected void gvArticulos_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
@@ -292,7 +343,7 @@ namespace TpFinalEquipo29
                     ddlMarcas.DataTextField = "Nombre";
                     ddlMarcas.DataValueField = "Id";
                     ddlMarcas.DataBind();
-                    
+
                     Label lblMarcaId = (Label)e.Row.FindControl("lblMarcaId");
                     if (lblMarcaId != null)
                     {
@@ -307,7 +358,7 @@ namespace TpFinalEquipo29
                     ddlCategorias.DataTextField = "Nombre";
                     ddlCategorias.DataValueField = "Id";
                     ddlCategorias.DataBind();
-                   
+
                     Label lblCategoriaId = (Label)e.Row.FindControl("lblCategoriaId");
                     if (lblCategoriaId != null)
                     {
@@ -316,6 +367,5 @@ namespace TpFinalEquipo29
                 }
             }
         }
-       
     }
 }

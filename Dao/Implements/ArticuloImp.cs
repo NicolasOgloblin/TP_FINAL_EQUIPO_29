@@ -163,56 +163,7 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-        /*
-        public int AgregarArticulo(ArticuloEntity art)
-        {
-            DataAccess datos = new DataAccess();
-
-            #region Consulta
-            string consulta = @"
-                           BEGIN TRY
-                           BEGIN TRAN
-
-                           INSERT INTO ARTICULOS (CODIGO_ARTICULO, CATEGORIAID, MARCAID, FECHA_AGREGADO)
-                           VALUES (@codigo, @idCategoria, @idMarca, GETDATE());
-
-                           DECLARE @ID INT;
-                           SET @ID = SCOPE_IDENTITY();
-
-                           INSERT INTO IMAGENES (ARTICULOID, IMAGEN)
-                           VALUES (@ID, @imagenUrl);
-
-                           COMMIT TRAN
-                           END TRY
-                           BEGIN CATCH
-                              IF @@TRANCOUNT > 0
-                                            ROLLBACK TRAN;
-                          END CATCH";
-            #endregion
-
-            try
-            {
-                datos.setearConsulta(consulta);
-                datos.setearParametro("@codigo", art.CodArticulo);
-                datos.setearParametro("@idMarca", art.Marca.Id);
-                datos.setearParametro("@idCategoria", art.Categoria.Id);
-                datos.setearParametro("@precio", art.Precio);
-                datos.setearParametro("@imagenUrl", art.Imagenes[0].UrlImagen);
-
-
-                return datos.ejecutarAccion(); 
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }*/
-
+        
         public int AgregarArticulo(ArticuloEntity art)
         {
             DataAccess datos = new DataAccess();
@@ -290,43 +241,56 @@ namespace Dao.Implements
             }
         }
 
-
-
         public int ModificarArticulo(ArticuloEntity art)
         {
             DataAccess datos = new DataAccess();
 
             #region Consulta
-            string consulta = @"BEGIN TRY
-                                BEGIN TRAN
+            string consulta = @"
+                     BEGIN TRY
+                         BEGIN TRAN
 
-                                UPDATE ARTICULOS  
-                                SET Codigo = @codigo, Nombre = @nombre, Descripcion = @descripcion, 
-                                IdMarca = @idMarca, IdCategoria = @idCategoria, Precio = @precio 
-                                WHERE ID = @id
+                         UPDATE ARTICULOS  
+                         SET Codigo_Articulo = @codigo, CategoriaID = @idCategoria, MarcaID = @idMarca
+                         WHERE ID = @id
 
-                                UPDATE IMAGENES
-                                SET ImagenUrl = @imagenUrl
-                                WHERE IdArticulo = @id
+                         UPDATE ARTICULOS_DETALLE
+                         SET Nombre = @nombre, Descripcion = @descripcion, Precio = @precio, Stock = @stock, 
+                             Alto = @alto, Ancho = @ancho, Color = @color, Modelo = @modelo, 
+                             Origen = @origen, Peso = @peso, Garantia_Anios = @garantiaAnios, 
+                             Garantia_Meses = @garantiaMeses
+                         WHERE ArticuloID = @id
 
-                                COMMIT TRAN
-                                END TRY
-                                BEGIN CATCH
-                                IF @@TRANCOUNT > 0
-                                ROLLBACK TRAN;
-                                END CATCH";
-            #endregion
+                         -- Eliminar imágenes antiguas
+                         DELETE FROM IMAGENES WHERE ArticuloID = @id
+
+                         COMMIT TRAN
+                     END TRY
+                     BEGIN CATCH
+                         IF @@TRANCOUNT > 0
+                             ROLLBACK TRAN;
+                     END CATCH";
+                                #endregion
 
             try
             {
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@codigo",art.CodArticulo);
+                datos.setearParametro("@codigo", art.CodArticulo);
                 datos.setearParametro("@nombre", art.Nombre);
                 datos.setearParametro("@descripcion", art.Descripcion);
                 datos.setearParametro("@idMarca", art.Marca.Id);
                 datos.setearParametro("@idCategoria", art.Categoria.Id);
                 datos.setearParametro("@precio", art.Precio);
                 datos.setearParametro("@id", art.Id);
+                datos.setearParametro("@stock", art.Stock);
+                datos.setearParametro("@alto", art.Alto);
+                datos.setearParametro("@ancho", art.Ancho);
+                datos.setearParametro("@color", art.Color);
+                datos.setearParametro("@modelo", art.Modelo);
+                datos.setearParametro("@origen", art.Origen);
+                datos.setearParametro("@peso", art.Peso);
+                datos.setearParametro("@garantiaAnios", art.Garantia_Anios);
+                datos.setearParametro("@garantiaMeses", art.Garantia_Meses);
 
                 return datos.ejecutarAccion();
             }
@@ -343,8 +307,8 @@ namespace Dao.Implements
         public bool Eliminar(long id)
         {
             try
-    {
-        DataAccess datos = new DataAccess();
+            {
+                DataAccess datos = new DataAccess();
                 datos.setearConsulta(@"BEGIN TRY
                                 BEGIN TRAN
 
@@ -366,14 +330,15 @@ namespace Dao.Implements
 
                 datos.setearParametro("@id", id);
                  var result = datos.ejecutarAccion();
+
                 if(result > 0) return true;
                 return false;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                catch (Exception ex)
+                {
+                     throw ex;
                 }
+        }
 
         public ArticuloEntity getByID (long id)
         {
@@ -396,8 +361,7 @@ namespace Dao.Implements
                                 INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)
                                 WHERE A.ID = @id
                                 GROUP BY A.ID, A.NOMBRE, A.DESCRIPCION, M.NOMBRE, C.NOMBRE,
-                                         AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
-
+                                AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
 
             try
             {
