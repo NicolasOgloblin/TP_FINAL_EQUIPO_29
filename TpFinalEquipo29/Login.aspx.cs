@@ -18,17 +18,14 @@ namespace TpFinalEquipo29
             {
                 var usuario = new UsuarioEntity();
                 usuario.Usuario = txtUsuario.Text;
-                usuario.Contrasenia = txtPassword.Text;
+                usuario.Contrasenia = txtContrasenia.Text;
                 var usuarioDB = usuarioBusiness.Loguear(usuario);
 
                 if (usuarioDB != null)
                 {
-                    Response.Redirect("Login.aspx");
+                    Response.Redirect("Default.aspx");
                 }
-                else
-                {
-                     //buscar cartel
-                }
+                
 
 
             }

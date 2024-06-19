@@ -11,10 +11,12 @@
                     <div class="mb-3">
                         <label class="form-label">Usuario</label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtUsuario" />
+                        <asp:RequiredFieldValidator ID="rfvUsuario" runat="server" ControlToValidate="txtUsuario" ErrorMessage="El campo Usuario es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <asp:TextBox runat="server" CssClass="form-control" ID="txtPassword" TextMode="Password" />
+                        <label class="form-label">Contraseña</label>
+                        <asp:TextBox runat="server" CssClass="form-control" ID="txtContrasenia" TextMode="Password" />
+                        <asp:RequiredFieldValidator ID="rfvContrasenia" runat="server" ControlToValidate="txtContrasenia" ErrorMessage="El campo Contraseña es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
                     </div>
                     <div class="d-grid">
                         <asp:LinkButton Text="Ingresar" CssClass="btn btn-primary" ID="btnLogin" OnClick="btnLogin_Click" runat="server" />

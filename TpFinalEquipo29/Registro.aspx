@@ -7,13 +7,13 @@
                 <label for="txtNombre">Nombre</label>
                 <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ingrese su nombre"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El campo Nombre es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre debe tener un minimo de 5 y maximo 70 caracteres" ValidationExpression="^.{5,70}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="revNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre debe tener un minimo de 3 y maximo 70 caracteres" ValidationExpression="^.{3,70}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
             <div class="form-group">
                 <label for="txtApellido">Apellido</label>
                 <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Ingrese su apellido"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellido" ErrorMessage="El campo Apellido es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revApellido" runat="server" ControlToValidate="txtApellido" ErrorMessage="El apellido debe tener un minimo de 5 y maximo 70 caracteres" ValidationExpression="^.{5,70}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="revApellido" runat="server" ControlToValidate="txtApellido" ErrorMessage="El apellido debe tener un minimo de 3 y maximo 70 caracteres" ValidationExpression="^.{3,70}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
             <div class="form-group">
                 <label for="txtDNI">DNI</label>
@@ -61,25 +61,25 @@
                 <label for="txtCalle">Calle</label>
                 <asp:TextBox ID="txtCalle" runat="server" CssClass="form-control" placeholder="Ingrese su calle"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvCalle" runat="server" ControlToValidate="txtCalle" ErrorMessage="El campo Calle es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revCalle" runat="server" ControlToValidate="txtCalle" ErrorMessage="La calle debe tener un minimo de 5 y maximo 80 caracteres" ValidationExpression="^.{5,80}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="revCalle" runat="server" ControlToValidate="txtCalle" ErrorMessage="La calle debe tener un minimo de 3 y maximo 80 caracteres" ValidationExpression="^.{3,80}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
             <div class="form-group">
                 <label for="txtAltura">Altura</label>
                 <asp:TextBox ID="txtAltura" runat="server" CssClass="form-control" placeholder="Ingrese la altura"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvAltura" runat="server" ControlToValidate="txtAltura" ErrorMessage="El campo Altura es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revAltura" runat="server" ControlToValidate="txtAltura" ErrorMessage="Solo numeros Maximo:20" ValidationExpression="^\d{7,9}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="revAltura" runat="server" ControlToValidate="txtAltura" ErrorMessage="Solo numeros Maximo:20" ValidationExpression="^\d{1,9}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
             <div class="form-group">
                 <label for="txtCodPostal">Codigo Postal</label>
                 <asp:TextBox ID="txtCodPostal" runat="server" CssClass="form-control" placeholder="Ingrese Codigo Postal"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvCodPostal" runat="server" ControlToValidate="txtCodPostal" ErrorMessage="El campo Codigo Postal es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revCodPostal" runat="server" ControlToValidate="txtCodPostal" ErrorMessage="Solo numeros" ValidationExpression="^\d{5}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="revCodPostal" runat="server" ControlToValidate="txtCodPostal" ErrorMessage="Solo numeros" ValidationExpression="^\d{4,5}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
             <div class="form-group">
                 <label for="txtTelefono">Teléfono</label>
                 <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" placeholder="Ingrese su teléfono"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="El campo Teléfono es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="Solo se permiten números en el teléfono" ValidationExpression="^\d{10}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="revTelefono" runat="server" ControlToValidate="txtTelefono" ErrorMessage="Solo se permiten números en el teléfono" ValidationExpression="^\d{8,10}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
             <div class="form-group mt-3">
                 <asp:Button ID="btnRegistrar" runat="server" CssClass="btn btn-primary" Text="Registrar" OnClick="btnRegistrar_Click" />

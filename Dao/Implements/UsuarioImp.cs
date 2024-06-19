@@ -16,27 +16,29 @@ namespace Dao.Implements
                                 U.ID,
                                 U.ROLID,
                                 R.NOMBRE,
-                                U.USUARIO
+                                U.USUARIO,
+                                U.CONTRASENIA,
+                                U.SALT
                                 FROM USUARIOS U
                                 inner join ROLES R on U.ROLID = R.ID 
-                                WHERE  USUARIO = @usuario
-                                AND CONTRASENIA = @contrasenia";
+                                WHERE  U.USUARIO = @usuario";
             #endregion
 
             try
             {
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@usuario",usuario.Usuario);
-                datos.setearParametro("@contrasenia",usuario.Contrasenia);
                 datos.ejecutarLectura();
 
                 if (datos.Reader.Read())
                 {
-                    usuarioLog.Id = (int)datos.Reader["ID"];
+                    usuarioLog.Id = (long)datos.Reader["ID"];
                     usuarioLog.Rol = new RolesEntity();
                     usuarioLog.Rol.Id = (short)(datos.Reader["ROLID"]); 
                     usuarioLog.Rol.Nombre = (string)(datos.Reader["NOMBRE"]);
                     usuarioLog.Usuario = (string)(datos.Reader["USUARIO"]);
+                    usuarioLog.Contrasenia = (string)(datos.Reader["CONTRASENIA"]);
+                    usuarioLog.Salt = (string)(datos.Reader["SALT"]);
                 }
                 return usuarioLog;
             }
@@ -56,7 +58,7 @@ namespace Dao.Implements
 
             #region Consulta
             string consulta = @"INSERT INTO USUARIOS
-                                VALUES(@nombre,@apellido,@dni,@usuario,@email,@contrasenia,@rolId,@provincia,@localidad,@calle,@altura,@telefono,GETDATE())
+                                VALUES(@nombre,@apellido,@dni,@usuario,@email,@contrasenia,@salt,@rolId,@provincia,@localidad,@calle,@altura,@codPostal,@telefono,1,GETDATE())
                                 SELECT SCOPE_IDENTITY() AS ID";
             #endregion
 
@@ -69,11 +71,13 @@ namespace Dao.Implements
                 datos.setearParametro("@usuario", usuario.Usuario);
                 datos.setearParametro("@email", usuario.Email);
                 datos.setearParametro("@contrasenia", usuario.Contrasenia);
+                datos.setearParametro("@salt", usuario.Salt);
                 datos.setearParametro("@rolId", usuario.Rol.Id);
                 datos.setearParametro("@provincia", usuario.Provincia);
                 datos.setearParametro("@localidad", usuario.Localidad);
                 datos.setearParametro("@calle", usuario.Calle);
                 datos.setearParametro("@altura", usuario.Altura);
+                datos.setearParametro("@codPostal", usuario.CodPostal);
                 datos.setearParametro("@telefono", usuario.Telefono);
 
 

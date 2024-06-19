@@ -19,6 +19,7 @@ namespace Business.Usuario
                 var pass = encrypt.HashPasswordWithSalt(usuario.Contrasenia, salt);
 
                 usuario.Contrasenia = pass;
+                usuario.Salt = salt;
 
                 var result = usuarioDao.Registrarse(usuario);
 
@@ -37,9 +38,26 @@ namespace Business.Usuario
         public UsuarioEntity Loguear(UsuarioEntity usuario)
         {
             var UsuarioDao = new UsuarioImp();
+            var encrypt = new Encrypt();
             try
             {
-                return UsuarioDao.Loguear(usuario);
+                
+                var usuarioLogin =  UsuarioDao.Loguear(usuario);
+                if(usuarioLogin.Id == 0)
+                {
+                    return null;
+                }
+
+                var login = encrypt.VerifyPassword(usuario.Contrasenia,usuarioLogin.Contrasenia,usuarioLogin.Salt);
+                if (login)
+                {
+                    usuarioLogin.Contrasenia = string.Empty;
+                    usuarioLogin.Salt = string.Empty;
+
+                    return usuarioLogin;
+                }
+
+                return null;
             }
             catch (Exception ex)
             {

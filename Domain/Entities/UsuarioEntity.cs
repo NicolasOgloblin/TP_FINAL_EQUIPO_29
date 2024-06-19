@@ -12,6 +12,7 @@ namespace Domain.Entities
         public string Usuario { get; set;}
         public string Email { get; set; }
         public string Contrasenia { get; set; }
+        public string Salt { get; set; }
         public RolesEntity Rol { get; set; }
         public string Provincia { get; set; }
         public string Localidad { get; set; }

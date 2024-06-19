@@ -1,11 +1,7 @@
 ﻿using Business.Usuario;
 using Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace TpFinalEquipo29
 {
@@ -32,15 +28,21 @@ namespace TpFinalEquipo29
                 usuario.Calle = txtCalle.Text;
                 usuario.Altura = txtAltura.Text;
                 usuario.Telefono = txtTelefono.Text;
-                usuario.Provincia = "asd";
-                usuario.Localidad = "asdd";
+                usuario.Provincia = txtProvincia.Text;
+                usuario.Localidad = txtLocalidad.Text;
+                usuario.CodPostal = txtCodPostal.Text;
                 usuario.Rol = new RolesEntity();
-                usuario.Rol.Id = 1;
-                usuario.Rol.Nombre = "CLIENTE";
+                usuario.Rol.Id = 2;
 
-                usuarioBusiness.Registrarse(usuario);
+                var usuarioRegistrado = usuarioBusiness.Registrarse(usuario);
 
-            }catch (Exception ex)
+                Session["Login"] = usuarioRegistrado;
+
+                Response.Redirect("Default.aspx",false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
