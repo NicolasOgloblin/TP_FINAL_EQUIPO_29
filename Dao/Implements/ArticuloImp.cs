@@ -247,30 +247,42 @@ namespace Dao.Implements
 
             #region Consulta
             string consulta = @"
-                     BEGIN TRY
-                         BEGIN TRAN
+        BEGIN TRY
+            BEGIN TRAN
 
-                         UPDATE ARTICULOS  
-                         SET Codigo_Articulo = @codigo, CategoriaID = @idCategoria, MarcaID = @idMarca
-                         WHERE ID = @id
+            -- Actualizar ARTICULOS
+            UPDATE ARTICULOS  
+            SET Codigo_Articulo = @codigo, CategoriaID = @idCategoria, MarcaID = @idMarca
+            WHERE ID = @id
 
-                         UPDATE ARTICULOS_DETALLE
-                         SET Nombre = @nombre, Descripcion = @descripcion, Precio = @precio, Stock = @stock, 
-                             Alto = @alto, Ancho = @ancho, Color = @color, Modelo = @modelo, 
-                             Origen = @origen, Peso = @peso, Garantia_Anios = @garantiaAnios, 
-                             Garantia_Meses = @garantiaMeses
-                         WHERE ArticuloID = @id
+            -- Actualizar ARTICULOS_DETALLE
+            UPDATE ARTICULOS_DETALLE
+            SET Nombre = @nombre, Descripcion = @descripcion, Precio = @precio, Stock = @stock, 
+                Alto = @alto, Ancho = @ancho, Color = @color, Modelo = @modelo, 
+                Origen = @origen, Peso = @peso, Garantia_Anios = @garantiaAnios, 
+                Garantia_Meses = @garantiaMeses
+            WHERE ArticuloID = @id
+        ";
 
-                         -- Eliminar imágenes antiguas
-                         DELETE FROM IMAGENES WHERE ArticuloID = @id
+            if (art.Imagenes != null && art.Imagenes.Count > 0)
+            {
+                for (int i = 0; i < art.Imagenes.Count; i++)
+                {
+                    consulta += @"
+                INSERT INTO IMAGENES (ArticuloID, UrlImagen)
+                VALUES (@id, @urlImagen" + i + @")";
+                }
+            }
 
-                         COMMIT TRAN
-                     END TRY
-                     BEGIN CATCH
-                         IF @@TRANCOUNT > 0
-                             ROLLBACK TRAN;
-                     END CATCH";
-                                #endregion
+            consulta += @"
+            COMMIT TRAN
+        END TRY
+        BEGIN CATCH
+            IF @@TRANCOUNT > 0
+                ROLLBACK TRAN;
+            THROW;
+        END CATCH";
+            #endregion
 
             try
             {
@@ -292,6 +304,14 @@ namespace Dao.Implements
                 datos.setearParametro("@garantiaAnios", art.Garantia_Anios);
                 datos.setearParametro("@garantiaMeses", art.Garantia_Meses);
 
+               
+                if (art.Imagenes != null && art.Imagenes.Count > 0)
+                {
+                    for (int i = 0; i < art.Imagenes.Count; i++)
+                    {
+                        datos.setearParametro("@urlImagen" + i, art.Imagenes[i]);
+                    }
+                }
                 return datos.ejecutarAccion();
             }
             catch (Exception ex)

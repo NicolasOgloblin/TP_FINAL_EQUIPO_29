@@ -24,6 +24,7 @@ namespace TpFinalEquipo29
                 ddlFiltroPrecio.Items.Add(new ListItem("De mayor a menor precio", "2"));
                 ddlFiltroPrecio.Items[0].Attributes["disabled"] = "disabled";
                 ddlFiltroPrecio.Items[0].Selected = true;
+               
 
 
                 if (!string.IsNullOrEmpty(Request.QueryString["buscar"]))
@@ -203,7 +204,7 @@ namespace TpFinalEquipo29
                     Session["articulosSeleccionados"] = articulosSeleccionados;
 
                     // Mostrar mensaje de éxito 
-                    string script = "Swal.fire({ title: 'Éxito', text: 'Artículo agregado correctamente al carrito.', icon: 'success', confirmButtonText: 'OK' });";
+                    string script = "Swal.fire({ title: 'Éxito', text: 'Artículo Agregado al Carrito.', icon: 'success', confirmButtonText: 'OK' });";
                     ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
                 }
 

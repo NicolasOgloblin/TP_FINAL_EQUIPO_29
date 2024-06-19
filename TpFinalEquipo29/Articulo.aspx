@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Articulo.aspx.cs" Inherits="TpFinalEquipo29.Articulo" %>
    
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
     <h2>Agregar Nuevo Artículo</h2>
-    
     <asp:Label ID="lblCodigoArticulo" runat="server" Text="Código del Artículo:"></asp:Label>
     <asp:TextBox ID="txtCodigoArticulo" runat="server" CssClass="form-control"></asp:TextBox>
     <asp:RequiredFieldValidator ID="rfvCodigoArticulo" runat="server" ControlToValidate="txtCodigoArticulo"
@@ -246,11 +246,11 @@
         </asp:TemplateField>
 
         
-            <asp:TemplateField HeaderText="Imagen">
+         <%--   <asp:TemplateField HeaderText="Imagen">
                 <ItemTemplate>
                     <asp:Literal runat="server" Text='<%# Eval("Imagenes[0].UrlImagen") %>'></asp:Literal>
                 </ItemTemplate>
-            </asp:TemplateField>
+            </asp:TemplateField>--%>
 
         <asp:TemplateField HeaderText="Acciones">
             <ItemTemplate>
