@@ -244,6 +244,14 @@
                 <asp:TextBox ID="txtOrigen" runat="server" Text='<%# Eval("Origen") %>' CssClass="form-control"></asp:TextBox>
             </EditItemTemplate>
         </asp:TemplateField>
+
+        
+            <asp:TemplateField HeaderText="Imagen">
+                <ItemTemplate>
+                    <asp:Literal runat="server" Text='<%# Eval("Imagenes[0].UrlImagen") %>'></asp:Literal>
+                </ItemTemplate>
+            </asp:TemplateField>
+
         <asp:TemplateField HeaderText="Acciones">
             <ItemTemplate>
                 <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-primary btn-sm"
