@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -99,6 +100,26 @@ namespace TpFinalEquipo29
                     litDescripcion.Text = articuloSeleccionado.Descripcion;
 
                     btnAgregarDetalle.CommandArgument = articuloSeleccionado.Id.ToString();
+
+                    StringBuilder indicators = new StringBuilder();
+                    StringBuilder images = new StringBuilder();
+
+                    for (int i = 0; i < articuloSeleccionado.Imagenes.Count; i++)
+                    {
+                        string activeClass = i == 0 ? "active" : "";
+
+                        // Indicadores del carrusel
+                        indicators.AppendFormat("<button type=\"button\" data-bs-target=\"#carouselExampleIndicators\" data-bs-slide-to=\"{0}\" class=\"{1}\" aria-current=\"true\" aria-label=\"Slide {2}\"></button>", i, activeClass, i + 1);
+
+                        // Imágenes del carrusel
+                        images.AppendFormat("<div class=\"carousel-item {0}\">", activeClass);
+                        images.AppendFormat("<img src=\"{0}\" class=\"d-block w-100\" alt=\"Imagen {1}\">", articuloSeleccionado.Imagenes[i].UrlImagen, i + 1);
+                        images.Append("</div>");
+                    }
+
+                    litCarouselIndicators.Text = indicators.ToString();
+                    litCarouselImages.Text = images.ToString();
+
                 }
                 else
                 {
