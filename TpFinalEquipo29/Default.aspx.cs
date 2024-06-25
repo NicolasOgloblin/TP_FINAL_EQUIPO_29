@@ -169,7 +169,7 @@ namespace TpFinalEquipo29
 
                 foreach (var item in articulosSeleccionados)
                 {
-                    totalItems += item.Stock;
+                    totalItems += 1;
                 }
 
                 string script = $"document.getElementById('cartItemCount').innerText = '{totalItems}';";
@@ -189,6 +189,12 @@ namespace TpFinalEquipo29
                 var articulo = listArticulos.FirstOrDefault(s => s.Id == articuloId);
                 if (articulo != null)
                 {
+                    if(articulo.Stock < 1)
+                    {
+                        string script = "Swal.fire({ title: 'Advertencia', text: 'Sin stock para este articulo.', icon: 'warning', confirmButtonText: 'OK' });";
+                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
+                        return;
+                    }
                     List<ArticuloEntity> articulosSeleccionados;
                     if (Session["articulosSeleccionados"] == null)
                     {
@@ -199,13 +205,15 @@ namespace TpFinalEquipo29
                         articulosSeleccionados = (List<ArticuloEntity>)Session["articulosSeleccionados"];
                     }
 
+                    if(articulosSeleccionados.Where(s => s.Id == articulo.Id).Count() > 0)
+                    {
+                        Session["articulosSeleccionados"] = articulosSeleccionados;
+                        ActualizarCarrito();
+                        return;
+                    }
                     
                     articulosSeleccionados.Add(articulo);
                     Session["articulosSeleccionados"] = articulosSeleccionados;
-
-                    // Mostrar mensaje de éxito 
-                    string script = "Swal.fire({ title: 'Éxito', text: 'Artículo Agregado al Carrito.', icon: 'success', confirmButtonText: 'OK' });";
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
                 }
 
                 ActualizarCarrito();

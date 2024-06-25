@@ -17,7 +17,8 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <span class="badge badge-pill badge-primary" id="cartItemCount">0</span>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <%--<span class="badge badge-pill badge-primary" id="cartItemCount">0</span>--%>
 
     <style>
         .navbar-nav .nav-item {
@@ -73,7 +74,7 @@
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Gestion">Gestión</a></li>
                      </ul>
                    
-                    <div class="container search-container mt-3 mb-3">
+                    <%--<div class="container search-container mt-3 mb-3">
                        <div class="row">
                            <div class="col-10">
                                <input class="form-control search-bar" type="search" placeholder="Buscar" aria-label="Buscar">
@@ -82,11 +83,16 @@
                                 <button class="btn btn-outline-light" type="submit">Buscar</button>
                            </div>
                         </div>
-                    </div>
+                    </div>--%>
                      
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Carrito"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" runat="server" href="~/Carrito">
+                                <i class="fas fa-shopping-cart"></i> Mi Carrito 
+                                <span class="badge badge-pill badge-primary" id="cartItemCount">0</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
