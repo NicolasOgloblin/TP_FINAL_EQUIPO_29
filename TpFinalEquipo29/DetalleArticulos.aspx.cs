@@ -98,6 +98,13 @@ namespace TpFinalEquipo29
                     litMarca.Text = articuloSeleccionado.Marca.Nombre;
                     litCategoria.Text = articuloSeleccionado.Categoria.Nombre;
                     litDescripcion.Text = articuloSeleccionado.Descripcion;
+                    LitAlto.Text = articuloSeleccionado.Alto.ToString();
+                    LitPeso.Text = articuloSeleccionado.Peso.ToString();
+                    LitAncho.Text = articuloSeleccionado.Ancho.ToString();
+                    LitColor.Text = articuloSeleccionado.Color.ToString();
+                    LitModelo.Text = articuloSeleccionado.Modelo.ToString();
+                    LitOrigen.Text = articuloSeleccionado.Origen.ToString();
+                    LitGarantia.Text = articuloSeleccionado.Garantia_Meses.ToString();
 
                     btnAgregarDetalle.CommandArgument = articuloSeleccionado.Id.ToString();
 

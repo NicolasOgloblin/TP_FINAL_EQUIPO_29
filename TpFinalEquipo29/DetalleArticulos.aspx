@@ -25,19 +25,56 @@
             <div class="col-md-6">
                 <!-- Detalles del artículo -->
                 <h3><asp:Literal ID="litNombre" runat="server" /></h3>
+                <br />
                 <p>Precio: <b>$<asp:Literal ID="litPrecio" runat="server" /></b></p>
+                <br />
                 <asp:LinkButton ID="btnAgregarDetalle" runat="server" CssClass="btn btn-success" OnClick="btnAgregarDetalle_Click" CommandArgument='<%# Eval("Id") %>' Text="Agregar al carrito" />
             </div>
-            <div class="col-md-12">
+            
+            <div class="col-md-9">
                 <!-- Panel de Ficha Técnica -->
-                <div id="panelFichaTecnica" runat="server" class="card p-4 mb-4">
-                    <h4>Descripción</h4>
+              <div id="panelFichaTecnica" runat="server" class="card p-3 mb-3">
+                    <h4>Descripción :</h4>
                     <p><asp:Literal ID="litDescripcion" runat="server" /></p>
-                    <h4>Ficha Técnica:</h4>
-                    <ul class="list-group">
-                        <li class="list-group-item"><h4>Categoría:</h4> <p><asp:Literal ID="litCategoria" runat="server" /></p></li>
-                        <li class="list-group-item"><h4>Marca:</h4> <p><asp:Literal ID="litMarca" runat="server" /></p></li>
-                    </ul>
+                    <h4>Ficha Técnica :</h4>
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="attrib">Categoría</td>
+                            <td><asp:Literal ID="litCategoria" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td class="attrib">Marca</td>
+                            <td><asp:Literal ID="litMarca" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td class="attrib">Alto</td>
+                            <td><asp:Literal ID="LitAlto" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td class="attrib">Peso</td>
+                            <td><asp:Literal ID="LitPeso" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td class="attrib">Ancho</td>
+                            <td><asp:Literal ID="LitAncho" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td class="attrib">Color</td>
+                            <td><asp:Literal ID="LitColor" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td class="attrib">Modelo</td>
+                            <td><asp:Literal ID="LitModelo" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td class="attrib">Origen</td>
+                            <td><asp:Literal ID="LitOrigen" runat="server" /></td>
+                        </tr>
+                        <tr>
+                            <td class="attrib">Meses de Garantía</td> 
+                            <td><asp:Literal ID="LitGarantia" runat="server" /></td> 
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
