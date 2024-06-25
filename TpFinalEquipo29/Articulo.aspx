@@ -3,103 +3,124 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Agregar Nuevo Artículo</h2>
-    <asp:Label ID="lblCodigoArticulo" runat="server" Text="Código del Artículo:"></asp:Label>
-    <asp:TextBox ID="txtCodigoArticulo" runat="server" CssClass="form-control"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="rfvCodigoArticulo" runat="server" ControlToValidate="txtCodigoArticulo"
-        ErrorMessage="El código del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblCategoria" runat="server" Text="Categoría del Artículo:"></asp:Label>
-    <asp:DropDownList ID="ddlCategorias" runat="server" CssClass="form-control"></asp:DropDownList>
-    <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategorias" InitialValue="0"
-        ErrorMessage="Selecciona una categoría." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblMarca" runat="server" Text="Marca del Artículo:"></asp:Label>
-    <asp:DropDownList ID="ddlMarcas" runat="server" CssClass="form-control"></asp:DropDownList>
-    <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarcas"
-        InitialValue="0" ErrorMessage="Selecciona una marca." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblNombre" runat="server" Text="Nombre del Artículo:"></asp:Label>
-    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" 
-        ErrorMessage="El nombre del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblDescripcion" runat="server" Text="Descripción del Artículo:"></asp:Label>
-    <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
-    <br /><br />
-    
-    <asp:Label ID="lblPrecio" runat="server" Text="Precio del Artículo:"></asp:Label>
-    <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="rfvPrecio" runat="server" ControlToValidate="txtPrecio" 
-        ErrorMessage="El precio del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblStock" runat="server" Text="Stock del Artículo:"></asp:Label>
-    <asp:TextBox ID="txtStock" runat="server" CssClass="form-control"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="rfvStock" runat="server" ControlToValidate="txtStock" 
-        ErrorMessage="El stock del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblPeso" runat="server" Text="Peso (kg):"></asp:Label>
-    <asp:TextBox ID="txtPeso" runat="server" CssClass="form-control"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="rfvPeso" runat="server" ControlToValidate="txtPeso" 
-        ErrorMessage="El peso del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblAncho" runat="server" Text="Ancho (cm):"></asp:Label>
-    <asp:TextBox ID="txtAncho" runat="server" CssClass="form-control"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="rfvAncho" runat="server" ControlToValidate="txtAncho" 
-        ErrorMessage="El ancho del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblAlto" runat="server" Text="Alto (cm):"></asp:Label>
-    <asp:TextBox ID="txtAlto" runat="server" CssClass="form-control"></asp:TextBox>
-    <asp:RequiredFieldValidator ID="rfvAlto" runat="server" ControlToValidate="txtAlto" 
-        ErrorMessage="El alto del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblColor" runat="server" Text="Color:"></asp:Label>
-    <asp:TextBox ID="txtColor" runat="server" CssClass="form-control"></asp:TextBox>
-    <br /><br />
-    
-    <asp:Label ID="lblModelo" runat="server" Text="Modelo:"></asp:Label>
-    <asp:TextBox ID="txtModelo" runat="server" CssClass="form-control"></asp:TextBox>
-    <br /><br />
-    
-    <asp:Label ID="lblOrigen" runat="server" Text="Origen:"></asp:Label>
-    <asp:TextBox ID="txtOrigen" runat="server" CssClass="form-control"></asp:TextBox>
-    <br /><br />
-    
-    <asp:Label ID="lblGarantia" runat="server" Text="Garantía:"></asp:Label>
-    <div class="input-group">
-        <asp:TextBox ID="txtGarantiaAnios" runat="server" CssClass="form-control" Width="100"></asp:TextBox>
-        <div class="input-group-append">
-            <span class="input-group-text">años</span>
+    <div class="row">
+        <div class="col-md-6">
+            <asp:Label ID="lblCodigoArticulo" runat="server" Text="Código del Artículo:"></asp:Label>
+            <asp:TextBox ID="txtCodigoArticulo" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvCodigoArticulo" runat="server" ControlToValidate="txtCodigoArticulo"
+                ErrorMessage="El código del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
+            <asp:Label ID="lblCategoria" runat="server" Text="Categoría del Artículo:"></asp:Label>
+            <asp:DropDownList ID="ddlCategorias" runat="server" CssClass="form-control">
+                <asp:ListItem Text="--Seleccione--" Value="0"></asp:ListItem>
+              
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategorias" InitialValue="0"
+                ErrorMessage="Selecciona una categoría." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
+            <asp:Label ID="lblMarca" runat="server" Text="Marca del Artículo:"></asp:Label>
+            <asp:DropDownList ID="ddlMarcas" runat="server" CssClass="form-control">
+                <asp:ListItem Text="--Seleccione--" Value="0"></asp:ListItem>
+               
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarcas"
+                InitialValue="0" ErrorMessage="Selecciona una marca." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
+            <asp:Label ID="lblNombre" runat="server" Text="Nombre del Artículo:"></asp:Label>
+            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" 
+                ErrorMessage="El nombre del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
+            <asp:Label ID="lblDescripcion" runat="server" Text="Descripción del Artículo:"></asp:Label>
+            <asp:TextBox ID="txtDescripcion" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
+            <br /><br />
+
+            <asp:Label ID="lblPrecio" runat="server" Text="Precio del Artículo:"></asp:Label>
+            <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvPrecio" runat="server" ControlToValidate="txtPrecio" 
+                ErrorMessage="El precio del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+             <asp:Label ID="lblOrigen" runat="server" Text="Origen:"></asp:Label>
+ <asp:TextBox ID="txtOrigen" runat="server" CssClass="form-control"></asp:TextBox>
+ <br /><br />
+
+
+        </div>
+
+        <div class="col-md-6">
+            <asp:Label ID="lblStock" runat="server" Text="Stock del Artículo:"></asp:Label>
+            <asp:TextBox ID="txtStock" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvStock" runat="server" ControlToValidate="txtStock" 
+                ErrorMessage="El stock del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
+            <asp:Label ID="lblPeso" runat="server" Text="Peso (kg):"></asp:Label>
+            <asp:TextBox ID="txtPeso" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvPeso" runat="server" ControlToValidate="txtPeso" 
+                ErrorMessage="El peso del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
+            <asp:Label ID="lblAncho" runat="server" Text="Ancho (cm):"></asp:Label>
+            <asp:TextBox ID="txtAncho" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvAncho" runat="server" ControlToValidate="txtAncho" 
+                ErrorMessage="El ancho del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
+            <asp:Label ID="lblAlto" runat="server" Text="Alto (cm):"></asp:Label>
+            <asp:TextBox ID="txtAlto" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvAlto" runat="server" ControlToValidate="txtAlto" 
+                ErrorMessage="El alto del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
+            <asp:Label ID="lblColor" runat="server" Text="Color:"></asp:Label>
+            <asp:TextBox ID="txtColor" runat="server" CssClass="form-control"></asp:TextBox>
+            <br /><br />
+
+            <asp:Label ID="lblModelo" runat="server" Text="Modelo:"></asp:Label>
+            <asp:TextBox ID="txtModelo" runat="server" CssClass="form-control"></asp:TextBox>
+            <br /><br />
+
+            <asp:Label ID="lblUrlImagen" runat="server" Text="URL de la Imagen:"></asp:Label>
+            <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" OnClick="btnAgregarImagen_Click" CssClass="btn btn-secondary" />
+            <br /><br />
+
+             </div>
+
+            
+            <div class="col-md-6">
+
+           
+
+            <asp:Label ID="lblGarantia" runat="server" Text="Garantía:"></asp:Label>
+            <div class="input-group">
+                <asp:TextBox ID="txtGarantiaAnios" runat="server" CssClass="form-control" Width="100"></asp:TextBox>
+                <div class="input-group-append">
+                    <span class="input-group-text">años</span>
+                </div>
+            </div>
+            <asp:RequiredFieldValidator ID="rfvGarantiaAnios" runat="server" ControlToValidate="txtGarantiaAnios" 
+                ErrorMessage="Los años de garantía son obligatorios." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+
+            <div class="input-group mt-6">
+                <asp:TextBox ID="txtGarantiaMeses" runat="server" CssClass="form-control" Width="100"></asp:TextBox>
+                <div class="input-group-append">
+                    <span class="input-group-text">meses</span>
+                </div>
+            </div>
+            <asp:RequiredFieldValidator ID="rfvGarantiaMeses" runat="server" ControlToValidate="txtGarantiaMeses" 
+                ErrorMessage="Los meses de garantía son obligatorios." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
+            <br /><br />
+
         </div>
     </div>
-    <asp:RequiredFieldValidator ID="rfvGarantiaAnios" runat="server" ControlToValidate="txtGarantiaAnios" 
-        ErrorMessage="Los años de garantía son obligatorios." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    
-    <div class="input-group mt-2">
-        <asp:TextBox ID="txtGarantiaMeses" runat="server" CssClass="form-control" Width="100"></asp:TextBox>
-        <div class="input-group-append">
-            <span class="input-group-text">meses</span>
-        </div>
-    </div>
-    <asp:RequiredFieldValidator ID="rfvGarantiaMeses" runat="server" ControlToValidate="txtGarantiaMeses" 
-        ErrorMessage="Los meses de garantía son obligatorios." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
-    <br /><br />
-    
-    <asp:Label ID="lblUrlImagen" runat="server" Text="URL de la Imagen:"></asp:Label>
-    <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control"></asp:TextBox>
-    <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" OnClick="btnAgregarImagen_Click" CssClass="btn btn-secondary" />
-    <br /><br />
-    
+
     <asp:Label ID="lblMensaje" runat="server" ForeColor="Green"></asp:Label>
-    
+
     <asp:Repeater ID="rptImagenes" runat="server">
         <HeaderTemplate>
             <h3>Imágenes Agregadas</h3>
@@ -113,9 +134,9 @@
         </FooterTemplate>
     </asp:Repeater>
     <br /><br />
-    
+
     <asp:Button ID="btnAgregar" runat="server" Text="Agregar Artículo" OnClick="btnAgregar_Click" CssClass="btn btn-primary" ValidationGroup="AgregarArticulo" />
-    <br /><br />
+
     
    <h2>Lista de Artículos</h2>
 <asp:GridView ID="gvArticulos" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"

@@ -168,6 +168,24 @@ namespace TpFinalEquipo29
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPrecio;
 
         /// <summary>
+        /// Control lblOrigen.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOrigen;
+
+        /// <summary>
+        /// Control txtOrigen.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOrigen;
+
+        /// <summary>
         /// Control lblStock.
         /// </summary>
         /// <remarks>
@@ -312,22 +330,31 @@ namespace TpFinalEquipo29
         protected global::System.Web.UI.WebControls.TextBox txtModelo;
 
         /// <summary>
-        /// Control lblOrigen.
+        /// Control lblUrlImagen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOrigen;
+        protected global::System.Web.UI.WebControls.Label lblUrlImagen;
 
         /// <summary>
-        /// Control txtOrigen.
+        /// Control txtUrlImagen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOrigen;
+        protected global::System.Web.UI.WebControls.TextBox txtUrlImagen;
+
+        /// <summary>
+        /// Control btnAgregarImagen.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarImagen;
 
         /// <summary>
         /// Control lblGarantia.
@@ -373,33 +400,6 @@ namespace TpFinalEquipo29
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGarantiaMeses;
-
-        /// <summary>
-        /// Control lblUrlImagen.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUrlImagen;
-
-        /// <summary>
-        /// Control txtUrlImagen.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUrlImagen;
-
-        /// <summary>
-        /// Control btnAgregarImagen.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarImagen;
 
         /// <summary>
         /// Control lblMensaje.
