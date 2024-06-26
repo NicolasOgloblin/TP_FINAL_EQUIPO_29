@@ -10,7 +10,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Gestión de Artículos</h5>
                         <p class="card-text">Administrar los artículos disponibles.</p>
-                        <a href="Articulo.aspx" class="btn btn-primary">Ir a Artículos</a>
+                        <a href="Articulo.aspx" class="btn btn-primary">Listar Articulos</a>
+                        <a href="ArticuloAgregar.aspx" class="btn btn-primary">Agregar Artículos</a>
                     </div>
                 </div>
             </div>

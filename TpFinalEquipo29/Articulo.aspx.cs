@@ -4,12 +4,7 @@ using Business.Marca;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace TpFinalEquipo29
 {
@@ -18,155 +13,42 @@ namespace TpFinalEquipo29
 
         private ArticuloBusiness articuloBusiness;
 
-        private List<string> imagenesUrls
-        {
-            get
-            {
-                if (ViewState["ImagenesUrls"] == null)
-                {
-                    ViewState["ImagenesUrls"] = new List<string>();
-                }
-                return (List<string>)ViewState["ImagenesUrls"];
-            }
-            set
-            {
-                ViewState["ImagenesUrls"] = value;
-            }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             articuloBusiness = new ArticuloBusiness();
             if (!IsPostBack)
             {
-                CargarDropDownListCategorias();
-                CargarDropDownListMarcas();
                 CargarArticulos();
             }
         }
-
-        protected void btnAgregarImagen_Click(object sender, EventArgs e)
+        
+        /*
+        private void CargarArticulosDesdeSesion()
         {
-            string urlImagen = txtUrlImagen.Text;
-            if (!string.IsNullOrEmpty(urlImagen))
+            try
             {
-                imagenesUrls.Add(urlImagen);
-                txtUrlImagen.Text = "";
-                lblMensaje.Text = "Imagen agregada a la lista temporal.";
-                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                // Obtener los artículos desde la sesión
+                List<ArticuloEntity> articulosEnSesion = ObtenerArticulosDesdeSesion();
+
+                // Mostrar los artículos en el GridView
+                gvArticulos.DataSource = articulosEnSesion;
+                gvArticulos.DataBind();
             }
-            else
+            catch (Exception ex)
             {
-                lblMensaje.Text = "La URL de la imagen no puede estar vacía.";
+                lblMensaje.Text = "Error al cargar los artículos desde la sesión: " + ex.Message;
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
 
-        protected void btnAgregar_Click(object sender, EventArgs e)
+        private List<ArticuloEntity> ObtenerArticulosDesdeSesion()
         {
-            if (Page.IsValid)
+            if (Session["Articulos"] == null)
             {
-                try
-                {
-                    string codigoArticulo = txtCodigoArticulo.Text;
-                    string nombreArticulo = txtNombre.Text;
-                    string descripcionArticulo = txtDescripcion.Text;
-                    int categoriaId = Convert.ToInt32(ddlCategorias.SelectedValue);
-                    int marcaId = Convert.ToInt32(ddlMarcas.SelectedValue);
-                    decimal precioArticulo = Convert.ToDecimal(txtPrecio.Text);
-                    int stockArticulo = Convert.ToInt32(txtStock.Text);
-                    decimal pesoArticulo = Convert.ToDecimal(txtPeso.Text);
-                    decimal anchoArticulo = Convert.ToDecimal(txtAncho.Text);
-                    decimal altoArticulo = Convert.ToDecimal(txtAlto.Text);
-                    string colorArticulo = txtColor.Text;
-                    string modeloArticulo = txtModelo.Text;
-                    string origenArticulo = txtOrigen.Text;
-                    int garantiaAnios = Convert.ToInt32(txtGarantiaAnios.Text);
-                    int garantiaMeses = Convert.ToInt32(txtGarantiaMeses.Text);
-
-                    if (articuloBusiness.ArticuloExiste(codigoArticulo))
-                    {
-                        lblMensaje.Text = "El artículo ya existe.";
-                        lblMensaje.ForeColor = System.Drawing.Color.Red;
-                        return;
-                    }
-
-                    var nuevoArticulo = new ArticuloEntity
-                    {
-                        CodArticulo = codigoArticulo,
-                        Nombre = nombreArticulo,
-                        Descripcion = descripcionArticulo,
-                        Categoria = new CategoriaEntity { Id = categoriaId },
-                        Marca = new MarcaEntity { Id = marcaId },
-                        Precio = precioArticulo,
-                        Stock = stockArticulo,
-                        Peso = pesoArticulo,
-                        Ancho = anchoArticulo,
-                        Alto = altoArticulo,
-                        Color = colorArticulo,
-                        Modelo = modeloArticulo,
-                        Origen = origenArticulo,
-                        Garantia_Anios = garantiaAnios,
-                        Garantia_Meses = garantiaMeses,
-                        Imagenes = new List<ImagenEntity>()
-                    };
-
-                    
-                    foreach (var url in imagenesUrls)
-                    {
-                        nuevoArticulo.Imagenes.Add(new ImagenEntity { UrlImagen = url });
-                    }
-
-                    int resultado = articuloBusiness.agregarArticulo(nuevoArticulo);
-
-                    if (resultado > 0)
-                    {
-                        lblMensaje.Text = "Artículo agregado exitosamente.";
-                        lblMensaje.ForeColor = System.Drawing.Color.Green;
-                        LimpiarCampos();
-                        CargarArticulos();
-                        imagenesUrls.Clear();
-                    }
-                    else
-                    {
-                        lblMensaje.Text = "Hubo un problema al agregar el artículo.";
-                        lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    lblMensaje.Text = "Error: " + ex.Message;
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                }
+                Session["Articulos"] = new List<ArticuloEntity>();
             }
-        }
-
-        private void CargarDropDownListCategorias()
-        {
-            var categoriaBusiness = new CategoriaBusiness();
-            var categorias = categoriaBusiness.GetCategorias();
-
-            ddlCategorias.DataSource = categorias;
-            ddlCategorias.DataTextField = "Nombre";
-            ddlCategorias.DataValueField = "Id";
-            ddlCategorias.DataBind();
-
-            ddlCategorias.Items.Insert(0, new ListItem("--Seleccione--", "0"));
-        }
-
-        private void CargarDropDownListMarcas()
-        {
-            var marcaBusiness = new MarcaBusiness();
-            var marcas = marcaBusiness.GetMarcas();
-
-            ddlMarcas.DataSource = marcas;
-            ddlMarcas.DataTextField = "Nombre";
-            ddlMarcas.DataValueField = "Id";
-            ddlMarcas.DataBind();
-
-            
-            ddlMarcas.Items.Insert(0, new ListItem("--Seleccione--", "0"));
-        }
+            return (List<ArticuloEntity>)Session["Articulos"];
+        }*/
 
         private void CargarArticulos()
         {
@@ -182,26 +64,6 @@ namespace TpFinalEquipo29
                 lblMensaje.Text = "Error al cargar los artículos: " + ex.Message;
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
-        }
-
-        private void LimpiarCampos()
-        {
-            txtCodigoArticulo.Text = string.Empty;
-            txtNombre.Text = string.Empty;
-            txtDescripcion.Text = string.Empty;
-            ddlCategorias.SelectedIndex = 0;
-            ddlMarcas.SelectedIndex = 0;
-            txtPrecio.Text = string.Empty;
-            txtStock.Text = string.Empty;
-            txtPeso.Text = string.Empty;
-            txtAncho.Text = string.Empty;
-            txtAlto.Text = string.Empty;
-            txtColor.Text = string.Empty;
-            txtModelo.Text = string.Empty;
-            txtOrigen.Text = string.Empty;
-            txtGarantiaAnios.Text = string.Empty;
-            txtGarantiaMeses.Text = string.Empty;
-            txtUrlImagen.Text = string.Empty;
         }
 
         protected void gvArticulos_RowEditing(object sender, GridViewEditEventArgs e)
