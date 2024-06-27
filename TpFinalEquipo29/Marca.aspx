@@ -6,7 +6,7 @@
 <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
 <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre es obligatorio." ForeColor="Red" ValidationGroup="AgregarMarca"></asp:RequiredFieldValidator>
 <br /><br />
-<asp:Button ID="btnAgregarM" runat="server" Text="Agregar Marca" OnClick="btnAgregarM_Click" CssClass="btn btn-outline-primary" ValidationGroup="AgregarMarca" />
+<asp:Button ID="btnAgregarM" runat="server" Text="Agregar Marca" OnClick="btnAgregarM_Click" CssClass="btn btn-outline-success" ValidationGroup="AgregarMarca" />
 <br /><br />
 <asp:Label ID="lblMensaje" runat="server" ForeColor="Green"></asp:Label>
 
@@ -24,7 +24,7 @@
         </asp:TemplateField>
         <asp:TemplateField>
             <ItemTemplate>
-                <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-outline-success btn-sm" CommandName="Edit" Text="Editar" CausesValidation="False"></asp:LinkButton>
+                <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-outline-info btn-sm" CommandName="Edit" Text="Editar" CausesValidation="False"></asp:LinkButton>
                 <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-outline-danger btn-sm" CommandName="Delete" Text="Eliminar" CausesValidation="False"></asp:LinkButton>
             </ItemTemplate>
             <EditItemTemplate>

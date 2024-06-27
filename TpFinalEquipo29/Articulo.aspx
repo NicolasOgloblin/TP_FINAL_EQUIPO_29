@@ -56,7 +56,7 @@
 
         <asp:TemplateField HeaderText="Acciones">
             <ItemTemplate>
-                <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-outline-success btn-sm"
+                <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-outline-info btn-sm"
                     CommandName="Edit" Text="Editar" CausesValidation="False"></asp:LinkButton>
                 <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-outline-danger btn-sm"
                     CommandName="Delete" Text="Eliminar" CausesValidation="False"></asp:LinkButton>

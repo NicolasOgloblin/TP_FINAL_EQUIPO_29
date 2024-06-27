@@ -10,8 +10,8 @@
                     <div class="card-body">
                         <h5 class="card-title">Gestión de Artículos</h5>
                         <p class="card-text">Administrar los artículos disponibles.</p>
-                        <a href="Articulo.aspx" class="btn btn-primary">Listar Articulos</a>
-                        <a href="ArticuloAgregar.aspx" class="btn btn-primary">Agregar Artículos</a>
+                        <a href="Articulo.aspx" class="btn btn-success">Listar Articulos</a>
+                        <a href="ArticuloAgregar.aspx" class="btn btn-success">Agregar Artículos</a>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Gestión de Categorías</h5>
                         <p class="card-text">Administrar las categorías de los artículos.</p>
-                        <a href="Categoria.aspx" class="btn btn-primary">Ir a Categorías</a>
+                        <a href="Categoria.aspx" class="btn btn-success">Ir a Categorías</a>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Gestión de Marcas</h5>
                         <p class="card-text">Administrar las marcas de los artículos.</p>
-                        <a href="Marca.aspx" class="btn btn-primary">Ir a Marcas</a>
+                        <a href="Marca.aspx" class="btn btn-success">Ir a Marcas</a>
                     </div>
                 </div>
             </div>

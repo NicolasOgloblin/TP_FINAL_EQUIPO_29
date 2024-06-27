@@ -3,6 +3,11 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <style>
+     body {
+            background-color: #a5d6a7;
+            /* Otros estilos para el cuerpo de la página según sea necesario */
+            padding: 20px; /* Ajusta el padding según sea necesario */
+     }
      #pagination a {
          color: black; 
          background-color: white; 
@@ -21,7 +26,8 @@
 }
  </style>
   
- <div class="d-flex flex-column mb-3" style="width: 1000px;">
+ 
+     <div class="d-flex flex-column mb-3" style="width: 1000px;">
 
  <div class="input-group d-flex mb-3" style="width: 253.18px; height: 40px;"> 
      <asp:TextBox ID="txtBuscar" class="form-control me-2"  style="flex: 1;" runat="server" placeholder="Buscar..."></asp:TextBox><%= GetBuscarValue() %>

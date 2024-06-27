@@ -84,7 +84,7 @@
            <asp:Label ID="lblUrlImagen" runat="server" Text="URL de la Imagen:"></asp:Label>
            <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control"></asp:TextBox>
            <br />
-           <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" OnClick="btnAgregarImagen_Click" CssClass="btn btn-outline-primary" />
+           <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" OnClick="btnAgregarImagen_Click" CssClass="btn btn-outline-success" />
            <br />
       </div>
 
@@ -129,7 +129,7 @@
            </asp:Repeater>
            <br />
 
-   <asp:Button ID="btnAgregar" runat="server" Text="Agregar Artículo" OnClick="btnAgregar_Click" CssClass="btn btn-outline-primary" ValidationGroup="AgregarArticulo" />
+   <asp:Button ID="btnAgregar" runat="server" Text="Agregar Artículo" OnClick="btnAgregar_Click" CssClass="btn btn-outline-success" ValidationGroup="AgregarArticulo" />
    
     <asp:Button ID="btnVolver" runat="server" Text="Volver" OnClick="btnVolver_Click" CssClass="btn btn-info" />
    

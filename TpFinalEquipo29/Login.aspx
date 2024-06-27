@@ -19,14 +19,14 @@
                         </div>
                         <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
                         <div class="d-grid mt-3">
-                            <asp:LinkButton Text="Ingresar" CssClass="btn btn-primary" ID="btnLogin" OnClick="btnLogin_Click" runat="server" />
+                            <asp:LinkButton Text="Ingresar" CssClass="btn btn-success" ID="btnLogin" OnClick="btnLogin_Click" runat="server" />
                         </div>
                         <div class="text-center mt-3">
-                            <a href="Registro.aspx">¿No tienes cuenta? Regístrate</a>
-                        </div>
-                        <div class="text-center mt-2">
-                            <a href="">¿Olvidaste tu contraseña?</a>
-                        </div>
+                        <a href="Registro.aspx" style="color: mediumseagreen;">¿No tienes cuenta? Regístrate</a>
+                    </div>
+                    <div class="text-center mt-2">
+                        <a href="#" style="color:  mediumseagreen;">¿Olvidaste tu contraseña?</a>
+                    </div>
                     </div>
                 </div>
             </div>
