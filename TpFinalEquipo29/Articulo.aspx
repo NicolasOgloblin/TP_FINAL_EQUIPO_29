@@ -43,6 +43,7 @@
                 <asp:DropDownList ID="ddlMarcas" runat="server" CssClass="form-control"></asp:DropDownList>
             </EditItemTemplate>
         </asp:TemplateField>
+
         
         <asp:TemplateField HeaderText="Stock">
             <ItemTemplate>
