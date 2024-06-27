@@ -19,7 +19,7 @@ namespace TpFinalEquipo29
             if (!IsPostBack)
             {
                 LoadData();
-                ddlFiltroPrecio.Items.Insert(0, new ListItem("Seleccionar opción", "0"));
+                ddlFiltroPrecio.Items.Insert(0, new ListItem("Ordenar por Precio: ", "0"));
                 ddlFiltroPrecio.Items.Add(new ListItem("De menor a mayor precio", "1"));
                 ddlFiltroPrecio.Items.Add(new ListItem("De mayor a menor precio", "2"));
                 ddlFiltroPrecio.Items[0].Attributes["disabled"] = "disabled";
@@ -235,37 +235,62 @@ namespace TpFinalEquipo29
         
         private void FiltrarArticulos(string terminoBusqueda, int param)
         {
-            var articuloBusinees = new ArticuloBusiness();
+            var articuloBusiness = new ArticuloBusiness();
             var articulosFiltrados = new List<ArticuloEntity>();
 
             try
             {
-                listArticulos = articuloBusinees.GetArticulos();
+                listArticulos = articuloBusiness.GetArticulos();
+                var listImagenesArt = articuloBusiness.GetImagenes();
+                var agruparImagenes = listImagenesArt.GroupBy(s => s.ArticuloId);
+
                 switch (param)
                 {
                     case 1:
+
                         articulosFiltrados = listArticulos.OrderBy(s => s.Precio).ToList();
-                        foreach (var item in articulosFiltrados)
+                        foreach (var item in listImagenesArt)
                         {
-                            foreach(var elmnt in item.Imagenes)
+                            if (!CargarImagen(item.UrlImagen))
                             {
-                                if (!CargarImagen(elmnt.UrlImagen))
-                                { elmnt.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
+                                item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
                             }
                         }
+
+                       
+
+                        foreach (var item in agruparImagenes)
+                        {
+                            var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
+                            if (articulo != null)
+                            {
+                                articulo.Imagenes = item.ToList();
+                            }
+                        }
+
                         break;
 
                     case 2:
                         articulosFiltrados = listArticulos.OrderByDescending(s => s.Precio).ToList();
-                        foreach (var item in articulosFiltrados)
+                        foreach (var item in listImagenesArt)
                         {
-                            foreach (var elmnt in item.Imagenes)
+                            if (!CargarImagen(item.UrlImagen))
                             {
-                                if (!CargarImagen(elmnt.UrlImagen))
-                                { elmnt.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
+                                item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
                             }
-
                         }
+
+
+
+                        foreach (var item in agruparImagenes)
+                        {
+                            var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
+                            if (articulo != null)
+                            {
+                                articulo.Imagenes = item.ToList();
+                            }
+                        }
+
                         break;
 
                     case 3:
@@ -273,15 +298,25 @@ namespace TpFinalEquipo29
                                         .Where(a => a.Nombre.IndexOf(terminoBusqueda, StringComparison.OrdinalIgnoreCase) >= 0)
                                         .ToList();
 
-                        foreach (var item in articulosFiltrados)
+                        foreach (var item in listImagenesArt)
                         {
-                            foreach (var elmnt in item.Imagenes)
+                            if (!CargarImagen(item.UrlImagen))
                             {
-                                if (!CargarImagen(elmnt.UrlImagen))
-                                { elmnt.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais"; }
+                                item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
                             }
-
                         }
+
+
+
+                        foreach (var item in agruparImagenes)
+                        {
+                            var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
+                            if (articulo != null)
+                            {
+                                articulo.Imagenes = item.ToList();
+                            }
+                        }
+
                         break;
 
                 }

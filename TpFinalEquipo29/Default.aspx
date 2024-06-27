@@ -32,31 +32,21 @@
      }
  </style>
   
- 
-     <div class="d-flex flex-column mb-3" style="width: 1000px;">
+ <div class="d-flex flex-column mb-6" style="width: 1000px;">
+     <br />
+    <div class="input-group mb-3" style="width: 253.18px; height: 40px; margin-left: 950px;">
+        <asp:TextBox ID="txtBuscar" class="form-control me-2" style="flex: 1;" runat="server" placeholder="Buscar..."></asp:TextBox> <%= GetBuscarValue() %>
+        <asp:LinkButton ID="btnBuscar" runat="server" CssClass="btn btn-outline-info ms-2" OnClick="btnBuscar_Click" Text="Buscar" style="width: auto; height: 100%;" />
+    </div>
 
- <div class="input-group d-flex mb-3" style="width: 253.18px; height: 40px;"> 
-     <asp:TextBox ID="txtBuscar" class="form-control me-2"  style="flex: 1;" runat="server" placeholder="Buscar..."></asp:TextBox><%= GetBuscarValue() %>
-     <asp:LinkButton ID="btnBuscar" runat="server" CssClass="btn btn-outline-info" OnClick="btnBuscar_Click" Text="Buscar" style="width: auto; height: 100%;"/>
- </div>
-    
- <div class="d-flex">
-     <asp:DropDownList ID="ddlFiltroPrecio" class="form-control me-2" style="width: 253.18px;" OnSelectedIndexChanged="ddlFiltroPrecio_Click" runat="server" AutoPostBack="true"></asp:DropDownList>
- </div>
- </div>
-
-    <div class="sobre-nosotros">
-    <h2>Sobre nosotros:</h2>
-    <p>
-        En <strong>GreenTech</strong>, nos dedicamos a la revitalización de la tecnología mediante el reciclaje y la reventa de productos tecnológicos. Nuestro compromiso se centra en reducir el impacto ambiental asociado con la electrónica, al mismo tiempo que promovemos prácticas sostenibles y la economía circular. Creemos firmemente en contribuir activamente a los objetivos de desarrollo sostenible establecidos en la Agenda 2030 de las Naciones Unidas.
-    </p>
-    <p>
-        Desde nuestro inicio, hemos trabajado para ofrecer soluciones innovadoras que no solo beneficien a nuestros clientes, sino también al medio ambiente. Cada acción que tomamos está guiada por nuestro compromiso con la excelencia, la integridad y la responsabilidad social corporativa.
-    </p>
-    <p>
-        Únete a nosotros en nuestro viaje hacia un futuro más sostenible y responsable con <strong>GreenTech</strong>.
-    </p>
 </div>
+
+
+ <div class="d-flex justify-content-center align-items-start mb-3">
+    <asp:DropDownList ID="ddlFiltroPrecio"  class="form-control me-2" style="width: 200px;" OnSelectedIndexChanged="ddlFiltroPrecio_Click" runat="server" AutoPostBack="true"></asp:DropDownList>
+</div>
+
+   
 
  
  <!-- Estas son las Tarjetas -->
@@ -88,5 +78,17 @@
      </ul>
  </div>
 
+        <div class="sobre-nosotros">
+    <h2>Sobre nosotros:</h2>
+    <p>
+        En <strong>GreenTech</strong>, nos dedicamos a la revitalización de la tecnología mediante el reciclaje y la reventa de productos tecnológicos. Nuestro compromiso se centra en reducir el impacto ambiental asociado con la electrónica, al mismo tiempo que promovemos prácticas sostenibles y la economía circular. Creemos firmemente en contribuir activamente a los objetivos de desarrollo sostenible establecidos en la Agenda 2030 de las Naciones Unidas.
+    </p>
+    <p>
+        Desde nuestro inicio, hemos trabajado para ofrecer soluciones innovadoras que no solo beneficien a nuestros clientes, sino también al medio ambiente. Cada acción que tomamos está guiada por nuestro compromiso con la excelencia, la integridad y la responsabilidad social corporativa.
+    </p>
+    <p>
+        Únete a nosotros en nuestro viaje hacia un futuro más sostenible y responsable con <strong>GreenTech</strong>.
+    </p>
+</div>
 
 </asp:Content>
