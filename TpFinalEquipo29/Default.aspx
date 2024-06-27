@@ -4,26 +4,32 @@
 
     <style>
      body {
-            background-color: #a5d6a7;
-            /* Otros estilos para el cuerpo de la página según sea necesario */
-            padding: 20px; /* Ajusta el padding según sea necesario */
+        background-color: #a5d6a7;
+        padding: 20px; 
      }
      #pagination a {
-         color: black; 
-         background-color: white; 
-         border: 1px solid grey;
+        color: black; 
+        background-color: white; 
+        border: 1px solid grey;
      }
      #pagination a:hover {
-         background-color: white; 
+        background-color: white; 
      }
      #txtBuscar {
-         width: 253.18px;
+        width: 253.18px;
      }
      #imgArticulos {
-    width: 100%;
-    height: 250px; /* Ajusta la altura según tus necesidades */
-    object-fit: cover; /* Ajusta la imagen para que se recorte en lugar de deformarse */
-}
+        width: 100%;
+        height: 250px; 
+        object-fit: cover; 
+     }
+     .sobre-nosotros {
+        border: 1px solid #ccc; 
+        padding: 20px;
+        margin-bottom: 20px; 
+        background-color: #5c9b5e;
+        border-radius: 5px;
+     }
  </style>
   
  
@@ -38,6 +44,19 @@
      <asp:DropDownList ID="ddlFiltroPrecio" class="form-control me-2" style="width: 253.18px;" OnSelectedIndexChanged="ddlFiltroPrecio_Click" runat="server" AutoPostBack="true"></asp:DropDownList>
  </div>
  </div>
+
+    <div class="sobre-nosotros">
+    <h2>Sobre nosotros:</h2>
+    <p>
+        En <strong>GreenTech</strong>, nos dedicamos a la revitalización de la tecnología mediante el reciclaje y la reventa de productos tecnológicos. Nuestro compromiso se centra en reducir el impacto ambiental asociado con la electrónica, al mismo tiempo que promovemos prácticas sostenibles y la economía circular. Creemos firmemente en contribuir activamente a los objetivos de desarrollo sostenible establecidos en la Agenda 2030 de las Naciones Unidas.
+    </p>
+    <p>
+        Desde nuestro inicio, hemos trabajado para ofrecer soluciones innovadoras que no solo beneficien a nuestros clientes, sino también al medio ambiente. Cada acción que tomamos está guiada por nuestro compromiso con la excelencia, la integridad y la responsabilidad social corporativa.
+    </p>
+    <p>
+        Únete a nosotros en nuestro viaje hacia un futuro más sostenible y responsable con <strong>GreenTech</strong>.
+    </p>
+</div>
 
  
  <!-- Estas son las Tarjetas -->
