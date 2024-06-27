@@ -85,7 +85,6 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-
         public List<ImagenEntity> GetImagenes()
         {
             var listImagenes = new List<ImagenEntity>();
@@ -123,7 +122,6 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-
         public List<ImagenEntity> GetImagenById(long artId)
         {
             DataAccess datos = new DataAccess();
@@ -163,13 +161,12 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-        
         public int AgregarArticulo(ArticuloEntity art)
         {
             DataAccess datos = new DataAccess();
 
             #region Consulta
-            string consulta =   @"
+            string consulta = @"
                                 BEGIN TRY
                                 BEGIN TRAN
 
@@ -217,19 +214,19 @@ namespace Dao.Implements
 
                 datos.ejecutarAccion();
 
-                
+
                 for (int i = 1; i < art.Imagenes.Count; i++)
                 {
                     string consultaImagen = @"
                 INSERT INTO IMAGENES (ARTICULOID, IMAGEN)
                 VALUES (@ID, @imagenUrl)";
                     datos.setearConsulta(consultaImagen);
-                    datos.setearParametro("@ID", art.Id); 
+                    datos.setearParametro("@ID", art.Id);
                     datos.setearParametro("@imagenUrl", art.Imagenes[i].UrlImagen);
                     datos.ejecutarAccion();
                 }
 
-                return 1; 
+                return 1;
             }
             catch (Exception ex)
             {
@@ -240,48 +237,43 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-
         public int ModificarArticulo(ArticuloEntity art)
         {
             DataAccess datos = new DataAccess();
 
             #region Consulta
             string consulta = @"
-        BEGIN TRY
-            BEGIN TRAN
+                            BEGIN TRY
+                            BEGIN TRAN
 
-            -- Actualizar ARTICULOS
-            UPDATE ARTICULOS  
-            SET Codigo_Articulo = @codigo, CategoriaID = @idCategoria, MarcaID = @idMarca
-            WHERE ID = @id
+                            -- Actualizar ARTICULOS
+                            UPDATE ARTICULOS  
+                            SET Codigo_Articulo = @codigo, CategoriaID = @idCategoria, MarcaID = @idMarca
+                            WHERE ID = @id
 
-            -- Actualizar ARTICULOS_DETALLE
-            UPDATE ARTICULOS_DETALLE
-            SET Nombre = @nombre, Descripcion = @descripcion, Precio = @precio, Stock = @stock, 
-                Alto = @alto, Ancho = @ancho, Color = @color, Modelo = @modelo, 
-                Origen = @origen, Peso = @peso, Garantia_Anios = @garantiaAnios, 
-                Garantia_Meses = @garantiaMeses
-            WHERE ArticuloID = @id
-        ";
+                            -- Actualizar ARTICULOS_DETALLE
+                            UPDATE ARTICULOS_DETALLE
+                            SET Nombre = @nombre,  Stock = @stock 
+                            WHERE ArticuloID = @id";
 
             if (art.Imagenes != null && art.Imagenes.Count > 0)
             {
                 for (int i = 0; i < art.Imagenes.Count; i++)
                 {
                     consulta += @"
-                INSERT INTO IMAGENES (ArticuloID, UrlImagen)
-                VALUES (@id, @urlImagen" + i + @")";
+                                INSERT INTO IMAGENES (ArticuloID, UrlImagen)
+                                VALUES (@id, @urlImagen" + i + @")";
                 }
             }
 
             consulta += @"
-            COMMIT TRAN
-        END TRY
-        BEGIN CATCH
-            IF @@TRANCOUNT > 0
-                ROLLBACK TRAN;
-            THROW;
-        END CATCH";
+                        COMMIT TRAN
+                        END TRY
+                        BEGIN CATCH
+                        IF @@TRANCOUNT > 0
+                        ROLLBACK TRAN;
+                        THROW;
+                        END CATCH";
             #endregion
 
             try
@@ -289,21 +281,10 @@ namespace Dao.Implements
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@codigo", art.CodArticulo);
                 datos.setearParametro("@nombre", art.Nombre);
-                datos.setearParametro("@descripcion", art.Descripcion);
                 datos.setearParametro("@idMarca", art.Marca.Id);
                 datos.setearParametro("@idCategoria", art.Categoria.Id);
-                datos.setearParametro("@precio", art.Precio);
                 datos.setearParametro("@id", art.Id);
                 datos.setearParametro("@stock", art.Stock);
-                datos.setearParametro("@alto", art.Alto);
-                datos.setearParametro("@ancho", art.Ancho);
-                datos.setearParametro("@color", art.Color);
-                datos.setearParametro("@modelo", art.Modelo);
-                datos.setearParametro("@origen", art.Origen);
-                datos.setearParametro("@peso", art.Peso);
-                datos.setearParametro("@garantiaAnios", art.Garantia_Anios);
-                datos.setearParametro("@garantiaMeses", art.Garantia_Meses);
-
                
                 if (art.Imagenes != null && art.Imagenes.Count > 0)
                 {
@@ -323,7 +304,6 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-       
         public bool Eliminar(long id)
         {
             try
@@ -359,7 +339,6 @@ namespace Dao.Implements
                      throw ex;
                 }
         }
-
         public ArticuloEntity getByID (long id)
         {
             

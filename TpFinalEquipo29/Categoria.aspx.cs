@@ -18,7 +18,6 @@ namespace TpFinalEquipo29
                 CargarCategorias();
             }
         }
-
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
@@ -61,7 +60,6 @@ namespace TpFinalEquipo29
                 }
             }
         }
-
         private void CargarCategorias()
         {
             try
@@ -82,13 +80,11 @@ namespace TpFinalEquipo29
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
-
         protected void gvCategorias_RowEditing(object sender, GridViewEditEventArgs e)
         {
             gvCategorias.EditIndex = e.NewEditIndex;
             CargarCategorias();
         }
-
         protected void gvCategorias_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             GridViewRow row = gvCategorias.Rows[e.RowIndex];
@@ -130,13 +126,11 @@ namespace TpFinalEquipo29
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
-
         protected void gvCategorias_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             gvCategorias.EditIndex = -1;
             CargarCategorias();
         }
-
         protected void gvCategorias_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int id = Convert.ToInt32(gvCategorias.DataKeys[e.RowIndex].Values[0]);
@@ -161,6 +155,10 @@ namespace TpFinalEquipo29
                 lblMensaje.Text = "Error: " + ex.Message;
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
+        }
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Gestion.aspx");
         }
     }
 }

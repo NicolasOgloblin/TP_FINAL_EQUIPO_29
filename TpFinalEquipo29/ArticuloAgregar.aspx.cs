@@ -29,7 +29,6 @@ namespace TpFinalEquipo29
                     ViewState["ImagenesUrls"] = value;
                 }
             }
-
             protected void Page_Load(object sender, EventArgs e)
             {
                 articuloBusinessAgregar = new ArticuloBusiness();
@@ -37,10 +36,8 @@ namespace TpFinalEquipo29
                 {
                     CargarDropDownListCategorias();
                     CargarDropDownListMarcas();
-                   // CargarArticulos();
                 }
             }
-
             protected void btnAgregarImagen_Click(object sender, EventArgs e)
             {
                 string urlImagen = txtUrlImagen.Text;
@@ -57,7 +54,6 @@ namespace TpFinalEquipo29
                     lblMensaje.ForeColor = System.Drawing.Color.Red;
                 }
             }
-
             protected void btnAgregar_Click(object sender, EventArgs e)
             {
                 if (Page.IsValid)
@@ -140,29 +136,25 @@ namespace TpFinalEquipo29
                     }
                 }
             }
-
-        private void GuardarArticuloEnSesion(ArticuloEntity articulo)
-        {
-            // Obtener la lista actual de artículos de la sesión
-            List<ArticuloEntity> articulosEnSesion = ObtenerArticulosDesdeSesion();
-
-            // Agregar el nuevo artículo a la lista
-            articulosEnSesion.Add(articulo);
-
-            // Guardar la lista actualizada en la sesión
-            Session["Articulos"] = articulosEnSesion;
-        }
-
-        private List<ArticuloEntity> ObtenerArticulosDesdeSesion()
-        {
-            if (Session["Articulos"] == null)
+            private void GuardarArticuloEnSesion(ArticuloEntity articulo)
             {
-                Session["Articulos"] = new List<ArticuloEntity>();
-            }
-            return (List<ArticuloEntity>)Session["Articulos"];
-        }
+                List<ArticuloEntity> articulosEnSesion = ObtenerArticulosDesdeSesion();
 
-        private void CargarDropDownListCategorias()
+                articulosEnSesion.Add(articulo);
+
+                Session["Articulos"] = articulosEnSesion;
+            }
+
+            private List<ArticuloEntity> ObtenerArticulosDesdeSesion()
+            {
+                if (Session["Articulos"] == null)
+                {
+                    Session["Articulos"] = new List<ArticuloEntity>();
+                }
+                return (List<ArticuloEntity>)Session["Articulos"];
+            }
+
+            private void CargarDropDownListCategorias()
             {
                 var categoriaBusiness = new CategoriaBusiness();
                 var categorias = categoriaBusiness.GetCategorias();
@@ -184,11 +176,8 @@ namespace TpFinalEquipo29
                 ddlMarcas.DataTextField = "Nombre";
                 ddlMarcas.DataValueField = "Id";
                 ddlMarcas.DataBind();
-
-
                 ddlMarcas.Items.Insert(0, new ListItem("--Seleccione--", "0"));
             }
-        
             private void CargarArticulos()
             {
                 try
@@ -204,7 +193,6 @@ namespace TpFinalEquipo29
                     lblMensaje.ForeColor = System.Drawing.Color.Red;
                 }
             }
-        
             private void LimpiarCampos()
             {
                 txtCodigoArticulo.Text = string.Empty;
@@ -224,13 +212,11 @@ namespace TpFinalEquipo29
                 txtGarantiaMeses.Text = string.Empty;
                 txtUrlImagen.Text = string.Empty;
             }
-        
             protected void gvArticulos_RowEditing(object sender, GridViewEditEventArgs e)
             {
                 gvArticulos.EditIndex = e.NewEditIndex;
                 CargarArticulos();
             }
-        
             protected void gvArticulos_RowUpdating(object sender, GridViewUpdateEventArgs e)
             {
                 try
@@ -246,8 +232,6 @@ namespace TpFinalEquipo29
                     DropDownList ddlCategorias = (DropDownList)row.FindControl("ddlCategorias");
                     TextBox txtPrecio = (TextBox)row.FindControl("txtPrecio");
                     TextBox txtStock = (TextBox)row.FindControl("txtStock");
-
-
                     TextBox txtAlto = (TextBox)row.FindControl("txtAlto");
                     TextBox txtAncho = (TextBox)row.FindControl("txtAncho");
                     TextBox txtColor = (TextBox)row.FindControl("txtColor");
@@ -257,7 +241,6 @@ namespace TpFinalEquipo29
                     TextBox txtGarantiaAnios = (TextBox)row.FindControl("txtGarantiaAnios");
                     TextBox txtGarantiaMeses = (TextBox)row.FindControl("txtGarantiaMeses");
 
-
                     string codigo = txtCodigo.Text;
                     string nombre = txtNombre.Text;
                     string descripcion = txtDescripcion.Text;
@@ -265,7 +248,6 @@ namespace TpFinalEquipo29
                     int categoriaId = Convert.ToInt32(ddlCategorias.SelectedValue);
                     decimal precio = Convert.ToDecimal(txtPrecio.Text);
                     int stock = Convert.ToInt32(txtStock.Text);
-
 
                     decimal alto = Convert.ToDecimal(txtAlto.Text);
                     decimal ancho = Convert.ToDecimal(txtAncho.Text);
@@ -296,9 +278,7 @@ namespace TpFinalEquipo29
                         Garantia_Meses = garantiaMeses
                     };
 
-
                     int resultado = articuloBusinessAgregar.ModificarArticulo(articulo);
-
 
                     if (resultado > 0)
                     {
@@ -319,14 +299,11 @@ namespace TpFinalEquipo29
                     lblMensaje.ForeColor = System.Drawing.Color.Red;
                 }
             }
-
-
             protected void gvArticulos_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
             {
                 gvArticulos.EditIndex = -1;
                 CargarArticulos();
             }
-
             protected void gvArticulos_RowDeleting(object sender, GridViewDeleteEventArgs e)
             {
                 try
@@ -352,7 +329,6 @@ namespace TpFinalEquipo29
                     lblMensaje.ForeColor = System.Drawing.Color.Red;
                 }
             }
-
             protected void gvArticulos_RowDataBound(object sender, GridViewRowEventArgs e)
             {
                 if (e.Row.RowType == DataControlRowType.DataRow && (gvArticulos.EditIndex == e.Row.RowIndex || e.Row.RowIndex == -1))
@@ -388,5 +364,9 @@ namespace TpFinalEquipo29
                     }
                 }
             }
-        }
+            protected void btnVolver_Click(object sender, EventArgs e)
+            {
+                Response.Redirect("~/Gestion.aspx");
+            }
+    }
     }

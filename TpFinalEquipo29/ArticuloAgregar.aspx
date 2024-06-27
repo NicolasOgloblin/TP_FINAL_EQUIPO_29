@@ -44,10 +44,8 @@
                ErrorMessage="El precio del artículo es obligatorio." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
            <br />
             <asp:Label ID="lblOrigen" runat="server" Text="Origen:"></asp:Label>
-<asp:TextBox ID="txtOrigen" runat="server" CssClass="form-control"></asp:TextBox>
-<br />
-
-
+            <asp:TextBox ID="txtOrigen" runat="server" CssClass="form-control"></asp:TextBox>
+           <br />
        </div>
 
        <div class="col-md-6">
@@ -85,15 +83,13 @@
 
            <asp:Label ID="lblUrlImagen" runat="server" Text="URL de la Imagen:"></asp:Label>
            <asp:TextBox ID="txtUrlImagen" runat="server" CssClass="form-control"></asp:TextBox>
-           <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" OnClick="btnAgregarImagen_Click" CssClass="btn btn-secondary" />
            <br />
-
-            </div>
+           <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar Imagen" OnClick="btnAgregarImagen_Click" CssClass="btn btn-outline-primary" />
+           <br />
+      </div>
 
            
            <div class="col-md-6">
-
-          
 
            <asp:Label ID="lblGarantia" runat="server" Text="Garantía:"></asp:Label>
            <div class="input-group">
@@ -114,30 +110,31 @@
            <asp:RequiredFieldValidator ID="rfvGarantiaMeses" runat="server" ControlToValidate="txtGarantiaMeses" 
                ErrorMessage="Los meses de garantía son obligatorios." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
            <br />
+         </div>
+        </div>
 
-       </div>
-   </div>
+           <asp:Label ID="lblMensaje" runat="server" ForeColor="Green"></asp:Label>
 
-   <asp:Label ID="lblMensaje" runat="server" ForeColor="Green"></asp:Label>
+           <asp:Repeater ID="rptImagenes" runat="server">
+               <HeaderTemplate>
+                   <h3>Imágenes Agregadas</h3>
+                   <ul>
+               </HeaderTemplate>
+               <ItemTemplate>
+                   <li><%# Container.DataItem %></li>
+               </ItemTemplate>
+               <FooterTemplate>
+                   </ul>
+               </FooterTemplate>
+           </asp:Repeater>
+           <br />
 
-   <asp:Repeater ID="rptImagenes" runat="server">
-       <HeaderTemplate>
-           <h3>Imágenes Agregadas</h3>
-           <ul>
-       </HeaderTemplate>
-       <ItemTemplate>
-           <li><%# Container.DataItem %></li>
-       </ItemTemplate>
-       <FooterTemplate>
-           </ul>
-       </FooterTemplate>
-   </asp:Repeater>
-   <br />
-
-   <asp:Button ID="btnAgregar" runat="server" Text="Agregar Artículo" OnClick="btnAgregar_Click" CssClass="btn btn-primary" ValidationGroup="AgregarArticulo" />
+   <asp:Button ID="btnAgregar" runat="server" Text="Agregar Artículo" OnClick="btnAgregar_Click" CssClass="btn btn-outline-primary" ValidationGroup="AgregarArticulo" />
+   
+    <asp:Button ID="btnVolver" runat="server" Text="Volver" OnClick="btnVolver_Click" CssClass="btn btn-info" />
    
     <div class="col-md-6">
-            <!-- GridView para mostrar artículos existentes -->
+            
             <asp:GridView ID="gvArticulos" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
                 OnRowEditing="gvArticulos_RowEditing" OnRowUpdating="gvArticulos_RowUpdating"
                 OnRowCancelingEdit="gvArticulos_RowCancelingEdit" OnRowDeleting="gvArticulos_RowDeleting"
@@ -266,9 +263,9 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
-                            <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-primary btn-sm"
+                            <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-success btn-sm"
                                 CommandName="Edit" Text="Editar" CausesValidation="False"></asp:LinkButton>
-                            <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-sm"
+                            <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-outline-danger btn-sm"
                                 CommandName="Delete" Text="Eliminar" CausesValidation="False"></asp:LinkButton>
                         </ItemTemplate>
                         <EditItemTemplate>

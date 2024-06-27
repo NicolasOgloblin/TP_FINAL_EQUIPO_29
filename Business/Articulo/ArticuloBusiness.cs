@@ -23,7 +23,6 @@ namespace Business.Articulo
                 throw ex;
             }
         }
-
         public List<ImagenEntity> GetImagenes()
         {
             var listImagenes = new List<ImagenEntity>();
@@ -39,7 +38,6 @@ namespace Business.Articulo
                 throw ex;
             }
         }
-
         public int agregarArticulo(ArticuloEntity nuevo)
         {
             ArticuloImp artImp = new ArticuloImp();
@@ -53,7 +51,6 @@ namespace Business.Articulo
                 throw ex;
             }
         }
-
         public bool Eliminar(long id)
         {
             ArticuloImp articuloImp = new ArticuloImp();
@@ -82,7 +79,6 @@ namespace Business.Articulo
                 throw ex;
             }
         }
-
         public ArticuloEntity getByID(long id)
         {
             ArticuloImp articulo = new ArticuloImp();
@@ -97,7 +93,6 @@ namespace Business.Articulo
             }
 
         }
-
         public List<ImagenEntity> getImagenByID(long id)
         {
             ArticuloImp articulo = new ArticuloImp();

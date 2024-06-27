@@ -6,7 +6,7 @@
     <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"></asp:TextBox>
     <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre es obligatorio." ForeColor="Red" ValidationGroup="AgregarCategoria"></asp:RequiredFieldValidator>
     <br /><br />
-    <asp:Button ID="btnAgregar" runat="server" Text="Agregar Categoría" OnClick="btnAgregar_Click" CssClass="btn btn-primary" ValidationGroup="AgregarCategoria" />
+    <asp:Button ID="btnAgregar" runat="server" Text="Agregar Categoría" OnClick="btnAgregar_Click" CssClass="btn btn-outline-primary" ValidationGroup="AgregarCategoria" />
     <br /><br />
     <asp:Label ID="lblMensaje" runat="server" ForeColor="Green"></asp:Label>
 
@@ -24,8 +24,8 @@
             </asp:TemplateField>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-primary btn-sm" CommandName="Edit" Text="Editar" CausesValidation="False"></asp:LinkButton>
-                    <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-sm" CommandName="Delete" Text="Eliminar" CausesValidation="False"></asp:LinkButton>
+                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-outline-success btn-sm" CommandName="Edit" Text="Editar" CausesValidation="False"></asp:LinkButton>
+                    <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-outline-danger btn-sm" CommandName="Delete" Text="Eliminar" CausesValidation="False"></asp:LinkButton>
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:LinkButton ID="btnActualizar" runat="server" CssClass="btn btn-success btn-sm" CommandName="Update" Text="OK" CausesValidation="False"></asp:LinkButton>
@@ -34,4 +34,7 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
+
+    <asp:Button ID="btnVolver" runat="server" Text="Volver" OnClick="btnVolver_Click" CssClass="btn btn-info" />
+
 </asp:Content>

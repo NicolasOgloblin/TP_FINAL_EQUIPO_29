@@ -160,5 +160,10 @@ namespace TpFinalEquipo29
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Gestion.aspx");
+        }
     }
 }
