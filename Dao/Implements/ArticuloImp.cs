@@ -85,6 +85,7 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+
         public List<ImagenEntity> GetImagenes()
         {
             var listImagenes = new List<ImagenEntity>();
@@ -122,6 +123,7 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+
         public List<ImagenEntity> GetImagenById(long artId)
         {
             DataAccess datos = new DataAccess();
@@ -161,6 +163,46 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+
+        public int AgregarImagenes(List<ImagenEntity> imagenes)
+        {
+            //DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta = @"INSERT INTO IMAGENES
+                                VALUES(@articuloId,@imagen)";
+            #endregion
+
+            try
+            {
+
+                foreach (var imagen in imagenes)
+                {
+
+                    DataAccess datos = new DataAccess();
+                    try
+                    {
+                        datos.setearConsulta(consulta);
+                        datos.setearParametro("@articuloId", imagen.ArticuloId);
+                        datos.setearParametro("@imagen", imagen.UrlImagen);
+
+                        datos.ejecutarAccion();
+                    }
+                    finally
+                    {
+                        datos.cerrarConexion();
+                    }
+                }
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+
         public int AgregarArticulo(ArticuloEntity art)
         {
             DataAccess datos = new DataAccess();
@@ -180,9 +222,6 @@ namespace Dao.Implements
                                 (ARTICULOID, NOMBRE, DESCRIPCION, ALTO, ANCHO, COLOR, MODELO, ORIGEN, PESO, GARANTIA_ANIOS, GARANTIA_MESES, PRECIO, STOCK)
                                 VALUES 
                                 (@ID, @nombre, @descripcion, @alto, @ancho, @color, @modelo, @origen, @peso, @garantiaAnios, @garantiaMeses, @precio, @stock);
-
-                                INSERT INTO IMAGENES (ARTICULOID, IMAGEN)
-                                VALUES (@ID, @imagenUrl);
 
                                 COMMIT TRAN
                                 END TRY
@@ -210,33 +249,21 @@ namespace Dao.Implements
                 datos.setearParametro("@garantiaMeses", art.Garantia_Meses);
                 datos.setearParametro("@precio", art.Precio);
                 datos.setearParametro("@stock", art.Stock);
-                datos.setearParametro("@imagenUrl", art.Imagenes[0].UrlImagen);
 
-                datos.ejecutarAccion();
+                var result = datos.ejecutarAccion();
 
-
-                for (int i = 1; i < art.Imagenes.Count; i++)
-                {
-                    string consultaImagen = @"
-                INSERT INTO IMAGENES (ARTICULOID, IMAGEN)
-                VALUES (@ID, @imagenUrl)";
-                    datos.setearConsulta(consultaImagen);
-                    datos.setearParametro("@ID", art.Id);
-                    datos.setearParametro("@imagenUrl", art.Imagenes[i].UrlImagen);
-                    datos.ejecutarAccion();
-                }
-
-                return 1;
+                return result;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al agregar el artículo", ex);
+                throw ex;
             }
             finally
             {
                 datos.cerrarConexion();
             }
         }
+
         public int ModificarArticulo(ArticuloEntity art)
         {
             DataAccess datos = new DataAccess();
@@ -253,27 +280,18 @@ namespace Dao.Implements
 
                             -- Actualizar ARTICULOS_DETALLE
                             UPDATE ARTICULOS_DETALLE
-                            SET Nombre = @nombre,  Stock = @stock 
-                            WHERE ArticuloID = @id";
+                            SET Nombre = @nombre, DESCRIPCION = @descripcion, ALTO = @alto, ANCHO = @ancho, COLOR = @color, 
+                            MODELO = @modelo, ORIGEN = @origen, PESO = @peso, GARANTIA_ANIOS = @ganios, GARANTIA_MESES = @gmeses Stock = @stock
+                            WHERE ArticuloID = @id
 
-            if (art.Imagenes != null && art.Imagenes.Count > 0)
-            {
-                for (int i = 0; i < art.Imagenes.Count; i++)
-                {
-                    consulta += @"
-                                INSERT INTO IMAGENES (ArticuloID, UrlImagen)
-                                VALUES (@id, @urlImagen" + i + @")";
-                }
-            }
+                            COMMIT TRAN
+                            END TRY
+                            BEGIN CATCH
+                            IF @@TRANCOUNT > 0
+                            ROLLBACK TRAN;
+                            END CATCH";
 
-            consulta += @"
-                        COMMIT TRAN
-                        END TRY
-                        BEGIN CATCH
-                        IF @@TRANCOUNT > 0
-                        ROLLBACK TRAN;
-                        THROW;
-                        END CATCH";
+                        
             #endregion
 
             try
@@ -286,13 +304,6 @@ namespace Dao.Implements
                 datos.setearParametro("@id", art.Id);
                 datos.setearParametro("@stock", art.Stock);
                
-                if (art.Imagenes != null && art.Imagenes.Count > 0)
-                {
-                    for (int i = 0; i < art.Imagenes.Count; i++)
-                    {
-                        datos.setearParametro("@urlImagen" + i, art.Imagenes[i]);
-                    }
-                }
                 return datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -304,6 +315,7 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+
         public bool Eliminar(long id)
         {
             try
@@ -339,6 +351,7 @@ namespace Dao.Implements
                      throw ex;
                 }
         }
+
         public ArticuloEntity getByID (long id)
         {
             
@@ -348,8 +361,8 @@ namespace Dao.Implements
             string consulta = @"SELECT  
                                 A.ID, 
                                 A.CODIGO_ARTICULO, 
-                                A.NOMBRE, 
-                                A.DESCRIPCION, 
+                                AD.NOMBRE, 
+                                AD.DESCRIPCION, 
                                 ISNULL(AD.PRECIO,0) AS PRECIO,
                                 ISNULL(AD.STOCK,0) AS STOCK,
                                 M.NOMBRE AS NOMBREMARCA,
@@ -359,7 +372,7 @@ namespace Dao.Implements
                                 INNER JOIN MARCAS M ON (A.MARCAID=M.ID)
                                 INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)
                                 WHERE A.ID = @id
-                                GROUP BY A.ID, A.NOMBRE, A.DESCRIPCION, M.NOMBRE, C.NOMBRE,
+                                GROUP BY A.ID, AD.NOMBRE, AD.DESCRIPCION, M.NOMBRE, C.NOMBRE,
                                 AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
 
             try
@@ -396,6 +409,65 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+
+        public ArticuloEntity getByCodArticulo(string codArt)
+        {
+
+            DataAccess datos = new DataAccess();
+
+
+            string consulta = @"SELECT  
+                                A.ID, 
+                                A.CODIGO_ARTICULO, 
+                                AD.NOMBRE, 
+                                AD.DESCRIPCION, 
+                                ISNULL(AD.PRECIO,0) AS PRECIO,
+                                ISNULL(AD.STOCK,0) AS STOCK,
+                                M.NOMBRE AS NOMBREMARCA,
+                                C.NOMBRE AS NOMBRECATEGORIA
+                                FROM ARTICULOS A
+                                INNER JOIN ARTICULOS_DETALLE AD ON (A.ID = AD.ARTICULOID)
+                                INNER JOIN MARCAS M ON (A.MARCAID=M.ID)
+                                INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)
+                                WHERE A.CODIGO_ARTICULO = @codArt
+                                GROUP BY A.ID, AD.NOMBRE, AD.DESCRIPCION, M.NOMBRE, C.NOMBRE,
+                                AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@codArt", codArt);
+                datos.ejecutarLectura();
+
+                var articulo = new ArticuloEntity();
+
+                if (datos.Reader.Read())
+                {
+                    articulo.Id = (long)datos.Reader["ID"];
+                    articulo.CodArticulo = (string)datos.Reader["CODIGO_ARTICULO"];
+                    articulo.Nombre = (string)datos.Reader["NOMBRE"];
+                    articulo.Descripcion = (string)datos.Reader["DESCRIPCION"];
+                    articulo.Marca = new MarcaEntity();
+                    articulo.Categoria = new CategoriaEntity();
+                    articulo.Marca.Nombre = (string)datos.Reader["NOMBREMARCA"];
+                    articulo.Categoria.Nombre = (string)datos.Reader["NOMBRECATEGORIA"];
+                    articulo.Precio = (decimal)datos.Reader["PRECIO"];
+                    articulo.Stock = (int)datos.Reader["STOCK"];
+
+                }
+                return articulo;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public bool ArticuloExiste(string codigoArticulo)
         {
             DataAccess datos = new DataAccess();

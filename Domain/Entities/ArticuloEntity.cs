@@ -16,7 +16,6 @@ namespace Domain.Entities
         public DateTime FechaAgregado { get; set; }
         public decimal Precio { get; set; } = 0;
         public int Stock { get; set; } = 0;
-        public int Cantidad { get; set; } = 1;
         public decimal Alto { get; set; }
         public decimal Peso { get; set; }
         public decimal Ancho { get; set;}

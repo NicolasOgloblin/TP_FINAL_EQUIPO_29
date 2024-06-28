@@ -40,49 +40,16 @@ namespace TpFinalEquipo29
 
         }
 
-
-        private bool CargarImagen(string url)
-        {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "HEAD";
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    return (response.StatusCode == HttpStatusCode.OK);
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         private void CargarDetallesArticulo(int id)
         {
             var articuloBusiness = new ArticuloBusiness();
             try
             {
                 listArticulos = articuloBusiness.GetArticulos();
-                var listImagenesArt = articuloBusiness.GetImagenes();
-
-                foreach (var item in listImagenesArt)
+                
+                foreach (var item in listArticulos)
                 {
-                    if (!CargarImagen(item.UrlImagen))
-                    {
-                        item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
-                    }
-                }
-
-                var agruparImagenes = listImagenesArt.GroupBy(s => s.ArticuloId);
-
-                foreach (var item in agruparImagenes)
-                {
-                    var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
-                    if (articulo != null)
-                    {
-                        articulo.Imagenes = item.ToList();
-                    }
+                    item.Imagenes = articuloBusiness.getImagenByID(item.Id);
                 }
 
                 var articuloSeleccionado = listArticulos.FirstOrDefault(a => a.Id == id);
@@ -120,7 +87,7 @@ namespace TpFinalEquipo29
 
                         // Imágenes del carrusel
                         images.AppendFormat("<div class=\"carousel-item {0}\">", activeClass);
-                        images.AppendFormat("<img src=\"{0}\" class=\"d-block w-100\" alt=\"Imagen {1}\">", articuloSeleccionado.Imagenes[i].UrlImagen, i + 1);
+                        images.AppendFormat("<img src=\"{0}\" class=\"d-block w-100\" alt=\"Imagen {1}\">", ResolveUrl("~/Imagenes/" + articuloSeleccionado.Imagenes[i].UrlImagen), i + 1);
                         images.Append("</div>");
                     }
 
@@ -157,11 +124,9 @@ namespace TpFinalEquipo29
             string result = "";
             for (int i = 0; i < imagenes.Count; i++)
             {
-                if (i == 0)
-                    result += "<div class=\"carousel-item active\">";
-                else
-                    result += "<div class=\"carousel-item\">";
-                result += "<img class=\"d-block w-100\" src=\"" + imagenes[i].UrlImagen + "\" alt=\"Imagen " + (i + 1) + "\">";
+                string activeClass = i == 0 ? "active" : "";
+                result += $"<div class=\"carousel-item {activeClass}\">";
+                result += $"<img class=\"d-block w-100\" src=\"{ResolveUrl("~/Imagenes/" + imagenes[i].UrlImagen)}\" alt=\"Imagen {i + 1}\">";
                 result += "</div>";
             }
             return result;
@@ -177,7 +142,7 @@ namespace TpFinalEquipo29
 
                 foreach (var item in articulosSeleccionados)
                 {
-                    totalItems += item.Cantidad;
+                    totalItems += 1;
                 }
 
                 string script = $"document.getElementById('cartItemCount').innerText = '{totalItems}';";

@@ -59,7 +59,7 @@
              <div class="col">
                  <div class="card">
                      <asp:Image runat="server" ID="imgArticulo" CssClass="card-img-top" />
-                     <img ID="imgArticulos" src='<%# Eval("Imagenes[0].UrlImagen") %>' alt="Imagen del artículo">
+                     <asp:Image runat="server" ID="Image1" CssClass="card-img-top" ImageUrl='<%# ResolveUrl("~/Imagenes/" + Eval("Imagenes[0].UrlImagen")) %>' />
                      <div class="card-body">
                          <h5 class="card-title"><%# Eval("Nombre") %></h5>
                          <p class="card-text">Precio: <b>$<%# Eval("Precio") %></b></p> 

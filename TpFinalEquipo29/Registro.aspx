@@ -3,18 +3,26 @@
 
     <div class="container mt-4">
         <h2>Registro de Usuario</h2>
-            <div class="form-group">
+        <div class="row"> 
+            <div class="col-md-6">
+                <div class="form-group">
                 <label for="txtNombre">Nombre</label>
                 <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ingrese su nombre"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El campo Nombre es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="revNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre debe tener un minimo de 3 y maximo 70 caracteres" ValidationExpression="^.{3,70}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
-            <div class="form-group">
-                <label for="txtApellido">Apellido</label>
-                <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Ingrese su apellido"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellido" ErrorMessage="El campo Apellido es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revApellido" runat="server" ControlToValidate="txtApellido" ErrorMessage="El apellido debe tener un minimo de 3 y maximo 70 caracteres" ValidationExpression="^.{3,70}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
+            <div class="col-md-6">
+            <div class="form-group">
+            <label for="txtApellido">Apellido</label>
+            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Ingrese su apellido"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvApellido" runat="server" ControlToValidate="txtApellido" ErrorMessage="El campo Apellido es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="revApellido" runat="server" ControlToValidate="txtApellido" ErrorMessage="El apellido debe tener un minimo de 3 y maximo 70 caracteres" ValidationExpression="^.{3,70}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
+            </div>
+            </div>
+        </div>
+        
+            <div class="col-md-6 " style="display:flex;align-content:start;flex-direction:column">
             <div class="form-group">
                 <label for="txtDNI">DNI</label>
                 <asp:TextBox ID="txtDNI" runat="server" CssClass="form-control" placeholder="Ingrese su DNI"></asp:TextBox>
@@ -22,22 +30,26 @@
                 <asp:RegularExpressionValidator ID="revDNI" runat="server" ControlToValidate="txtDNI" ErrorMessage="Solo numeros Maximo:9" ValidationExpression="^\d{7,9}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
             <div class="form-group">
+            <label for="txtContrasenia">Contraseña</label>
+            <asp:TextBox ID="txtContrasenia" runat="server" CssClass="form-control" TextMode="Password" placeholder="Ingrese su contraseña"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvContrasenia" runat="server" ControlToValidate="txtContrasenia" ErrorMessage="El campo Contraseña es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="revContrasenia" runat="server" ControlToValidate="txtContrasenia" ErrorMessage="La contraseña debe tener al menos 8 caracteres" ValidationExpression="^.{8,30}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
+        </div>
+            </div>
+        <div class="col-md-6" style="display:flex;align-content:end;flex-direction:column">
+            <div class="form-group">
                 <label for="txtUsuario">Usuario</label>
                 <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" placeholder="Ingrese su nombre de usuario"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvUsuario" runat="server" ControlToValidate="txtUsuario" ErrorMessage="El campo Usuario es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="revUsuario" runat="server" ControlToValidate="txtUsuario" ErrorMessage="El usuario debe tener un minimo de 5 y maximo 30 caracteres" ValidationExpression="^.{5,30}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
-            <div class="form-group">
-                <label for="txtContrasenia">Contraseña</label>
-                <asp:TextBox ID="txtContrasenia" runat="server" CssClass="form-control" TextMode="Password" placeholder="Ingrese su contraseña"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="rfvContrasenia" runat="server" ControlToValidate="txtContrasenia" ErrorMessage="El campo Contraseña es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="revContrasenia" runat="server" ControlToValidate="txtContrasenia" ErrorMessage="La contraseña debe tener al menos 8 caracteres" ValidationExpression="^.{8,30}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
-            </div>
+            
             <div class="form-group">
                 <label for="txtConfirmarContrasenia">Confirmar Contraseña</label>
                 <asp:TextBox ID="txtConfirmarContrasenia" runat="server" CssClass="form-control" TextMode="Password" placeholder="Confirme su contraseña"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvConfirmarContrasenia" runat="server" ControlToValidate="txtConfirmarContrasenia" ErrorMessage="El campo Confirmar Contraseña es obligatorio" CssClass="text-danger" Display="Dynamic"></asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="cvContrasenia" runat="server" ControlToValidate="txtConfirmarContrasenia" ControlToCompare="txtContrasenia" ErrorMessage="Las contraseñas no coinciden" CssClass="text-danger" Display="Dynamic"></asp:CompareValidator>
+            </div>
             </div>
             <div class="form-group">
                 <label for="txtEmail">Email</label>

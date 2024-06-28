@@ -29,7 +29,7 @@ namespace TpFinalEquipo29
 
                 foreach (var item in articulosSeleccionados)
                 {
-                    totalItems += item.Cantidad;
+                    totalItems += 1;
                 }
 
                 string script = $"document.getElementById('cartItemCount').innerText = '{totalItems}';";
@@ -49,7 +49,7 @@ namespace TpFinalEquipo29
 
                 foreach (var item in carrito)
                 {
-                    total += item.Precio * item.Cantidad;
+                    total += item.Precio * 1;
                 }
 
                 lblTotal.Text = "Total: " + total.ToString("C");
@@ -70,7 +70,6 @@ namespace TpFinalEquipo29
 
             if (articulo != null)
             {
-                articulo.Cantidad += 1;
                 Session["articulosSeleccionados"] = carrito;
                 BindGrid();
             }
@@ -85,9 +84,9 @@ namespace TpFinalEquipo29
             var carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
             var articulo = carrito.FirstOrDefault(a => a.Id == articuloId);
 
-            if (articulo != null && articulo.Cantidad > 1)
+            if (articulo != null)
             {
-                articulo.Cantidad -= 1;
+                
                 Session["articulosSeleccionados"] = carrito;
                 BindGrid();
             }

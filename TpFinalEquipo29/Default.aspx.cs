@@ -2,6 +2,7 @@
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -63,30 +64,13 @@ namespace TpFinalEquipo29
             {
                 listArticulos = articuloBusinees.GetArticulos();
 
-                var listImagenesArt = articuloBusinees.GetImagenes();
+                var imagenes = new List<string>();
 
-                foreach (var item in listImagenesArt)
+                foreach (var item in listArticulos)
                 {
-                    if (!CargarImagen(item.UrlImagen))
-                    {
-                        item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
-                    }
+                    item.Imagenes = articuloBusinees.getImagenByID(item.Id);
                 }
-
-                var agruparImagenes = listImagenesArt.GroupBy(s => s.ArticuloId);
-
-                foreach(var item in agruparImagenes)
-                {
-                    foreach(var elmnt in listArticulos)
-                    {
-                        if(item.Key == elmnt.Id)
-                        {
-                            elmnt.Imagenes = new List<ImagenEntity>();
-                            elmnt.Imagenes = item.ToList();
-                        }
-                    }
-                }
-
+                
                 ViewState["articulos"] = listArticulos;
 
                 ActualizarCarrito();
@@ -119,23 +103,6 @@ namespace TpFinalEquipo29
                 pageIndex = Convert.ToInt32(Request.QueryString["page"]);
             }
             return pageIndex;
-        }
-
-        private bool CargarImagen(string url)
-        {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "HEAD";
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    return (response.StatusCode == HttpStatusCode.OK);
-                }
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         protected void btnDetalles_Click(object sender, EventArgs e)
@@ -241,54 +208,24 @@ namespace TpFinalEquipo29
             try
             {
                 listArticulos = articuloBusiness.GetArticulos();
-                var listImagenesArt = articuloBusiness.GetImagenes();
-                var agruparImagenes = listImagenesArt.GroupBy(s => s.ArticuloId);
 
                 switch (param)
                 {
                     case 1:
 
                         articulosFiltrados = listArticulos.OrderBy(s => s.Precio).ToList();
-                        foreach (var item in listImagenesArt)
+                        foreach (var item in listArticulos)
                         {
-                            if (!CargarImagen(item.UrlImagen))
-                            {
-                                item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
-                            }
+                            item.Imagenes = articuloBusiness.getImagenByID(item.Id);
                         }
-
                        
-
-                        foreach (var item in agruparImagenes)
-                        {
-                            var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
-                            if (articulo != null)
-                            {
-                                articulo.Imagenes = item.ToList();
-                            }
-                        }
-
                         break;
 
                     case 2:
                         articulosFiltrados = listArticulos.OrderByDescending(s => s.Precio).ToList();
-                        foreach (var item in listImagenesArt)
+                        foreach (var item in listArticulos)
                         {
-                            if (!CargarImagen(item.UrlImagen))
-                            {
-                                item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
-                            }
-                        }
-
-
-
-                        foreach (var item in agruparImagenes)
-                        {
-                            var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
-                            if (articulo != null)
-                            {
-                                articulo.Imagenes = item.ToList();
-                            }
+                            item.Imagenes = articuloBusiness.getImagenByID(item.Id);
                         }
 
                         break;
@@ -298,23 +235,9 @@ namespace TpFinalEquipo29
                                         .Where(a => a.Nombre.IndexOf(terminoBusqueda, StringComparison.OrdinalIgnoreCase) >= 0)
                                         .ToList();
 
-                        foreach (var item in listImagenesArt)
+                        foreach (var item in listArticulos)
                         {
-                            if (!CargarImagen(item.UrlImagen))
-                            {
-                                item.UrlImagen = "https://img.freepik.com/vector-gratis/ilustracion-icono-galeria_53876-27002.jpg?size=626&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=ais";
-                            }
-                        }
-
-
-
-                        foreach (var item in agruparImagenes)
-                        {
-                            var articulo = listArticulos.FirstOrDefault(a => a.Id == item.Key);
-                            if (articulo != null)
-                            {
-                                articulo.Imagenes = item.ToList();
-                            }
+                            item.Imagenes = articuloBusiness.getImagenByID(item.Id);
                         }
 
                         break;

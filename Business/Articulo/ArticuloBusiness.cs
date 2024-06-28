@@ -38,6 +38,7 @@ namespace Business.Articulo
                 throw ex;
             }
         }
+
         public int agregarArticulo(ArticuloEntity nuevo)
         {
             ArticuloImp artImp = new ArticuloImp();
@@ -51,6 +52,21 @@ namespace Business.Articulo
                 throw ex;
             }
         }
+
+        public int AgregarImagenes(List<ImagenEntity> imagenes)
+        {
+            ArticuloImp artImp = new ArticuloImp();
+            try
+            {
+                return artImp.AgregarImagenes(imagenes);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public bool Eliminar(long id)
         {
             ArticuloImp articuloImp = new ArticuloImp();
@@ -79,6 +95,7 @@ namespace Business.Articulo
                 throw ex;
             }
         }
+
         public ArticuloEntity getByID(long id)
         {
             ArticuloImp articulo = new ArticuloImp();
@@ -93,6 +110,22 @@ namespace Business.Articulo
             }
 
         }
+
+        public ArticuloEntity getByCodArt(string codArt)
+        {
+            ArticuloImp articulo = new ArticuloImp();
+            try
+            {
+                return articulo.getByCodArticulo(codArt);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
         public List<ImagenEntity> getImagenByID(long id)
         {
             ArticuloImp articulo = new ArticuloImp();
