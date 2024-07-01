@@ -64,5 +64,44 @@ namespace Business.Usuario
                 throw ex;
             }
         }
+
+        public bool ActualizarUsuario(UsuarioEntity usuario)
+        {
+            var usuarioDao = new UsuarioImp();
+            try
+            {
+                return usuarioDao.ActualizarUsuario(usuario);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool ActualizarContrasenia(UsuarioEntity usuario, string nuevaContrasenia)
+        {
+            var usuarioDao = new UsuarioImp();
+            var encrypt = new Encrypt();
+            try
+            {
+                string newSalt = encrypt.GenerateSalt();
+                string hashedPassword = encrypt.HashPasswordWithSalt(nuevaContrasenia, newSalt);
+
+                usuario.Contrasenia = hashedPassword;
+                usuario.Salt = newSalt;
+
+                return usuarioDao.ActualizarContrasenia(usuario, nuevaContrasenia);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool VerificarContraseniaActual(UsuarioEntity usuario, string contraseniaActual)
+        {
+            var encrypt = new Encrypt();
+            return encrypt.VerifyPassword(contraseniaActual, usuario.Contrasenia, usuario.Salt);
+        }
     }
 }

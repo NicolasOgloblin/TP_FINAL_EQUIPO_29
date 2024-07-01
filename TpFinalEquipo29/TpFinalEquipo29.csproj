@@ -104,6 +104,7 @@
   <ItemGroup>
     <Content Include="Articulo.aspx" />
     <Content Include="ArticuloAgregar.aspx" />
+    <Content Include="CambiarContraseña.aspx" />
     <Content Include="Categoria.aspx" />
     <Content Include="Carrito.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -123,8 +124,10 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="DatosPersonales.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DetalleArticulos.aspx" />
+    <Content Include="Direccion.aspx" />
     <Content Include="Estadistica.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Gestion.aspx" />
@@ -132,6 +135,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Marca.aspx" />
     <Content Include="miCuenta.aspx" />
+    <Content Include="ModificarMail.aspx" />
     <Content Include="Pagos.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -210,6 +214,13 @@
     <Compile Include="ArticuloAgregar.aspx.designer.cs">
       <DependentUpon>ArticuloAgregar.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CambiarContraseña.aspx.cs">
+      <DependentUpon>CambiarContraseña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CambiarContraseña.aspx.designer.cs">
+      <DependentUpon>CambiarContraseña.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Categoria.aspx.cs">
       <DependentUpon>Categoria.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -226,6 +237,13 @@
     <Compile Include="Carrito.aspx.designer.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DatosPersonales.aspx.cs">
+      <DependentUpon>DatosPersonales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DatosPersonales.aspx.designer.cs">
+      <DependentUpon>DatosPersonales.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -239,6 +257,13 @@
     </Compile>
     <Compile Include="DetalleArticulos.aspx.designer.cs">
       <DependentUpon>DetalleArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Direccion.aspx.cs">
+      <DependentUpon>Direccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Direccion.aspx.designer.cs">
+      <DependentUpon>Direccion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Estadistica.aspx.cs">
       <DependentUpon>Estadistica.aspx</DependentUpon>
@@ -277,6 +302,13 @@
     </Compile>
     <Compile Include="miCuenta.aspx.designer.cs">
       <DependentUpon>miCuenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarMail.aspx.cs">
+      <DependentUpon>ModificarMail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModificarMail.aspx.designer.cs">
+      <DependentUpon>ModificarMail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pagos.aspx.cs">
       <DependentUpon>Pagos.aspx</DependentUpon>
