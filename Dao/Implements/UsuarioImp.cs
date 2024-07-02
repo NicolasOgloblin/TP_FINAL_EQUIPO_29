@@ -1,6 +1,8 @@
 ﻿using Dao.DataAccessObject;
+using Dao.Encrypts;
 using Domain.Entities;
 using System;
+using System.Data.SqlClient;
 
 namespace Dao.Implements
 {
@@ -178,6 +180,13 @@ namespace Dao.Implements
                         WHERE ID = @id";
             try
             {
+                var encrypt = new Encrypt();
+                string newSalt = encrypt.GenerateSalt();
+                string hashedPassword = encrypt.HashPasswordWithSalt(nuevaContrasenia, newSalt);
+
+                usuario.Contrasenia = hashedPassword;
+                usuario.Salt = newSalt;
+
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@contrasenia", usuario.Contrasenia);
                 datos.setearParametro("@salt", usuario.Salt);
@@ -223,37 +232,117 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-
-        public bool ValidarContraseña(UsuarioEntity usuario, string contraseña)
+        public bool VerificarContraseniaActual(long usuarioId, string contraseniaActual)
         {
             DataAccess datos = new DataAccess();
 
-            string consulta = @"SELECT COUNT(*) FROM USUARIOS
-                                WHERE ID = @id AND CONTRASENIA = @contrasenia";
+            string consulta = "SELECT Contrasenia, Salt FROM Usuarios WHERE Id = @UsuarioId";
 
             try
             {
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@id", usuario.Id);
-                datos.setearParametro("@contrasenia", contraseña);
+                datos.setearParametro("@UsuarioId", usuarioId);
+                datos.ejecutarLectura();
 
-                int count = Convert.ToInt32(datos.ejecutarScalar());
+                if (datos.Reader.Read())
+                {
+                    string contraseniaEncriptada = datos.Reader["Contrasenia"] != DBNull.Value ? (string)datos.Reader["Contrasenia"] : null;
+                    string salt = datos.Reader["Salt"] != DBNull.Value ? (string)datos.Reader["Salt"] : null;
 
-                // Si count es mayor que 0, la contraseña es válida
-                return count > 0;
+                    if (contraseniaEncriptada != null && salt != null)
+                    {
+                        var encrypt = new Encrypt();
+                        return encrypt.VerifyPassword(contraseniaActual, contraseniaEncriptada, salt);
+                    }
+                }
+
+                return false; // Usuario no encontrado o datos incorrectos
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al verificar la contraseña actual", ex);
             }
             finally
             {
                 datos.cerrarConexion();
             }
         }
-       
+
+        public UsuarioEntity ObtenerUsuarioPorId(long usuarioid)
+        {
+            UsuarioEntity usuario = null;
+            DataAccess datos = new DataAccess();
+
+            string consulta = @"SELECT 
+                                U.ID,
+                                U.NOMBRE,
+                                U.APELLIDO,
+                                U.DNI,
+                                U.USUARIO,
+                                U.EMAIL,
+                                U.CONTRASENIA,
+                                U.SALT,
+                                U.ROLID,
+                                R.NOMBRE AS ROL_NOMBRE,
+                                U.PROVINCIA,
+                                U.LOCALIDAD,
+                                U.CALLE,
+                                U.ALTURA,
+                                U.CODIGO_POSTAL,
+                                U.TELEFONO,
+                                U.ESTADO,
+                                U.FECHA_REGISTRO
+                            FROM USUARIOS U
+                            INNER JOIN ROLES R ON U.ROLID = R.ID 
+                            WHERE U.ID = @usuarioid";
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@usuarioid", usuarioid);
+                datos.ejecutarLectura();
+
+                if (datos.Reader.Read())
+                {
+                    usuario = new UsuarioEntity();
+                    usuario.Id = (long)datos.Reader["ID"];
+                    usuario.Nombre = datos.Reader["NOMBRE"] != DBNull.Value ? (string)datos.Reader["NOMBRE"] : null;
+                    usuario.Apellido = datos.Reader["APELLIDO"] != DBNull.Value ? (string)datos.Reader["APELLIDO"] : null;
+                    usuario.Dni = datos.Reader["DNI"] != DBNull.Value ? (string)datos.Reader["DNI"] : null;
+                    usuario.Usuario = datos.Reader["USUARIO"] != DBNull.Value ? (string)datos.Reader["USUARIO"] : null;
+                    usuario.Email = datos.Reader["EMAIL"] != DBNull.Value ? (string)datos.Reader["EMAIL"] : null;
+                    usuario.Contrasenia = datos.Reader["CONTRASENIA"] != DBNull.Value ? (string)datos.Reader["CONTRASENIA"] : null;
+                    usuario.Salt = datos.Reader["SALT"] != DBNull.Value ? (string)datos.Reader["SALT"] : null;
+                    usuario.Rol = new RolesEntity
+                    {
+                        Id = (short)datos.Reader["ROLID"],
+                        Nombre = datos.Reader["ROL_NOMBRE"] != DBNull.Value ? (string)datos.Reader["ROL_NOMBRE"] : null
+                    };
+                    usuario.Provincia = datos.Reader["PROVINCIA"] != DBNull.Value ? (string)datos.Reader["PROVINCIA"] : null;
+                    usuario.Localidad = datos.Reader["LOCALIDAD"] != DBNull.Value ? (string)datos.Reader["LOCALIDAD"] : null;
+                    usuario.Calle = datos.Reader["CALLE"] != DBNull.Value ? (string)datos.Reader["CALLE"] : null;
+                    usuario.Altura = datos.Reader["ALTURA"] != DBNull.Value ? (string)datos.Reader["ALTURA"] : null;
+                    usuario.CodPostal = datos.Reader["CODIGO_POSTAL"] != DBNull.Value ? (string)datos.Reader["CODIGO_POSTAL"] : null;
+                    usuario.Telefono = datos.Reader["TELEFONO"] != DBNull.Value ? (string)datos.Reader["TELEFONO"] : null;
+                    usuario.Estado = (bool)datos.Reader["ESTADO"];
+                    usuario.FechaRegistro = (DateTime)datos.Reader["FECHA_REGISTRO"];
+                }
+
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener usuario por ID desde la base de datos.", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
+    
+
+
     
 
     

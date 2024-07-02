@@ -1,4 +1,5 @@
-﻿using Dao.Encrypts;
+﻿using Business.Usuario;
+using Dao.Encrypts;
 using Dao.Implements;
 using Domain.Entities;
 using System;
@@ -41,14 +42,14 @@ namespace Business.Usuario
             var encrypt = new Encrypt();
             try
             {
-                
-                var usuarioLogin =  UsuarioDao.Loguear(usuario);
-                if(usuarioLogin.Id == 0)
+
+                var usuarioLogin = UsuarioDao.Loguear(usuario);
+                if (usuarioLogin.Id == 0)
                 {
                     return null;
                 }
 
-                var login = encrypt.VerifyPassword(usuario.Contrasenia,usuarioLogin.Contrasenia,usuarioLogin.Salt);
+                var login = encrypt.VerifyPassword(usuario.Contrasenia, usuarioLogin.Contrasenia, usuarioLogin.Salt);
                 if (login)
                 {
                     usuarioLogin.Contrasenia = string.Empty;
@@ -94,14 +95,56 @@ namespace Business.Usuario
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception("Error al actualizar la contraseña.", ex);
             }
         }
 
-        public bool VerificarContraseniaActual(UsuarioEntity usuario, string contraseniaActual)
+        private UsuarioEntity ObtenerUsuarioPorId(long usuarioid)
         {
-            var encrypt = new Encrypt();
-            return encrypt.VerifyPassword(contraseniaActual, usuario.Contrasenia, usuario.Salt);
+            var usuarioDao = new UsuarioImp();
+            try
+            {
+              
+                var usuario = usuarioDao.ObtenerUsuarioPorId(usuarioid);
+
+               
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+               
+                throw new Exception("Error al obtener usuario por ID.", ex);
+            }
         }
+
+        public bool VerificarContraseniaActual(long usuarioId, string contraseniaActual)
+        {
+            try
+            {
+                
+                UsuarioEntity usuario = ObtenerUsuarioPorId(usuarioId);
+
+                if (usuario != null)
+                {
+                    // Verificar la contraseña usando la clase Encrypt
+                    var encrypt = new Encrypt();
+                    return encrypt.VerifyPassword(contraseniaActual, usuario.Contrasenia, usuario.Salt);
+                }
+                else
+                {
+                    throw new Exception("Usuario no encontrado.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al verificar la contraseña actual.", ex);
+            }
+        }
+
+
+       
+
     }
 }
+
+
