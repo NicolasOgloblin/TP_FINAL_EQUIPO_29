@@ -12,6 +12,23 @@ namespace TpFinalEquipo29
         protected void Page_Load(object sender, EventArgs e)
         {
 
+
+        }
+
+        protected void btnGuardarDireccion_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btnAgregarDireccion_Click(object sender, EventArgs e)
+        {
+          
         }
     }
 }
+    

@@ -432,7 +432,7 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-
+       
         public int ModificarArticulo(ArticuloEntity art)
         {
             DataAccess datos = new DataAccess();
@@ -484,6 +484,71 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
+
+        
+        public int ModificarArticuloCompleto(ArticuloEntity art)
+        {
+            DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta = @"
+                                BEGIN TRY
+                                BEGIN TRAN
+                                -- Actualizar ARTICULOS
+                                UPDATE ARTICULOS  
+                                SET Codigo_Articulo = @codigo, CategoriaID = @idCategoria, MarcaID = @idMarca
+                                WHERE ID = @id
+                                -- Actualizar ARTICULOS_DETALLE
+                                UPDATE ARTICULOS_DETALLE
+                                SET Nombre = @nombre, Precio = @precio, Stock = @stock, 
+                                    Alto = @alto, Ancho = @ancho, Color = @color, Modelo = @modelo, 
+                                    Origen = @origen, Peso = @peso, Garantia_Anios = @garantiaAnios, 
+                                    Garantia_Meses = @garantiaMeses
+                                WHERE ArticuloID = @id
+
+
+                                COMMIT TRAN
+                                END TRY
+                                BEGIN CATCH
+                                IF @@TRANCOUNT > 0
+                                ROLLBACK TRAN;
+                                END CATCH";
+
+
+            #endregion
+
+            try
+            {
+                
+                    datos.setearConsulta(consulta);
+                    datos.setearParametro("@codigo", art.CodArticulo);
+                    datos.setearParametro("@nombre", art.Nombre);
+                    datos.setearParametro("@idMarca", art.Marca.Id);
+                    datos.setearParametro("@idCategoria", art.Categoria.Id);
+                    datos.setearParametro("@precio", art.Precio);
+                    datos.setearParametro("@id", art.Id);
+                    datos.setearParametro("@stock", art.Stock);
+                    datos.setearParametro("@alto", art.Alto);
+                    datos.setearParametro("@ancho", art.Ancho);
+                    datos.setearParametro("@color", art.Color);
+                    datos.setearParametro("@modelo", art.Modelo);
+                    datos.setearParametro("@origen", art.Origen);
+                    datos.setearParametro("@peso", art.Peso);
+                    datos.setearParametro("@garantiaAnios", art.Garantia_Anios);
+                    datos.setearParametro("@garantiaMeses", art.Garantia_Meses);
+
+                    return datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+      
 
         public bool Eliminar(long id)
         {

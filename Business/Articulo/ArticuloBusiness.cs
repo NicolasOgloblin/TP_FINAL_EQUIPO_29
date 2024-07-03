@@ -169,6 +169,20 @@ namespace Business.Articulo
             }
         }
 
+        public int ModificarArticuloCompleto(ArticuloEntity categoria)
+        {
+            ArticuloImp catImp = new ArticuloImp();
+
+            try
+            {
+                return catImp.ModificarArticuloCompleto(categoria);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public ArticuloEntity getByID(long id)
         {
             ArticuloImp articulo = new ArticuloImp();

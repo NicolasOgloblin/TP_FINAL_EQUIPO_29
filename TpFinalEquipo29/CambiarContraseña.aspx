@@ -44,7 +44,6 @@
                             <asp:Label ID="lblMensaje" runat="server" CssClass="alert" EnableViewState="false"></asp:Label>
                         </div>
 
-                        <!-- Mostrar correo electrónico -->
                        
                 </div>
             </div>
