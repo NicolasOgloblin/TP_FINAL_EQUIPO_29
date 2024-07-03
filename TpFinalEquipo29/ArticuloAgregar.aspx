@@ -92,19 +92,15 @@
 
            <asp:Label ID="lblGarantia" runat="server" Text="Garantía:"></asp:Label>
            <div class="input-group">
-               <asp:TextBox ID="txtGarantiaAnios" runat="server" CssClass="form-control" Width="100"></asp:TextBox>
-               <div class="input-group-append">
-                   <span class="input-group-text">años</span>
-               </div>
+               <asp:TextBox ID="txtGarantiaAnios" runat="server" placeholder="Años" CssClass="form-control" Width="100"></asp:TextBox>
+               
            </div>
            <asp:RequiredFieldValidator ID="rfvGarantiaAnios" runat="server" ControlToValidate="txtGarantiaAnios" 
                ErrorMessage="Los años de garantía son obligatorios." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
 
            <div class="input-group mt-6">
-               <asp:TextBox ID="txtGarantiaMeses" runat="server" CssClass="form-control" Width="100"></asp:TextBox>
-               <div class="input-group-append">
-                   <span class="input-group-text">meses</span>
-               </div>
+               <asp:TextBox ID="txtGarantiaMeses" runat="server" placeholder="Meses" CssClass="form-control" Width="100"></asp:TextBox>
+               
            </div>
            <asp:RequiredFieldValidator ID="rfvGarantiaMeses" runat="server" ControlToValidate="txtGarantiaMeses" 
                ErrorMessage="Los meses de garantía son obligatorios." ForeColor="Red" ValidationGroup="AgregarArticulo"></asp:RequiredFieldValidator>
