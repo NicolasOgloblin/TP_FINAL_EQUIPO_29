@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.Web.Optimization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -136,13 +137,22 @@ namespace TpFinalEquipo29
         {
             if (Session["articulosSeleccionados"] != null)
             {
+                var articuloBusiness = new ArticuloBusiness();
+
                 var articulosSeleccionados = (List<ArticuloEntity>)Session["articulosSeleccionados"];
 
                 int totalItems = 0;
 
                 foreach (var item in articulosSeleccionados)
                 {
-                    totalItems += 1;
+                    try
+                    {
+                        totalItems += articuloBusiness.GetReservaStock(item.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Ocurrio un error al intentar actualizar el carrito: " + ex.Message);
+                    }
                 }
 
                 string script = $"document.getElementById('cartItemCount').innerText = '{totalItems}';";
@@ -152,16 +162,22 @@ namespace TpFinalEquipo29
 
         protected void btnAgregarDetalle_Click(object sender, EventArgs e)
         {
+            if (Session["Login"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             var linkButton = sender as LinkButton;
+            string script = string.Empty;
+            var articuloBusiness = new ArticuloBusiness();
+
             if (linkButton != null)
             {
                 if (int.TryParse(linkButton.CommandArgument, out int articuloId))
                 {
-                    var articuloBusinees = new ArticuloBusiness();
-
                     try
                     {
-                        listArticulos = articuloBusinees.GetArticulos();
+                        listArticulos = articuloBusiness.GetArticulos();
 
                         var articulo = listArticulos.FirstOrDefault(s => s.Id == articuloId);
                         if (articulo != null)
@@ -179,7 +195,14 @@ namespace TpFinalEquipo29
                             articulosSeleccionados.Add(articulo);
                             Session["articulosSeleccionados"] = articulosSeleccionados;
 
-                            string script = "Swal.fire({ title: 'Éxito', text: 'Artículo agregado correctamente al carrito.', icon: 'success', confirmButtonText: 'OK' });";
+                            var usuarioLogueado = (UsuarioEntity)Session["Login"];
+                            var reservado = articuloBusiness.ReservarStock(articulo, usuarioLogueado.Id);
+                            if (reservado > 0)
+                            {
+                                ActualizarCarrito();
+                            }
+
+                            script = "Swal.fire({ title: 'Éxito', text: 'Artículo agregado correctamente al carrito.', icon: 'success', confirmButtonText: 'OK' });";
                             ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
                         }
                     }
@@ -189,8 +212,7 @@ namespace TpFinalEquipo29
                     }
                 }
             }
-
-            ActualizarCarrito();
         }
+
     }
 }

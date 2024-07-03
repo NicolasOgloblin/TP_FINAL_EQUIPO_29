@@ -164,6 +164,175 @@ namespace Dao.Implements
             }
         }
 
+        public int GetReservaStock(long artId)
+        {
+            DataAccess datos = new DataAccess();
+
+            string consulta = @"SELECT STOCK_RESERVADO
+                                FROM RESERVA_STOCK
+                                WHERE ARTICULOID = @articuloId";
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@articuloId", artId);
+                datos.ejecutarLectura();
+
+                int stockReservado = 0;
+
+                if(datos.Reader.Read())
+                {
+                    stockReservado = (int)datos.Reader["STOCK_RESERVADO"];
+                }
+
+                return stockReservado;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public int DevolverStock(ArticuloEntity articulo, long usuarioId)
+        {
+            DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta = @"
+                                BEGIN TRY
+                                BEGIN TRAN
+
+                                UPDATE RESERVA_STOCK
+                                SET STOCK_RESERVADO = STOCK_RESERVADO - 1
+                                WHERE ARTICULOID = @articuloId
+                                AND USUARIOID = @usuarioId
+
+                                UPDATE ARTICULOS_DETALLE
+                                SET STOCK = STOCK + 1
+                                WHERE ARTICULOID = @articuloId
+
+                                COMMIT TRAN
+                                END TRY
+                                BEGIN CATCH
+                                IF @@TRANCOUNT > 0
+                                ROLLBACK TRAN;
+                                END CATCH";
+            #endregion
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@usuarioId", usuarioId);
+                datos.setearParametro("@articuloId", articulo.Id);
+
+                var result = datos.ejecutarAccion();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public int ReservarStock(ArticuloEntity articulo, long usuarioId)
+        {
+            DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta = @"
+                                BEGIN TRY
+                                BEGIN TRAN
+
+                                INSERT INTO RESERVA_STOCK
+                                VALUES(@usuarioId,@articuloId,1)
+
+                                UPDATE ARTICULOS_DETALLE
+                                SET STOCK = STOCK - 1
+                                WHERE ARTICULOID = @articuloId
+
+                                COMMIT TRAN
+                                END TRY
+                                BEGIN CATCH
+                                IF @@TRANCOUNT > 0
+                                ROLLBACK TRAN;
+                                END CATCH";
+            #endregion
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@usuarioId", usuarioId);
+                datos.setearParametro("@articuloId", articulo.Id);
+
+                var result = datos.ejecutarAccion();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public int EliminarStock(ArticuloEntity articulo, long usuarioId)
+        {
+            DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta = @"
+                                BEGIN TRY
+                                BEGIN TRAN
+
+                                UPDATE ARTICULOS_DETALLE
+                                SET STOCK = STOCK + (SELECT STOCK_RESERVADO FROM RESERVA_STOCK WHERE ARTICULOID = @articuloId)
+                                WHERE ARTICULOID = @articuloId
+
+                                DELETE RESERVA_STOCK
+                                WHERE ARTICULOID = @articuloId
+                                AND USUARIOID = @usuarioId
+
+                                COMMIT TRAN
+                                END TRY
+                                BEGIN CATCH
+                                IF @@TRANCOUNT > 0
+                                ROLLBACK TRAN;
+                                END CATCH";
+            #endregion
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@articuloId", articulo.Id);
+                datos.setearParametro("@usuarioId", usuarioId);
+
+                var result = datos.ejecutarAccion();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public int AgregarImagenes(List<ImagenEntity> imagenes)
         {
             //DataAccess datos = new DataAccess();

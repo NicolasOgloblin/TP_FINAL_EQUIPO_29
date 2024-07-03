@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Business.Articulo;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,22 @@ namespace TpFinalEquipo29
         {
             if (Session["articulosSeleccionados"] != null)
             {
+                var articuloBusiness = new ArticuloBusiness();
+
                 var articulosSeleccionados = (List<ArticuloEntity>)Session["articulosSeleccionados"];
 
                 int totalItems = 0;
 
                 foreach (var item in articulosSeleccionados)
                 {
-                    totalItems += 1;
+                    try
+                    {
+                        totalItems += articuloBusiness.GetReservaStock(item.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Ocurrio un error al intentar actualizar el carrito: " + ex.Message);
+                    }
                 }
 
                 string script = $"document.getElementById('cartItemCount').innerText = '{totalItems}';";
@@ -39,59 +49,110 @@ namespace TpFinalEquipo29
 
         private void BindGrid()
         {
-            if (Session["articulosSeleccionados"] != null)
+            var articuloBusiness = new ArticuloBusiness();
+            try
             {
-                List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
-                gvCarrito.DataSource = carrito;
-                gvCarrito.DataBind();
-
-                decimal total = 0;
-
-                foreach (var item in carrito)
+                if (Session["articulosSeleccionados"] != null)
                 {
-                    total += item.Precio * 1;
-                }
+                    List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
 
-                lblTotal.Text = "Total: " + total.ToString("C");
+                    foreach (var item in carrito)
+                    {
+                        item.Stock = articuloBusiness.GetReservaStock(item.Id);
+                    }
+
+                    gvCarrito.DataSource = carrito;
+                    gvCarrito.DataBind();
+
+                    decimal total = 0;
+
+                    foreach (var item in carrito)
+                    {
+                        total += item.Precio * item.Stock;
+                    }
+
+                    lblTotal.Text = "Total: " + total.ToString("C");
+                }
+                else
+                {
+                    lblTotal.Text = "Total: $0.00";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblTotal.Text = "Total: $0.00";
+                throw new Exception("Ocurrio un problema: " + ex.Message);
             }
+            
         }
 
         protected void btnIncrementar_Click(object sender, EventArgs e)
         {
+            var articuloBusiness = new ArticuloBusiness();
 
             int articuloId = int.Parse(((System.Web.UI.WebControls.LinkButton)sender).CommandArgument);
 
             var carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
             var articulo = carrito.FirstOrDefault(a => a.Id == articuloId);
 
-            if (articulo != null)
+            var stockActual = articuloBusiness.getByCodArt(articulo.CodArticulo);
+            try
             {
-                Session["articulosSeleccionados"] = carrito;
-                BindGrid();
-            }
+                if (stockActual.Stock > 0)
+                {
+                    if (articulo != null)
+                    {
 
-            ActualizarCarrito();
+                        Session["articulosSeleccionados"] = carrito;
+                        BindGrid();
+                    }
+
+                    var usuarioLogueado = (UsuarioEntity)Session["Login"];
+                    var reservado = articuloBusiness.ReservarStock(articulo, usuarioLogueado.Id);
+                    if (reservado > 0)
+                    {
+                        ActualizarCarrito();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Ocurrio un problema: " +  ex.Message);
+            }
         }
 
         protected void btnDecrementar_Click(object sender, EventArgs e)
         {
+            var articuloBusiness = new ArticuloBusiness();
+
             int articuloId = int.Parse(((System.Web.UI.WebControls.LinkButton)sender).CommandArgument);
 
             var carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
             var articulo = carrito.FirstOrDefault(a => a.Id == articuloId);
 
-            if (articulo != null)
+            var stockActual = articuloBusiness.getByCodArt(articulo.CodArticulo);
+            try
             {
-                
-                Session["articulosSeleccionados"] = carrito;
-                BindGrid();
-            }
+                if (stockActual.Stock > 0)
+                {
+                    if (articulo != null)
+                    {
 
-            ActualizarCarrito();
+                        Session["articulosSeleccionados"] = carrito;
+                        BindGrid();
+                    }
+
+                    var usuarioLogueado = (UsuarioEntity)Session["Login"];
+                    var reservado = articuloBusiness.DevolverStock(articulo, usuarioLogueado.Id);
+                    if (reservado > 0)
+                    {
+                        ActualizarCarrito();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrio un problema: " + ex.Message);
+            }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)

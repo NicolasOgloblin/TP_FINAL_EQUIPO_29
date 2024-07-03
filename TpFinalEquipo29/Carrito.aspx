@@ -12,7 +12,7 @@
                  <ItemTemplate>
                      <div class="input-group">
                          <asp:LinkButton ID="btnDecrementar" runat="server" CommandArgument='<%# Eval("Id") %>' Text="-" CssClass="btn btn-outline-secondary" OnClick="btnDecrementar_Click" />
-                         <asp:Label ID="Label1" runat="server" Text='<%# Eval("Cantidad") %>' CssClass="form-control text-center" />
+                         <asp:Label ID="Label1" runat="server" Text='<%# Eval("Stock") %>' CssClass="form-control text-center" />
                          <asp:LinkButton ID="btnIncrementar" runat="server" CommandArgument='<%# Eval("Id") %>' Text="+" CssClass="btn btn-outline-secondary" OnClick="btnIncrementar_Click" />
                      </div>
                  </ItemTemplate>

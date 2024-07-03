@@ -83,7 +83,7 @@ namespace TpFinalEquipo29
 
         private void GeneratePagination()
         {
-            int totalPages = (int)Math.Ceiling((double)listArticulos.Count / 8);
+            int totalPages = (int)Math.Ceiling((double)listArticulos.Count / 16);
 
             StringBuilder paginationHtml = new StringBuilder();
             for (int i = 1; i <= totalPages; i++)
@@ -130,13 +130,22 @@ namespace TpFinalEquipo29
         {
             if (Session["articulosSeleccionados"] != null)
             {
+                var articuloBusiness = new ArticuloBusiness();
+
                 var articulosSeleccionados = (List<ArticuloEntity>)Session["articulosSeleccionados"];
 
                 int totalItems = 0;
 
                 foreach (var item in articulosSeleccionados)
                 {
-                    totalItems += 1;
+                    try
+                    {
+                        totalItems += articuloBusiness.GetReservaStock(item.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Ocurrio un error al intentar actualizar el carrito: " + ex.Message);
+                    }
                 }
 
                 string script = $"document.getElementById('cartItemCount').innerText = '{totalItems}';";
@@ -146,8 +155,14 @@ namespace TpFinalEquipo29
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
+            if (Session["Login"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             int articuloId = int.Parse(((System.Web.UI.WebControls.LinkButton)sender).CommandArgument);
             var articuloBusinees = new ArticuloBusiness();
+            string script = string.Empty;
 
             try
             {
@@ -158,7 +173,7 @@ namespace TpFinalEquipo29
                 {
                     if(articulo.Stock < 1)
                     {
-                        string script = "Swal.fire({ title: 'Advertencia', text: 'Sin stock para este articulo.', icon: 'warning', confirmButtonText: 'OK' });";
+                        script = "Swal.fire({ title: 'Advertencia', text: 'Sin stock para este articulo.', icon: 'warning', confirmButtonText: 'OK' });";
                         ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
                         return;
                     }
@@ -182,8 +197,15 @@ namespace TpFinalEquipo29
                     articulosSeleccionados.Add(articulo);
                     Session["articulosSeleccionados"] = articulosSeleccionados;
                 }
+                var usuarioLogueado = (UsuarioEntity)Session["Login"];
+                var reservado = articuloBusinees.ReservarStock(articulo, usuarioLogueado.Id);
+                if(reservado > 0)
+                {
+                    ActualizarCarrito();
+                }
 
-                ActualizarCarrito();
+                script = "Swal.fire({ title: 'Éxito', text: 'Artículo agregado correctamente al carrito.', icon: 'success', confirmButtonText: 'OK' });";
+                ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
             }
             catch (Exception ex)
             {

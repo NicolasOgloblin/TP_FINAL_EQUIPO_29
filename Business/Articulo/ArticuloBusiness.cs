@@ -8,6 +8,79 @@ namespace Business.Articulo
 {
     public class ArticuloBusiness
     {
+        public int ReservarStock(ArticuloEntity articulo, long usuarioId)
+        {
+            ArticuloImp artImp = new ArticuloImp();
+            try
+            {
+                var result = artImp.ReservarStock(articulo, usuarioId);
+
+                if (result > 0)
+                {
+                    return GetReservaStock(articulo.Id);
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int DevolverStock(ArticuloEntity articulo, long usuarioId)
+        {
+            ArticuloImp artImp = new ArticuloImp();
+            try
+            {
+                var result = artImp.DevolverStock(articulo, usuarioId);
+
+                if(result > 0)
+                {
+                    return GetReservaStock(articulo.Id);
+                }
+
+                return result; 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int EliminarStock(ArticuloEntity articulo, long usuarioId)
+        {
+            ArticuloImp artImp = new ArticuloImp();
+            try
+            {
+                var result = artImp.DevolverStock(articulo, usuarioId);
+
+                if (result > 0)
+                {
+                    return GetReservaStock(articulo.Id);
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int GetReservaStock(long articuloId)
+        {
+            ArticuloImp artImp = new ArticuloImp();
+            try
+            {
+                return artImp.GetReservaStock(articuloId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<ArticuloEntity> GetArticulos()
         {
             var listArticulos = new List<ArticuloEntity>();
