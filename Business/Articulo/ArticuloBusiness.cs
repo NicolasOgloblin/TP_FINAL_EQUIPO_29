@@ -53,7 +53,7 @@ namespace Business.Articulo
             ArticuloImp artImp = new ArticuloImp();
             try
             {
-                var result = artImp.DevolverStock(articulo, usuarioId);
+                var result = artImp.EliminarStock(articulo, usuarioId);
 
                 if (result > 0)
                 {

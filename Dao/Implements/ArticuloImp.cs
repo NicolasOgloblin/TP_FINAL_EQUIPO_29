@@ -253,8 +253,25 @@ namespace Dao.Implements
                                 BEGIN TRY
                                 BEGIN TRAN
 
+                                DECLARE @COUNT_STOCK INT 
+                                SET @COUNT_STOCK =  (
+					                                SELECT COALESCE(SUM(ISNULL(STOCK_RESERVADO, 0)), 0)
+					                                FROM RESERVA_STOCK 
+					                                WHERE ARTICULOID = @articuloId AND USUARIOID = @usuarioId
+					                                )
+
+                                IF @COUNT_STOCK > 0
+                                BEGIN
+                                UPDATE RESERVA_STOCK
+                                SET STOCK_RESERVADO = STOCK_RESERVADO + 1
+                                WHERE ARTICULOID = @articuloId
+                                AND USUARIOID = @usuarioId
+                                END
+                                ELSE
+                                BEGIN
                                 INSERT INTO RESERVA_STOCK
                                 VALUES(@usuarioId,@articuloId,1)
+                                END
 
                                 UPDATE ARTICULOS_DETALLE
                                 SET STOCK = STOCK - 1

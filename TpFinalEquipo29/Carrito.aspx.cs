@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Optimization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -99,6 +100,9 @@ namespace TpFinalEquipo29
             {
                 if (stockActual.Stock > 0)
                 {
+                    var usuarioLogueado = (UsuarioEntity)Session["Login"];
+                    var reservado = articuloBusiness.ReservarStock(articulo, usuarioLogueado.Id);
+
                     if (articulo != null)
                     {
 
@@ -106,12 +110,15 @@ namespace TpFinalEquipo29
                         BindGrid();
                     }
 
-                    var usuarioLogueado = (UsuarioEntity)Session["Login"];
-                    var reservado = articuloBusiness.ReservarStock(articulo, usuarioLogueado.Id);
                     if (reservado > 0)
                     {
                         ActualizarCarrito();
                     }
+                }
+                else
+                {
+                    string script = "Swal.fire({ title: 'Advertencia', text: 'Sin stock para este articulo.', icon: 'warning', confirmButtonText: 'OK' });";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
                 }
             }
             catch(Exception ex)
@@ -129,11 +136,14 @@ namespace TpFinalEquipo29
             var carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
             var articulo = carrito.FirstOrDefault(a => a.Id == articuloId);
 
-            var stockActual = articuloBusiness.getByCodArt(articulo.CodArticulo);
+            int stockActual = articuloBusiness.GetReservaStock(articulo.Id);
             try
             {
-                if (stockActual.Stock > 0)
+                if (stockActual > 1)
                 {
+                    var usuarioLogueado = (UsuarioEntity)Session["Login"];
+                    var reservado = articuloBusiness.DevolverStock(articulo, usuarioLogueado.Id);
+
                     if (articulo != null)
                     {
 
@@ -141,13 +151,12 @@ namespace TpFinalEquipo29
                         BindGrid();
                     }
 
-                    var usuarioLogueado = (UsuarioEntity)Session["Login"];
-                    var reservado = articuloBusiness.DevolverStock(articulo, usuarioLogueado.Id);
                     if (reservado > 0)
                     {
                         ActualizarCarrito();
                     }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -158,21 +167,32 @@ namespace TpFinalEquipo29
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
             int articuloId = int.Parse(((System.Web.UI.WebControls.LinkButton)sender).CommandArgument);
+            var articuloBusiness = new ArticuloBusiness();
 
-            if (Session["articulosSeleccionados"] != null)
+            try
             {
-                List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
-                ArticuloEntity articulo = carrito.FirstOrDefault(a => a.Id == articuloId);
-
-                if (articulo != null)
+                if (Session["articulosSeleccionados"] != null)
                 {
-                    carrito.Remove(articulo);
-                    Session["articulosSeleccionados"] = carrito;
-                    BindGrid();
-                }
-            }
+                    List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
+                    ArticuloEntity articulo = carrito.FirstOrDefault(a => a.Id == articuloId);
 
-            ActualizarCarrito();
+                    if (articulo != null)
+                    {
+                        var usuarioLogueado = (UsuarioEntity)Session["Login"];
+                        articuloBusiness.EliminarStock(articulo, usuarioLogueado.Id);
+                        carrito.Remove(articulo);
+                        Session["articulosSeleccionados"] = carrito;
+                        BindGrid();
+                    }
+                }
+
+                ActualizarCarrito();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrio un problema: " + ex.Message);
+            }
+            
         }
 
     }
