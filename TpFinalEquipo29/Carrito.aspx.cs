@@ -137,11 +137,22 @@ namespace TpFinalEquipo29
             var articulo = carrito.FirstOrDefault(a => a.Id == articuloId);
 
             int stockActual = articuloBusiness.GetReservaStock(articulo.Id);
+            var usuarioLogueado = (UsuarioEntity)Session["Login"];
+
+            if (stockActual == 1)
+            {
+                articuloBusiness.EliminarStock(articulo, usuarioLogueado.Id);
+                carrito.Remove(articulo);
+                Session["articulosSeleccionados"] = carrito;
+                BindGrid();
+                return;
+            }
+
             try
             {
                 if (stockActual > 1)
                 {
-                    var usuarioLogueado = (UsuarioEntity)Session["Login"];
+                    
                     var reservado = articuloBusiness.DevolverStock(articulo, usuarioLogueado.Id);
 
                     if (articulo != null)
