@@ -4,6 +4,7 @@ using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 
 namespace TpFinalEquipo29
@@ -170,7 +171,7 @@ namespace TpFinalEquipo29
         }
 
         protected void btnFinalizarCompra_Click(object sender, EventArgs e)
-        {
+         {
             var pedidoBusiness = new PedidoBusiness();
 
             decimal total = 0;
@@ -202,8 +203,11 @@ namespace TpFinalEquipo29
 
                 var result = pedidoBusiness.AgregarPedido(pedido, usuarioLogueado.Id);
 
+                Response.Redirect("FinalizarCompra.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
 
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 throw new Exception("Ocurrio un problema: " + ex.Message);
             }
