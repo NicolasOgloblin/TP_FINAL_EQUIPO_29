@@ -132,6 +132,7 @@
     <Content Include="EditarDireccion.aspx" />
     <Content Include="Estadistica.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="FinalizarCompra.aspx" />
     <Content Include="Gestion.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
@@ -287,6 +288,13 @@
     </Compile>
     <Compile Include="Estadistica.aspx.designer.cs">
       <DependentUpon>Estadistica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FinalizarCompra.aspx.cs">
+      <DependentUpon>FinalizarCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FinalizarCompra.aspx.designer.cs">
+      <DependentUpon>FinalizarCompra.aspx</DependentUpon>
     </Compile>
     <Compile Include="Gestion.aspx.cs">
       <DependentUpon>Gestion.aspx</DependentUpon>
