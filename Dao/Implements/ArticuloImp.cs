@@ -615,14 +615,23 @@ namespace Dao.Implements
                                 ISNULL(AD.PRECIO,0) AS PRECIO,
                                 ISNULL(AD.STOCK,0) AS STOCK,
                                 M.NOMBRE AS NOMBREMARCA,
-                                C.NOMBRE AS NOMBRECATEGORIA
+                                C.NOMBRE AS NOMBRECATEGORIA,
+                                AD.ALTO,
+                                AD.ANCHO,
+                                AD.COLOR,
+                                AD.MODELO,
+                                AD.ORIGEN,
+                                AD.PESO,
+                                AD.GARANTIA_ANIOS,
+                                AD.GARANTIA_MESES
                                 FROM ARTICULOS A
                                 INNER JOIN ARTICULOS_DETALLE AD ON (A.ID = AD.ARTICULOID)
                                 INNER JOIN MARCAS M ON (A.MARCAID=M.ID)
                                 INNER JOIN CATEGORIAS C ON (A.CATEGORIAID=C.ID)
-                                WHERE A.ID = @id
+                                WHERE A.ID = 10010
                                 GROUP BY A.ID, AD.NOMBRE, AD.DESCRIPCION, M.NOMBRE, C.NOMBRE,
-                                AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO";
+                                AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO,AD.ALTO,AD.ANCHO,AD.COLOR,
+                                AD.MODELO,AD.ORIGEN,AD.PESO,AD.GARANTIA_ANIOS,AD.GARANTIA_MESES";
 
             try
             {
@@ -644,6 +653,14 @@ namespace Dao.Implements
                     articulo.Categoria.Nombre = (string)datos.Reader["NOMBRECATEGORIA"];
                     articulo.Precio = (decimal)datos.Reader["PRECIO"];
                     articulo.Stock = (int)datos.Reader["STOCK"];
+                    articulo.Alto = (decimal)datos.Reader["ALTO"];
+                    articulo.Ancho = (decimal)datos.Reader["ANCHO"];
+                    articulo.Origen = (string)datos.Reader["ORIGEN"];
+                    articulo.Modelo = (string)datos.Reader["MODELO"];
+                    articulo.Color = (string)datos.Reader["COLOR"];
+                    articulo.Peso = (decimal)datos.Reader["PESO"];
+                    articulo.Garantia_Anios = (int)datos.Reader["GARANTIA_ANIOS"];
+                    articulo.Garantia_Meses = (int)datos.Reader["GARANTIA_MESES"];
 
                 }
                 return articulo;

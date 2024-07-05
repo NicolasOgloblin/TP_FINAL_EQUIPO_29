@@ -64,7 +64,7 @@ namespace TpFinalEquipo29
         {
             try
             {
-                var articulo = articuloBusiness.getByID(articuloId);
+                 var articulo = articuloBusiness.getByID(articuloId);
 
                 if (articulo != null)
                 {
