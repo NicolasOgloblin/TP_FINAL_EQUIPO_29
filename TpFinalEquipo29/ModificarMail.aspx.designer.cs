@@ -69,24 +69,6 @@ namespace TpFinalEquipo29
         protected global::System.Web.UI.WebControls.CompareValidator cvEmails;
 
         /// <summary>
-        /// Control txtContrasenia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContrasenia;
-
-        /// <summary>
-        /// Control rfvContrasenia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvContrasenia;
-
-        /// <summary>
         /// Control btnGuardarCambios.
         /// </summary>
         /// <remarks>

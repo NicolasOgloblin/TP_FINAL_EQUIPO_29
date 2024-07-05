@@ -205,7 +205,7 @@ namespace Dao.Implements
                 datos.cerrarConexion();
             }
         }
-        public bool ActualizarCorreoElectronico(UsuarioEntity usuario)
+        public bool ActualizarCorreoElectronico(long usuarioid,string nuevoemail)
         {
             DataAccess datos = new DataAccess();
 
@@ -216,8 +216,8 @@ namespace Dao.Implements
             try
             {
                 datos.setearConsulta(consulta);
-                datos.setearParametro("@correo", usuario.Email);
-                datos.setearParametro("@id", usuario.Id);
+                datos.setearParametro("@correo", nuevoemail);
+                datos.setearParametro("@id", usuarioid);
 
                 datos.ejecutarAccion();
 

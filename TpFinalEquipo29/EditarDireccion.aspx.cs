@@ -99,7 +99,7 @@ namespace TpFinalEquipo29
 
             protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Direccion.aspx");
+            Response.Redirect("miCuenta.aspx");
         }
     }
 }

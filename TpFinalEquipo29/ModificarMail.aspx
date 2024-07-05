@@ -3,47 +3,48 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
- <div class="container mt-5">
+   <div class="container mt-5">
         <h2>Modificar E-Mail</h2>
         <p>* Campos obligatorios</p>
         <hr />
+
         <div class="row g-3">
-            <div class="col-md-6">
+            <div class="col-12">
                 <label for="txtEmailActual" class="form-label">Email actual:</label>
                 <asp:TextBox ID="txtEmailActual" runat="server" CssClass="form-control" Text="maxivs_93@hotmail.com" ReadOnly="true" />
             </div>
         </div>
+
         <div class="row g-3 mt-3">
-            <div class="col-md-6">
+            <div class="col-12">
                 <label for="txtNuevoEmail" class="form-label">Nueva Dirección de Email <span class="text-danger">*</span>:</label>
                 <asp:TextBox ID="txtNuevoEmail" runat="server" CssClass="form-control" />
                 <asp:RequiredFieldValidator ID="rfvNuevoEmail" runat="server" ControlToValidate="txtNuevoEmail" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="ModificarEmail" />
             </div>
-            <div class="col-md-6">
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-12">
                 <label for="txtConfirmarEmail" class="form-label">Confirma tu nueva dirección de Email <span class="text-danger">*</span>:</label>
                 <asp:TextBox ID="txtConfirmarEmail" runat="server" CssClass="form-control" />
                 <asp:RequiredFieldValidator ID="rfvConfirmarEmail" runat="server" ControlToValidate="txtConfirmarEmail" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="ModificarEmail" />
                 <asp:CompareValidator ID="cvEmails" runat="server" ControlToCompare="txtNuevoEmail" ControlToValidate="txtConfirmarEmail" ErrorMessage="Los emails no coinciden." ForeColor="Red" ValidationGroup="ModificarEmail" />
             </div>
         </div>
-        <div class="row g-3 mt-3">
-            <div class="col-md-6">
-                <label for="txtContrasenia" class="form-label">Contraseña <span class="text-danger">*</span>:</label>
-                <asp:TextBox ID="txtContrasenia" runat="server" CssClass="form-control" TextMode="Password" />
-                <asp:RequiredFieldValidator ID="rfvContrasenia" runat="server" ControlToValidate="txtContrasenia" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="ModificarEmail" />
-            </div>
-        </div>
+
         <div class="row g-3 mt-3">
             <div class="col-12">
                 <asp:Button ID="btnGuardarCambios" runat="server" CssClass="btn btn-primary" Text="Guardar Cambios" OnClick="btnGuardarCambios_Click" ValidationGroup="ModificarEmail" />
                 <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-secondary ms-2" Text="Cancelar" OnClick="btnCancelar_Click" CausesValidation="False" />
             </div>
         </div>
+
         <div class="row mt-3">
-            <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" />
+            <div class="col-12">
+                <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" />
+            </div>
         </div>
     </div>
-
 
 
 

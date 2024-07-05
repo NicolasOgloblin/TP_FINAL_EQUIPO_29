@@ -141,7 +141,20 @@ namespace Business.Usuario
             }
         }
 
-      
+        public bool ActualizarCorreoElectronico(long usuario,string emailactual)
+        {
+            var usuarioDao = new UsuarioImp();
+
+            try
+            {
+                return usuarioDao.ActualizarCorreoElectronico(usuario,emailactual);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
 
