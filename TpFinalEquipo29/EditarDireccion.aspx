@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 
-    <h2>Editar una dirección</h2>
+    <h2>Cambiar Dirección</h2>
     <p>* Campos obligatorios</p>
 
     <div class="container">

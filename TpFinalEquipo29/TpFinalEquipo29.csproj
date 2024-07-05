@@ -127,7 +127,6 @@
     <Content Include="DatosPersonales.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DetalleArticulos.aspx" />
-    <Content Include="Direccion.aspx" />
     <Content Include="EditarCompleto.aspx" />
     <Content Include="EditarDireccion.aspx" />
     <Content Include="Estadistica.aspx" />
@@ -259,13 +258,6 @@
     </Compile>
     <Compile Include="DetalleArticulos.aspx.designer.cs">
       <DependentUpon>DetalleArticulos.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Direccion.aspx.cs">
-      <DependentUpon>Direccion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Direccion.aspx.designer.cs">
-      <DependentUpon>Direccion.aspx</DependentUpon>
     </Compile>
     <Compile Include="EditarCompleto.aspx.cs">
       <DependentUpon>EditarCompleto.aspx</DependentUpon>

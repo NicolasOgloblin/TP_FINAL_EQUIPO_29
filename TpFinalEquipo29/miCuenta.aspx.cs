@@ -16,15 +16,15 @@ namespace TpFinalEquipo29
         {
             if (!IsPostBack)
             {
-                // Verificar si hay usuario autenticado en sesión
+                
                 if (Session["Login"] != null)
                 {
                     var usuario = (Domain.Entities.UsuarioEntity)Session["Login"];
-                    lblEmail.Text = usuario.Email; // Mostrar el correo electrónico del usuario
+                    lblEmail.Text = usuario.Email; 
                 }
                 else
                 {
-                    // Si no hay sesión, redirigir a la página de login
+                   
                     Response.Redirect("Login.aspx");
                 }
             }

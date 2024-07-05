@@ -27,7 +27,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">MIS DIRECCIONES</h5>
-                        <a href="Direccion.aspx" class="btn btn-primary">Crear y Editar</a>
+                        <a href="EditarDireccion.aspx" class="btn btn-primary">Modificar</a>
                     </div>
                 </div>
             </div>
