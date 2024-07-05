@@ -20,6 +20,7 @@
                 <label for="txtNuevoEmail" class="form-label">Nueva Dirección de Email <span class="text-danger">*</span>:</label>
                 <asp:TextBox ID="txtNuevoEmail" runat="server" CssClass="form-control" />
                 <asp:RequiredFieldValidator ID="rfvNuevoEmail" runat="server" ControlToValidate="txtNuevoEmail" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="ModificarEmail" />
+                <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtNuevoEmail" ErrorMessage="Formato de Email no válido" ValidationExpression="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
         </div>
 
@@ -29,6 +30,7 @@
                 <asp:TextBox ID="txtConfirmarEmail" runat="server" CssClass="form-control" />
                 <asp:RequiredFieldValidator ID="rfvConfirmarEmail" runat="server" ControlToValidate="txtConfirmarEmail" ErrorMessage="Campo requerido" ForeColor="Red" ValidationGroup="ModificarEmail" />
                 <asp:CompareValidator ID="cvEmails" runat="server" ControlToCompare="txtNuevoEmail" ControlToValidate="txtConfirmarEmail" ErrorMessage="Los emails no coinciden." ForeColor="Red" ValidationGroup="ModificarEmail" />
+                <asp:RegularExpressionValidator ID="revEmailConfirmar" runat="server" ControlToValidate="txtConfirmarEmail" ErrorMessage="Formato de Email no válido" ValidationExpression="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" CssClass="text-danger" Display="Dynamic"></asp:RegularExpressionValidator>
             </div>
         </div>
 

@@ -42,6 +42,15 @@ namespace TpFinalEquipo29
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNuevoEmail;
 
         /// <summary>
+        /// Control revEmail.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail;
+
+        /// <summary>
         /// Control txtConfirmarEmail.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace TpFinalEquipo29
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvEmails;
+
+        /// <summary>
+        /// Control revEmailConfirmar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmailConfirmar;
 
         /// <summary>
         /// Control btnGuardarCambios.
