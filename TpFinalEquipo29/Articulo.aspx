@@ -56,11 +56,12 @@
 
         <asp:TemplateField HeaderText="Acciones">
             <ItemTemplate>
-                <asp:LinkButton ID="btnEditar" runat="server" href="EditarCompleto.aspx" CssClass="btn btn-outline-info btn-sm"
-                    CommandName="Edit" Text="Editar" CausesValidation="False"></asp:LinkButton>
-                <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-outline-danger btn-sm"
-                    CommandName="Delete" Text="Eliminar" CausesValidation="False"></asp:LinkButton>
-            </ItemTemplate>
+        <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-outline-info btn-sm"
+            CommandName="Edit" Text="Editar" CausesValidation="False"
+            PostBackUrl='<%# Eval("Id", "~/EditarCompleto.aspx?id={0}") %>'></asp:LinkButton>
+        <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-outline-danger btn-sm"
+            CommandName="Delete" Text="Eliminar" CausesValidation="False"></asp:LinkButton>
+    </ItemTemplate>
             <EditItemTemplate>
                 <asp:LinkButton ID="btnActualizar" runat="server" CssClass="btn btn-success btn-sm"
                     CommandName="Update" Text="Actualizar" CausesValidation="False"></asp:LinkButton>

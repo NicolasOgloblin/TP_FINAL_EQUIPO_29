@@ -3,13 +3,12 @@ using Business.Articulo;
 using Business.Marca;
 using Domain.Entities;
 using System;
-using System.Web.UI.WebControls;
+using System.Collections.Generic;
 
 namespace TpFinalEquipo29
 {
     public partial class EditarCompleto : System.Web.UI.Page
     {
-
         private ArticuloBusiness articuloBusiness;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -17,90 +16,115 @@ namespace TpFinalEquipo29
             articuloBusiness = new ArticuloBusiness();
             if (!IsPostBack)
             {
-                CargarArticulos();
+                
+                CargarMarcas();
+                CargarCategorias();
+
+                if (Request.QueryString["id"] != null)
+                {
+                    int articuloId = Convert.ToInt32(Request.QueryString["id"]);
+                    CargarArticulo(articuloId);
+                }
             }
         }
 
-        private void CargarArticulos()
+        private void CargarMarcas()
         {
             try
             {
-                var articulos = articuloBusiness.GetArticulos();
-
-                gvArticulos.DataSource = articulos;
-                gvArticulos.DataBind();
+                ddlMarcas.DataSource = new MarcaBusiness().GetMarcas();
+                ddlMarcas.DataTextField = "Nombre";
+                ddlMarcas.DataValueField = "Id";
+                ddlMarcas.DataBind();
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = "Error al cargar los artículos: " + ex.Message;
+                lblMensaje.Text = "Error al cargar las marcas: " + ex.Message;
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
 
-        protected void gvArticulos_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            gvArticulos.EditIndex = e.NewEditIndex;
-            CargarArticulos();
-        }
-
-        
-        protected void gvArticulos_RowUpdatingFull(object sender, GridViewUpdateEventArgs e)
+        private void CargarCategorias()
         {
             try
             {
-                GridViewRow row = gvArticulos.Rows[e.RowIndex];
-                long id = Convert.ToInt64(gvArticulos.DataKeys[e.RowIndex].Value);
+                ddlCategorias.DataSource = new CategoriaBusiness().GetCategorias();
+                ddlCategorias.DataTextField = "Nombre";
+                ddlCategorias.DataValueField = "Id";
+                ddlCategorias.DataBind();
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Error al cargar las categorías: " + ex.Message;
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
+        }
 
+        private void CargarArticulo(int articuloId)
+        {
+            try
+            {
+                var articulo = articuloBusiness.getByID(articuloId);
 
-                TextBox txtCodigo = (TextBox)row.FindControl("txtCodigo");
-                TextBox txtNombre = (TextBox)row.FindControl("txtNombre");
-                DropDownList ddlMarcas = (DropDownList)row.FindControl("ddlMarcas");
-                DropDownList ddlCategorias = (DropDownList)row.FindControl("ddlCategorias");
-                TextBox txtPrecio = (TextBox)row.FindControl("txtPrecio");
-                TextBox txtStock = (TextBox)row.FindControl("txtStock");
-                TextBox txtAlto = (TextBox)row.FindControl("txtAlto");
-                TextBox txtAncho = (TextBox)row.FindControl("txtAncho");
-                TextBox txtColor = (TextBox)row.FindControl("txtColor");
-                TextBox txtModelo = (TextBox)row.FindControl("txtModelo");
-                TextBox txtOrigen = (TextBox)row.FindControl("txtOrigen");
-                TextBox txtPeso = (TextBox)row.FindControl("txtPeso");
-                TextBox txtGarantiaAnios = (TextBox)row.FindControl("txtGarantiaAnios");
-                TextBox txtGarantiaMeses = (TextBox)row.FindControl("txtGarantiaMeses");
+                if (articulo != null)
+                {
+                    lblMensaje.Text = "";
+                    
+                    txtCodigo.Text = articulo.CodArticulo;
+                    txtNombre.Text = articulo.Nombre;
+                    ddlMarcas.SelectedValue = articulo.Marca.Id.ToString(); 
+                    ddlCategorias.SelectedValue = articulo.Categoria.Id.ToString(); 
+                    txtPrecio.Text = articulo.Precio.ToString();
+                    txtStock.Text = articulo.Stock.ToString();
+                    txtAlto.Text = articulo.Alto.ToString();
+                    txtAncho.Text = articulo.Ancho.ToString();
+                    txtColor.Text = articulo.Color;
+                    txtModelo.Text = articulo.Modelo;
+                    txtOrigen.Text = articulo.Origen;
+                    txtPeso.Text = articulo.Peso.ToString();
+                    txtGarantiaAnios.Text = articulo.Garantia_Anios.ToString();
+                    txtGarantiaMeses.Text = articulo.Garantia_Meses.ToString();
 
+                    btnGuardar.Visible = true;
+                    btnCancelar.Visible = true;
+                }
+                else
+                {
+                    lblMensaje.Text = "El artículo con ID " + articuloId + " no existe.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Error al cargar el artículo: " + ex.Message;
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
+        }
 
-                string codigo = txtCodigo.Text;
-                string nombre = txtNombre.Text;
-                int marcaId = Convert.ToInt32(ddlMarcas.SelectedValue);
-                int categoriaId = Convert.ToInt32(ddlCategorias.SelectedValue);
-                decimal precio = Convert.ToDecimal(txtPrecio.Text);
-                int stock = Convert.ToInt32(txtStock.Text);
-                decimal alto = Convert.ToDecimal(txtAlto.Text);
-                decimal ancho = Convert.ToDecimal(txtAncho.Text);
-                string color = txtColor.Text;
-                string modelo = txtModelo.Text;
-                string origen = txtOrigen.Text;
-                decimal peso = Convert.ToDecimal(txtPeso.Text);
-                int garantiaAnios = Convert.ToInt32(txtGarantiaAnios.Text);
-                int garantiaMeses = Convert.ToInt32(txtGarantiaMeses.Text);
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int articuloId = Convert.ToInt32(Request.QueryString["id"]);
 
                 var articulo = new ArticuloEntity
                 {
-                    Id = id,
-                    CodArticulo = codigo,
-                    Nombre = nombre,
-                    Marca = new MarcaEntity { Id = marcaId },
-                    Categoria = new CategoriaEntity { Id = categoriaId },
-                    Precio = precio,
-                    Stock = stock,
-                    Alto = alto,
-                    Ancho = ancho,
-                    Color = color,
-                    Modelo = modelo,
-                    Origen = origen,
-                    Peso = peso,
-                    Garantia_Anios = garantiaAnios,
-                    Garantia_Meses = garantiaMeses
-
+                    Id = articuloId,
+                    CodArticulo = txtCodigo.Text,
+                    Nombre = txtNombre.Text,
+                    Marca = new MarcaEntity { Id = Convert.ToInt32(ddlMarcas.SelectedValue) },
+                    Categoria = new CategoriaEntity { Id = Convert.ToInt32(ddlCategorias.SelectedValue) },
+                    Precio = Convert.ToDecimal(txtPrecio.Text),
+                    Stock = Convert.ToInt32(txtStock.Text),
+                    Alto = Convert.ToDecimal(txtAlto.Text),
+                    Ancho = Convert.ToDecimal(txtAncho.Text),
+                    Color = txtColor.Text,
+                    Modelo = txtModelo.Text,
+                    Origen = txtOrigen.Text,
+                    Peso = Convert.ToDecimal(txtPeso.Text),
+                    Garantia_Anios = Convert.ToInt32(txtGarantiaAnios.Text),
+                    Garantia_Meses = Convert.ToInt32(txtGarantiaMeses.Text),
+                    Imagenes = new List<ImagenEntity>() 
                 };
 
                 int resultado = articuloBusiness.ModificarArticuloCompleto(articulo);
@@ -109,8 +133,6 @@ namespace TpFinalEquipo29
                 {
                     lblMensaje.Text = "Artículo actualizado correctamente.";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
-                    gvArticulos.EditIndex = -1;
-                    CargarArticulos();
                 }
                 else
                 {
@@ -124,79 +146,8 @@ namespace TpFinalEquipo29
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
             }
         }
-         
-       
-        protected void gvArticulos_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            gvArticulos.EditIndex = -1;
-            CargarArticulos();
-        }
-        protected void gvArticulos_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            try
-            {
-                long id = Convert.ToInt64(gvArticulos.DataKeys[e.RowIndex].Value);
-                bool resultado = articuloBusiness.Eliminar(id);
 
-                if (resultado)
-                {
-                    lblMensaje.Text = "Artículo eliminado correctamente.";
-                    lblMensaje.ForeColor = System.Drawing.Color.Green;
-                    CargarArticulos();
-                }
-                else
-                {
-                    lblMensaje.Text = "Hubo un problema al eliminar el artículo.";
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMensaje.Text = "Error: " + ex.Message;
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-            }
-        }
-
-        protected void gvArticulos_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                if ((e.Row.RowState & DataControlRowState.Edit) > 0)
-                {
-                    DropDownList ddlMarcas = (DropDownList)e.Row.FindControl("ddlMarcas");
-                    if (ddlMarcas != null)
-                    {
-                        ddlMarcas.DataSource = new MarcaBusiness().GetMarcas();
-                        ddlMarcas.DataTextField = "Nombre";
-                        ddlMarcas.DataValueField = "Id";
-                        ddlMarcas.DataBind();
-
-                        Label lblMarcaId = (Label)e.Row.FindControl("lblMarcaId");
-                        if (lblMarcaId != null)
-                        {
-                            ddlMarcas.SelectedValue = lblMarcaId.Text;
-                        }
-                    }
-
-                    DropDownList ddlCategorias = (DropDownList)e.Row.FindControl("ddlCategorias");
-                    if (ddlCategorias != null)
-                    {
-                        ddlCategorias.DataSource = new CategoriaBusiness().GetCategorias();
-                        ddlCategorias.DataTextField = "Nombre";
-                        ddlCategorias.DataValueField = "Id";
-                        ddlCategorias.DataBind();
-
-                        Label lblCategoriaId = (Label)e.Row.FindControl("lblCategoriaId");
-                        if (lblCategoriaId != null)
-                        {
-                            ddlCategorias.SelectedValue = lblCategoriaId.Text;
-                        }
-                    }
-                }
-            }
-        }
-
-        protected void btnVolver_Click(object sender, EventArgs e)
+        protected void btnCancelar_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Gestion.aspx");
         }
