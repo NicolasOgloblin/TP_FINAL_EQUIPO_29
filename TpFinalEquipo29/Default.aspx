@@ -32,18 +32,23 @@
      }
  </style>
   
- <div class="d-flex flex-column mb-6" style="width: 1000px;">
-     <br />
-    <div class="input-group mb-3" style="width: 253.18px; height: 40px; margin-left: 950px;">
-        <asp:TextBox ID="txtBuscar" class="form-control me-2" style="flex: 1;" runat="server" placeholder="Buscar..."></asp:TextBox> <%= GetBuscarValue() %>
-        <asp:LinkButton ID="btnBuscar" runat="server" CssClass="btn btn-outline-info ms-2" OnClick="btnBuscar_Click" Text="Buscar" style="width: auto; height: 100%;" />
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="input-group">
+                <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control me-2" placeholder="Buscar..."></asp:TextBox>
+                <%= GetBuscarValue() %>
+                <div class="input-group-append">
+                    <asp:LinkButton ID="btnBuscar" runat="server" CssClass="btn btn-info" OnClick="btnBuscar_Click" Text="Buscar" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <asp:DropDownList ID="ddlFiltroPrecio" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlFiltroPrecio_Click"
+                AutoPostBack="true">
+            </asp:DropDownList>
+        </div>
     </div>
-
-</div>
-
-
- <div class="d-flex justify-content-center align-items-start mb-3">
-    <asp:DropDownList ID="ddlFiltroPrecio"  class="form-control me-2" style="width: 200px;" OnSelectedIndexChanged="ddlFiltroPrecio_Click" runat="server" AutoPostBack="true"></asp:DropDownList>
 </div>
 
    
