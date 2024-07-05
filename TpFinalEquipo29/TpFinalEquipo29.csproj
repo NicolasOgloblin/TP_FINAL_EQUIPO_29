@@ -129,6 +129,7 @@
     <Content Include="DetalleArticulos.aspx" />
     <Content Include="Direccion.aspx" />
     <Content Include="EditarCompleto.aspx" />
+    <Content Include="EditarDireccion.aspx" />
     <Content Include="Estadistica.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Gestion.aspx" />
@@ -272,6 +273,13 @@
     </Compile>
     <Compile Include="EditarCompleto.aspx.designer.cs">
       <DependentUpon>EditarCompleto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditarDireccion.aspx.cs">
+      <DependentUpon>EditarDireccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditarDireccion.aspx.designer.cs">
+      <DependentUpon>EditarDireccion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Estadistica.aspx.cs">
       <DependentUpon>Estadistica.aspx</DependentUpon>

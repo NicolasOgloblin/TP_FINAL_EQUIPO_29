@@ -64,6 +64,11 @@ namespace TpFinalEquipo29
                         throw new Exception("Las nuevas contraseñas no coinciden.");
                     }
 
+                    if (usuariolog == null)
+                    {
+                        usuariolog = new UsuarioBusiness();
+                    }
+
                     // Validar contraseña actual antes de cambiarla
                     bool validacionContraseña = usuariolog.VerificarContraseniaActual(usuario.Id, contraseniaActual);
 

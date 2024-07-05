@@ -5,28 +5,13 @@
  <!-- Contenido de las direcciones existentes -->
 
     <h2>Mis direcciones</h2>
-    <p>Estas son tus direcciones almacenadas:</p>
-
+    
     <!-- Dirección de Residencia -->
     <div>
         <h3>Dirección de Residencia</h3>
         <p>
-            BELEN DE ESCOBAR, ESCOBAR<br />
-            COMPLETAR DIRECCIÓN<br />
-            Argentina (1625)<br />
-            <a href="#" onclick="mostrarFormularioEdicion();">Editar</a> | <a href="#">Eliminar</a>
-        </p>
-    </div>
-
-    <!-- Direcciones de Entrega/Facturación -->
-    <div>
-        <h3>Direcciones de Entrega/Facturación</h3>
-        <p>
-            Depto<br />
-            BELEN DE ESCOBAR, ESCOBAR<br />
-            MORENO, 832, Buenos Aires<br />
-            Argentina (1625)<br />
-            <a href="#" onclick="mostrarFormularioEdicion();">Editar</a> | <a href="#">Eliminar</a>
+            
+              <a href="EditarDireccion.aspx">Editar</a> | <a href="#">Eliminar</a>
         </p>
     </div>
 
@@ -52,11 +37,5 @@
     </div>
 
 
-<%--<script>
-    function mostrarFormularioEdicion() {
-        document.getElementById("editForm").style.display = "block";
-        // Aquí puedes agregar lógica adicional si es necesario
-    }
-</script>--%>
 
 </asp:Content>

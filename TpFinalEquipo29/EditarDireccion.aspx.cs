@@ -9,43 +9,46 @@ using System.Web.UI.WebControls;
 
 namespace TpFinalEquipo29
 {
-    public partial class DatosPersonales : System.Web.UI.Page
+    public partial class EditarDireccion : System.Web.UI.Page
     {
-
         private UsuarioBusiness datosusuario;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-               
+
                 if (Session["Login"] != null)
                 {
                     datosusuario = new UsuarioBusiness();
-                    CargarDatosUsuario();
+                    CargarDireccion();
                 }
                 else
                 {
-                  
-                    Response.Redirect("Login.aspx");
+
+                   
                 }
             }
         }
 
-        private void CargarDatosUsuario()
+        private void CargarDireccion()
         {
             UsuarioEntity usuario = (UsuarioEntity)Session["Login"];
 
             if (usuario != null)
             {
-                txtNombre.Text = usuario.Nombre;
-                txtApellido.Text = usuario.Apellido;
-                txtDNI.Text = usuario.Dni;
+             
+                txtCalle.Text = usuario.Calle;
+                txtNumero.Text = usuario.Altura;
+                txtCodigoPostal.Text = usuario.CodPostal;
+                txtCiudad.Text = usuario.Localidad;
                 txtTelefono.Text = usuario.Telefono;
+                txtProvincia.Text = usuario.Provincia;
+                
+       
             }
         }
 
-        protected void btnGuardarCambios_Click(object sender, EventArgs e)
+        protected void btnGuardarDireccion_Click(object sender, EventArgs e)
         {
             try
             {
@@ -53,24 +56,25 @@ namespace TpFinalEquipo29
 
                 if (usuario != null)
                 {
-                    
-                    usuario.Nombre = txtNombre.Text;
-                    usuario.Apellido = txtApellido.Text;
-                    usuario.Dni = txtDNI.Text;
-                    usuario.Telefono = txtTelefono.Text;
 
-                    
+                    usuario.Calle = txtCalle.Text;
+                    usuario.Altura = txtNumero.Text;
+                    usuario.CodPostal = txtCodigoPostal.Text;
+                    usuario.Localidad = txtCiudad.Text;
+                    usuario.Telefono = txtTelefono.Text;
+                    usuario.Provincia = txtProvincia.Text;
+
+
                     if (datosusuario == null)
                     {
                         datosusuario = new UsuarioBusiness();
                     }
 
-                    
                     bool actualizado = datosusuario.ActualizarUsuario(usuario);
 
                     if (actualizado)
                     {
-                        
+
                         Session["Login"] = usuario;
 
                         lblMensaje.Text = "Datos actualizados correctamente.";
@@ -90,11 +94,14 @@ namespace TpFinalEquipo29
             {
                 lblMensaje.Text = "Error: " + ex.Message;
             }
+
         }
-        protected void btnCancelar_Click(object sender, EventArgs e)
+
+            protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            
-            Response.Redirect("MiCuenta.aspx");
+            Response.Redirect("Direccion.aspx");
         }
     }
 }
+        
+    
