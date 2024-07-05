@@ -24,15 +24,6 @@ namespace TpFinalEquipo29
         protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
-        /// Control lblId.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblId;
-
-        /// <summary>
         /// Control txtCodigo.
         /// </summary>
         /// <remarks>
@@ -87,6 +78,24 @@ namespace TpFinalEquipo29
         protected global::System.Web.UI.WebControls.TextBox txtStock;
 
         /// <summary>
+        /// Control txtGarantiaAnios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGarantiaAnios;
+
+        /// <summary>
+        /// Control txtGarantiaMeses.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtGarantiaMeses;
+
+        /// <summary>
         /// Control txtPeso.
         /// </summary>
         /// <remarks>
@@ -139,24 +148,6 @@ namespace TpFinalEquipo29
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOrigen;
-
-        /// <summary>
-        /// Control txtGarantiaAnios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGarantiaAnios;
-
-        /// <summary>
-        /// Control txtGarantiaMeses.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGarantiaMeses;
 
         /// <summary>
         /// Control lblNuevasImagenes.
