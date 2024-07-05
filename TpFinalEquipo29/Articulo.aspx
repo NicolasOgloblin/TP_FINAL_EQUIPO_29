@@ -7,7 +7,8 @@
     <asp:GridView ID="gvArticulos" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
     OnRowEditing="gvArticulos_RowEditing" OnRowUpdating="gvArticulos_RowUpdating"
     OnRowCancelingEdit="gvArticulos_RowCancelingEdit" OnRowDeleting="gvArticulos_RowDeleting"
-    OnRowDataBound="gvArticulos_RowDataBound" CssClass="table table-striped">
+    OnRowDataBound="gvArticulos_RowDataBound" 
+    CssClass="table table-striped">
     <Columns>
         <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="True" />
         <asp:TemplateField HeaderText="Código">
@@ -59,8 +60,10 @@
         <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-outline-info btn-sm"
             CommandName="Edit" Text="Editar" CausesValidation="False"
             PostBackUrl='<%# Eval("Id", "~/EditarCompleto.aspx?id={0}") %>'></asp:LinkButton>
+
         <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-outline-danger btn-sm"
             CommandName="Delete" Text="Eliminar" CausesValidation="False"></asp:LinkButton>
+
     </ItemTemplate>
             <EditItemTemplate>
                 <asp:LinkButton ID="btnActualizar" runat="server" CssClass="btn btn-success btn-sm"

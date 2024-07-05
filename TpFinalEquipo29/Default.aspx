@@ -78,17 +78,5 @@
      </ul>
  </div>
 
-        <div class="sobre-nosotros">
-    <h2>Sobre nosotros:</h2>
-    <p>
-        En <strong>GreenTech</strong>, nos dedicamos a la revitalización de la tecnología mediante el reciclaje y la reventa de productos tecnológicos. Nuestro compromiso se centra en reducir el impacto ambiental asociado con la electrónica, al mismo tiempo que promovemos prácticas sostenibles y la economía circular. Creemos firmemente en contribuir activamente a los objetivos de desarrollo sostenible establecidos en la Agenda 2030 de las Naciones Unidas.
-    </p>
-    <p>
-        Desde nuestro inicio, hemos trabajado para ofrecer soluciones innovadoras que no solo beneficien a nuestros clientes, sino también al medio ambiente. Cada acción que tomamos está guiada por nuestro compromiso con la excelencia, la integridad y la responsabilidad social corporativa.
-    </p>
-    <p>
-        Únete a nosotros en nuestro viaje hacia un futuro más sostenible y responsable con <strong>GreenTech</strong>.
-    </p>
-</div>
 
 </asp:Content>

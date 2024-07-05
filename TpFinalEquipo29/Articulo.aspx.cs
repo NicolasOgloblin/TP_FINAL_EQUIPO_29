@@ -3,6 +3,8 @@ using Business.Articulo;
 using Business.Marca;
 using Domain.Entities;
 using System;
+using System.Web.Optimization;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace TpFinalEquipo29
@@ -105,10 +107,20 @@ namespace TpFinalEquipo29
         }
         protected void gvArticulos_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            var articuloBusiness = new ArticuloBusiness();
             try
             {
                 long id = Convert.ToInt64(gvArticulos.DataKeys[e.RowIndex].Value);
+                
+                if (articuloBusiness.GetReservaStock(id) > 0) 
+                {
+                    var script = "Swal.fire({ title: 'Advertencia', text: 'Este articulo actualmente tiene reserva.', icon: 'warning', confirmButtonText: 'OK' });";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
+                    return;
+                }
+
                 bool resultado = articuloBusiness.Eliminar(id);
+
 
                 if (resultado)
                 {

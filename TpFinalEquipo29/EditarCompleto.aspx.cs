@@ -149,7 +149,7 @@ namespace TpFinalEquipo29
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Gestion.aspx");
+            Response.Redirect("~/Articulo.aspx");
         }
     }
 }
