@@ -32,9 +32,8 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-end;
     }
-
     .card-title,
     .card-text {
         margin: 0;
