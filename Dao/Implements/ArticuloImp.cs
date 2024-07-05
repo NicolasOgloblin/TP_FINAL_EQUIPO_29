@@ -616,6 +616,8 @@ namespace Dao.Implements
                                 ISNULL(AD.STOCK,0) AS STOCK,
                                 M.NOMBRE AS NOMBREMARCA,
                                 C.NOMBRE AS NOMBRECATEGORIA,
+                                M.ID AS MID,
+                                C.ID CID,
                                 AD.ALTO,
                                 AD.ANCHO,
                                 AD.COLOR,
@@ -631,7 +633,8 @@ namespace Dao.Implements
                                 WHERE A.ID = 10010
                                 GROUP BY A.ID, AD.NOMBRE, AD.DESCRIPCION, M.NOMBRE, C.NOMBRE,
                                 AD.PRECIO, AD.STOCK, A.CODIGO_ARTICULO,AD.ALTO,AD.ANCHO,AD.COLOR,
-                                AD.MODELO,AD.ORIGEN,AD.PESO,AD.GARANTIA_ANIOS,AD.GARANTIA_MESES";
+                                AD.MODELO,AD.ORIGEN,AD.PESO,AD.GARANTIA_ANIOS,AD.GARANTIA_MESES,
+                                C.ID, M.ID";
 
             try
             {
@@ -651,6 +654,8 @@ namespace Dao.Implements
                     articulo.Categoria = new CategoriaEntity();
                     articulo.Marca.Nombre = (string)datos.Reader["NOMBREMARCA"];
                     articulo.Categoria.Nombre = (string)datos.Reader["NOMBRECATEGORIA"];
+                    articulo.Marca.Id = (int)datos.Reader["MID"];
+                    articulo.Categoria.Id = (int)datos.Reader["CID"];
                     articulo.Precio = (decimal)datos.Reader["PRECIO"];
                     articulo.Stock = (int)datos.Reader["STOCK"];
                     articulo.Alto = (decimal)datos.Reader["ALTO"];
