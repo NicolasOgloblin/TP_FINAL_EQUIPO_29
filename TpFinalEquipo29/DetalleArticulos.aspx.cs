@@ -59,7 +59,7 @@ namespace TpFinalEquipo29
                 {
                     litNombre.Text = articuloSeleccionado.Nombre;
                     litPrecio.Text = articuloSeleccionado.Precio.ToString("F2");
-
+                    litStock.Text = articuloSeleccionado.Stock.ToString();
                     litCarouselIndicators.Text = GenerarIndicadoresCarrusel(articuloSeleccionado.Imagenes.Count);
                     litCarouselImages.Text = GenerarImagenesCarrusel(articuloSeleccionado.Imagenes);
 

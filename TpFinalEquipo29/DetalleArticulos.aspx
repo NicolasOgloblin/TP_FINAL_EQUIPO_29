@@ -27,7 +27,8 @@
                 <h3><asp:Literal ID="litNombre" runat="server" /></h3>
                 <br />
                 <p>Precio: <b>$<asp:Literal ID="litPrecio" runat="server" /></b></p>
-                <br />
+                
+                <p>Stock: <b><asp:Literal ID="litStock" runat="server" /></b></p>
                 <asp:LinkButton ID="btnAgregarDetalle" runat="server" CssClass="btn btn-success" OnClick="btnAgregarDetalle_Click" CommandArgument='<%# Eval("Id") %>' Text="Agregar al carrito" />
             </div>
             
