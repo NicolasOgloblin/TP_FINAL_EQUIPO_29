@@ -23,13 +23,22 @@
         height: 250px; 
         object-fit: cover; 
      }
-     .sobre-nosotros {
-        border: 1px solid #ccc; 
-        padding: 20px;
-        margin-bottom: 20px; 
-        background-color: #5c9b5e;
-        border-radius: 5px;
+     .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
      }
+    .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-title,
+    .card-text {
+        margin: 0;
+    }
  </style>
   
 <div class="container">

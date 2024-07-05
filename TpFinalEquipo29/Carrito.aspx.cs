@@ -113,11 +113,7 @@ namespace TpFinalEquipo29
                         ActualizarCarrito();
                     }
                 }
-                else
-                {
-                    string script = "Swal.fire({ title: 'Advertencia', text: 'Sin stock para este articulo.', icon: 'warning', confirmButtonText: 'OK' });";
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
-                }
+                
             }
             catch(Exception ex)
             {

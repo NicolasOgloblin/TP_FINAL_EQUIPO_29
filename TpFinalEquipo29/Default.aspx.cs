@@ -171,8 +171,6 @@ namespace TpFinalEquipo29
                 {
                     if(articulo.Stock < 1)
                     {
-                        script = "Swal.fire({ title: 'Advertencia', text: 'Sin stock para este articulo.', icon: 'warning', confirmButtonText: 'OK' });";
-                        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", script, true);
                         return;
                     }
                     List<ArticuloEntity> articulosSeleccionados;
