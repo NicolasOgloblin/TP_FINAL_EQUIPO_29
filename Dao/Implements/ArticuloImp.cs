@@ -352,8 +352,6 @@ namespace Dao.Implements
 
         public int AgregarImagenes(List<ImagenEntity> imagenes)
         {
-            //DataAccess datos = new DataAccess();
-
             #region Consulta
             string consulta = @"INSERT INTO IMAGENES
                                 VALUES(@articuloId,@imagen)";

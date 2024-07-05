@@ -25,6 +25,9 @@
          </Columns>
      </asp:GridView>
      <div class="mt-3">
+        <asp:Button ID="btnFinalizarCompra" runat="server" Text="Finalizar Compra" CssClass="btn btn-success" OnClick="btnFinalizarCompra_Click" />
+    </div>
+     <div class="mt-3">
          <asp:Label ID="lblTotal" runat="server" CssClass="h4"></asp:Label>
      </div>
  </div>

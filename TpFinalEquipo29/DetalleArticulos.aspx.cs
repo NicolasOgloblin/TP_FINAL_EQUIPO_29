@@ -192,6 +192,13 @@ namespace TpFinalEquipo29
                                 articulosSeleccionados = (List<ArticuloEntity>)Session["articulosSeleccionados"];
                             }
 
+                            if (articulosSeleccionados.Where(s => s.Id == articulo.Id).Count() > 0)
+                            {
+                                Session["articulosSeleccionados"] = articulosSeleccionados;
+                                ActualizarCarrito();
+                                return;
+                            }
+
                             articulosSeleccionados.Add(articulo);
                             Session["articulosSeleccionados"] = articulosSeleccionados;
 

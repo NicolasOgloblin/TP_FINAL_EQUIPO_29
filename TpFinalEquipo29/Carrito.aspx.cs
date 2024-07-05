@@ -1,12 +1,10 @@
 ﻿using Business.Articulo;
+using Business.Pedido;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Optimization;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace TpFinalEquipo29
 {
@@ -170,6 +168,46 @@ namespace TpFinalEquipo29
                 
             }
             catch (Exception ex)
+            {
+                throw new Exception("Ocurrio un problema: " + ex.Message);
+            }
+        }
+
+        protected void btnFinalizarCompra_Click(object sender, EventArgs e)
+        {
+            var pedidoBusiness = new PedidoBusiness();
+
+            decimal total = 0;
+            var usuarioLogueado = (UsuarioEntity)Session["Login"];
+            var carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
+            try
+             {
+                var pedido = new PedidoEntity();
+                pedido.UsuarioId = usuarioLogueado.Id;
+                pedido.FechaPedido = DateTime.Now;
+
+                foreach (var item in carrito)
+                {
+                    total += item.Precio * item.Stock;
+                }
+
+                pedido.MontoTotal = total;
+                pedido.Estado = false;
+                pedido.Detalles = new List<PedidoDetalleEntity>();
+
+                foreach(var item in carrito)
+                {
+                    var pedidoDetalle = new PedidoDetalleEntity();
+                    pedidoDetalle.ArticuloId = item.Id;
+                    pedidoDetalle.Cantidad = item.Stock;
+                    pedidoDetalle.PrecioUnitario = item.Precio;
+                    pedido.Detalles.Add(pedidoDetalle);
+                }
+
+                var result = pedidoBusiness.AgregarPedido(pedido, usuarioLogueado.Id);
+
+
+            }catch(Exception ex)
             {
                 throw new Exception("Ocurrio un problema: " + ex.Message);
             }
