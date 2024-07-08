@@ -13,22 +13,38 @@ namespace TpFinalEquipo29
         {
             if (!IsPostBack)
             {
-                // Puedes inicializar aquí cualquier lógica que necesites al cargar la página por primera vez
+               
             }
         }
 
         protected void btnConfirmarEntrega_Click(object sender, EventArgs e)
         {
-            // Obtener el valor seleccionado del RadioButtonList
+            
             string formaEntrega = rbFormaEntrega.SelectedValue;
 
-            // Guardar el valor en ViewState para usarlo posteriormente
+            
             ViewState["FormaEntrega"] = formaEntrega;
 
-            // Redirigir a la página de método de pago
-            Response.Redirect("MetodoPago.aspx");
+            
+            switch (formaEntrega)
+            {
+                case "encuentro":
+                    
+                    Response.Redirect("PuntoEncuentro.aspx");
+                    break;
+                case "tienda":
+                    
+                    Response.Redirect("RetiroTienda.aspx");
+                    break;
+                case "domicilio":
+                    
+                    Response.Redirect("MisDirecciones.aspx");
+                    break;
+                default:
+                   
+                    break;
+            }
+
         }
-
-
     }
 }

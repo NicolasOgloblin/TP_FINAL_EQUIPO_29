@@ -139,6 +139,7 @@
     <Content Include="Marca.aspx" />
     <Content Include="MetodoPago.aspx" />
     <Content Include="miCuenta.aspx" />
+    <Content Include="MisDirecciones.aspx" />
     <Content Include="ModificarMail.aspx" />
     <Content Include="Pagos.aspx" />
     <Content Include="ProcesandoPedido.aspx" />
@@ -335,6 +336,13 @@
     </Compile>
     <Compile Include="miCuenta.aspx.designer.cs">
       <DependentUpon>miCuenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisDirecciones.aspx.cs">
+      <DependentUpon>MisDirecciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisDirecciones.aspx.designer.cs">
+      <DependentUpon>MisDirecciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="ModificarMail.aspx.cs">
       <DependentUpon>ModificarMail.aspx</DependentUpon>
