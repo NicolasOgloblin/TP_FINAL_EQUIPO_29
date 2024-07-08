@@ -59,18 +59,16 @@
         <div class="radio-list">
             <asp:RadioButtonList ID="rbMetodoPago" runat="server">
                 <asp:ListItem Value="efectivo">Pagar en efectivo</asp:ListItem>
-                <asp:ListItem Value="debito">Pagar con débito</asp:ListItem>
-                <asp:ListItem Value="cuotas">Pagar en cuotas</asp:ListItem>
+                <asp:ListItem Value="debito/transferencia">Pagar con débito</asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <asp:Button ID="btnConfirmarPago" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarPago_Click" />
         <p class="note">Selecciona tu método de pago preferido.</p>
-    
 
-    <div class="total-container">
-        <span class="total-label">Monto Total:</span>
-        <asp:Label ID="lblMontoTotal" runat="server" Text="" CssClass="total-price"></asp:Label>
+        <div class="total-container">
+            <span class="total-label">Monto Total:</span>
+            <asp:Label ID="lblMontoTotal" runat="server" Text="" CssClass="total-price"></asp:Label>
+        </div>
     </div>
-</div>
 
 </asp:Content>
