@@ -203,7 +203,7 @@ namespace TpFinalEquipo29
 
                 var result = pedidoBusiness.AgregarPedido(pedido, usuarioLogueado.Id);
 
-                Response.Redirect("FinalizarCompra.aspx", false);
+                Response.Redirect("ProcesandoPedido.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
 
             }
