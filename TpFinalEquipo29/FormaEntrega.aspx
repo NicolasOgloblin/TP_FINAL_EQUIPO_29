@@ -18,7 +18,7 @@
             margin-bottom: 20px;
         }
         .btn-confirmar {
-            background-color: #4caf50; /* Verde botón */
+            background-color: #4caf50; 
             color: #ffffff;
             border: none;
             padding: 10px 20px;
@@ -30,7 +30,7 @@
             cursor: pointer;
         }
         .btn-confirmar:hover {
-            background-color: #45a049; /* Verde más oscuro al pasar */
+            background-color: #45a049;
         }
         .note {
             font-size: 14px;
@@ -38,14 +38,14 @@
             margin-top: 10px;
         }
         .gratis {
-            color: #4caf50; /* Color verde más claro */
+            color: #4caf50; 
             font-weight: bold;
             font-size: 14px;
-            margin-right: 10px; /* Espacio entre "Gratis" y la dirección */
+            margin-right: 10px;
         }
         .direccion {
             font-size: 14px;
-            color: #000000; /* Negro para las direcciones */
+            color: #000000; 
         }
     </style>
 
@@ -59,6 +59,9 @@
                 <asp:ListItem Value="tienda">
                     Retiro en la tienda - <span class="direccion">Tribulato 905, San Miguel</span> <span class="gratis">Gratis</span>
                 </asp:ListItem>
+               <asp:ListItem Value="domicilio">
+                Envío a domicilio - <span class="direccion">Tu dirección</span> <span class="gratis">Costo adicional ($3,500)</span>
+            </asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <asp:Button ID="btnConfirmarEntrega" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarEntrega_Click" />
