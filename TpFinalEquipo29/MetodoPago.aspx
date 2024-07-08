@@ -18,7 +18,7 @@
             margin-bottom: 20px;
         }
         .btn-confirmar {
-            background-color: #4caf50; /* Verde botón */
+            background-color: #4caf50; 
             color: #ffffff;
             border: none;
             padding: 10px 20px;
@@ -30,7 +30,7 @@
             cursor: pointer;
         }
         .btn-confirmar:hover {
-            background-color: #45a049; /* Verde más oscuro al pasar */
+            background-color: #45a049;
         }
         .note {
             font-size: 14px;
@@ -40,6 +40,17 @@
         .forma-pago {
             font-size: 16px;
             margin-bottom: 10px;
+        }
+        .total-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .total-label, .total-price {
+            font-weight: bold;
+            font-size: 1.2em;
         }
     </style>
 
@@ -54,11 +65,12 @@
         </div>
         <asp:Button ID="btnConfirmarPago" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarPago_Click" />
         <p class="note">Selecciona tu método de pago preferido.</p>
-    </div>
+    
 
     <div class="total-container">
         <span class="total-label">Monto Total:</span>
-        <asp:Label ID="lblMontoTotal" runat="server" Text=""></asp:Label>
+        <asp:Label ID="lblMontoTotal" runat="server" Text="" CssClass="total-price"></asp:Label>
     </div>
+</div>
 
 </asp:Content>

@@ -11,7 +11,6 @@
                     <p>Transferir al siguiente alias:</p>
                     <asp:Label ID="lblAlias" runat="server" CssClass="h5"></asp:Label>
                 </div>
-                
             </div>
         </div>
     </div>
