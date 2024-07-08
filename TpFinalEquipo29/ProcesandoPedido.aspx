@@ -51,7 +51,7 @@
     <script>
         
         setTimeout(function () {
-            window.location.href = "FinalizarCompra.aspx";
+            window.location.href = "FormaEntrega.aspx";
         }, 7000);
     </script>
 </asp:Content>

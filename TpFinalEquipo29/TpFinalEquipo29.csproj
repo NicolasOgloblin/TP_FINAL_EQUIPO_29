@@ -132,10 +132,12 @@
     <Content Include="Estadistica.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="FinalizarCompra.aspx" />
+    <Content Include="FormaEntrega.aspx" />
     <Content Include="Gestion.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Marca.aspx" />
+    <Content Include="MetodoPago.aspx" />
     <Content Include="miCuenta.aspx" />
     <Content Include="ModificarMail.aspx" />
     <Content Include="Pagos.aspx" />
@@ -289,6 +291,13 @@
     <Compile Include="FinalizarCompra.aspx.designer.cs">
       <DependentUpon>FinalizarCompra.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FormaEntrega.aspx.cs">
+      <DependentUpon>FormaEntrega.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormaEntrega.aspx.designer.cs">
+      <DependentUpon>FormaEntrega.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Gestion.aspx.cs">
       <DependentUpon>Gestion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -312,6 +321,13 @@
     </Compile>
     <Compile Include="Marca.aspx.designer.cs">
       <DependentUpon>Marca.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MetodoPago.aspx.cs">
+      <DependentUpon>MetodoPago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MetodoPago.aspx.designer.cs">
+      <DependentUpon>MetodoPago.aspx</DependentUpon>
     </Compile>
     <Compile Include="miCuenta.aspx.cs">
       <DependentUpon>miCuenta.aspx</DependentUpon>
