@@ -18,8 +18,8 @@
                     <p class="mb-0"><asp:Label ID="lblAltura" runat="server" /></p>
                 </div>
                 <div class="ml-auto">
-                    <a href="EditarDireccion.aspx" class="btn btn-outline-primary mr-2">
-                        <i class="fas fa-edit"></i> Cambiar
+                  <%--  <a href="EditarDireccion.aspx" class="btn btn-outline-primary mr-2">
+                        <i class="fas fa-edit"></i> Cambiar--%>
                         <a href="MetodoPago.aspx" class="btn btn-outline-primary mr-2">
                         <i class="fas fa-edit"></i> Confirmar
                     </a>

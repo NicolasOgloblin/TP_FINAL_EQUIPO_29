@@ -19,6 +19,10 @@ namespace TpFinalEquipo29
 
                 // Mostrar el monto total en el Label
                 lblMontoTotal.Text = $"${montoTotal.ToString("0.00")}"; // Formato de ejemplo: $123.45
+
+
+
+
             }
         }
 
@@ -31,7 +35,7 @@ namespace TpFinalEquipo29
             Session["MetodoPago"] = metodoPago;
 
             // Redirigir a la siguiente página según tu flujo de compra
-            Response.Redirect("FinalizarCompra.aspx");
+            Response.Redirect("DetalleCompra.aspx");
         }
 
         private decimal ObtenerMontoTotal()
@@ -44,6 +48,8 @@ namespace TpFinalEquipo29
             }
             return 0; // Manejo de caso cuando no hay artículos en el carrito o está vacío
         }
+
+
 
     }
 }

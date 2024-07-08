@@ -19,32 +19,31 @@ namespace TpFinalEquipo29
 
         protected void btnConfirmarEntrega_Click(object sender, EventArgs e)
         {
-            
+
             string formaEntrega = rbFormaEntrega.SelectedValue;
 
-            
-            ViewState["FormaEntrega"] = formaEntrega;
 
-            
+            Session["FormaEntrega"] = formaEntrega;
+
+
             switch (formaEntrega)
             {
                 case "encuentro":
-                    
-                    Response.Redirect("PuntoEncuentro.aspx");
+
+                    Response.Redirect("MetodoPago.aspx");
                     break;
                 case "tienda":
-                    
-                    Response.Redirect("RetiroTienda.aspx");
+
+                    Response.Redirect("MetodoPago.aspx");
                     break;
                 case "domicilio":
-                    
+
                     Response.Redirect("MisDirecciones.aspx");
                     break;
                 default:
-                   
+
                     break;
             }
-
         }
     }
 }
