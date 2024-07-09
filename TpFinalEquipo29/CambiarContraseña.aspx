@@ -36,8 +36,8 @@
                         </div>
 
                         <div class="form-group">
-                            <asp:Button ID="btnCambiarContraseña" runat="server" Text="CAMBIAR CONTRASEÑA" CssClass="btn btn-primary" ValidationGroup="CambiarContraseña" OnClick="btnCambiarContraseña_Click" />
-                            <asp:Button ID="btnCancelar" runat="server" Text="CANCELAR" CssClass="btn btn-secondary" OnClick="btnCancelar_Click" />
+                            <asp:Button ID="btnCambiarContraseña" runat="server" Text="CAMBIAR CONTRASEÑA" CssClass="btn btn-success" ValidationGroup="CambiarContraseña" OnClick="btnCambiarContraseña_Click" />
+                            <asp:Button ID="btnCancelar" runat="server" Text="CANCELAR" CssClass="btn btn-info" OnClick="btnCancelar_Click" />
                         </div>
 
                         <div>

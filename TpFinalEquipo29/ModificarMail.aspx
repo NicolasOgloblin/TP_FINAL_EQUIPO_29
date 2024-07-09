@@ -36,8 +36,8 @@
 
         <div class="row g-3 mt-3">
             <div class="col-12">
-                <asp:Button ID="btnGuardarCambios" runat="server" CssClass="btn btn-primary" Text="Guardar Cambios" OnClick="btnGuardarCambios_Click" ValidationGroup="ModificarEmail" />
-                <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-secondary ms-2" Text="Cancelar" OnClick="btnCancelar_Click" CausesValidation="False" />
+                <asp:Button ID="btnGuardarCambios" runat="server" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardarCambios_Click" ValidationGroup="ModificarEmail" />
+                <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-info" Text="Cancelar" OnClick="btnCancelar_Click" CausesValidation="False" />
             </div>
         </div>
 

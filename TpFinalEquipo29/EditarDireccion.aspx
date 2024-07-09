@@ -41,8 +41,8 @@
         </div>
         <br />
         <div class="form-group">
-            <asp:Button ID="btnGuardarDireccion" runat="server" Text="GUARDAR DIRECCIÓN" CssClass="btn btn-primary" OnClick="btnGuardarDireccion_Click" />
-            <asp:Button ID="btnCancelar" runat="server" Text="CANCELAR" CssClass="btn btn-secondary" OnClick="btnCancelar_Click" />
+            <asp:Button ID="btnGuardarDireccion" runat="server" Text="GUARDAR DIRECCIÓN" CssClass="btn btn-success" OnClick="btnGuardarDireccion_Click" />
+            <asp:Button ID="btnCancelar" runat="server" Text="CANCELAR" CssClass="btn btn-info" OnClick="btnCancelar_Click" />
         </div>
         <asp:Label ID="lblMensaje" runat="server" CssClass="mt-3" />
     </div>

@@ -16,7 +16,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">MIS DATOS PERSONALES</h5>
-                        <a href="DatosPersonales.aspx" class="btn btn-primary">Visualizar y Editar</a>
+                        <a href="DatosPersonales.aspx" class="btn btn-success">Visualizar y Editar</a>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">MIS DIRECCIONES</h5>
-                        <a href="EditarDireccion.aspx" class="btn btn-primary">Modificar</a>
+                        <a href="EditarDireccion.aspx" class="btn btn-success">Modificar</a>
                         <%--<a href="MisDirecciones.aspx" class="btn btn-primary">Ver</a>--%>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">CAMBIAR CONTRASEÑA</h5>
-                        <a href="CambiarContraseña.aspx" class="btn btn-primary">Modificar</a>
+                        <a href="CambiarContraseña.aspx" class="btn btn-success">Modificar</a>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                   <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">CAMBIAR EMAIL</h5>
-                <a href="ModificarMail.aspx" class="btn btn-primary">Modificar</a>
+                <a href="ModificarMail.aspx" class="btn btn-success">Modificar</a>
                   </div>
              </div>
          </div>
