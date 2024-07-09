@@ -13,7 +13,7 @@ namespace TpFinalEquipo29
             {
                 decimal montoTotal = ObtenerMontoTotal();
                 
-                lblMontoTotal.Text = $"${montoTotal.ToString("0.00")}";
+                lblMontoTotal.Text = $"${montoTotal.ToString("#,##0.00")}";
 
             }
         }
