@@ -1,9 +1,5 @@
 ﻿using Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace TpFinalEquipo29
@@ -20,7 +16,8 @@ namespace TpFinalEquipo29
                     
                     if (rbFormaEntrega.SelectedValue == "domicilio")
                     {
-                        
+                        Session["DireccionDomicilio"] = $"{usuario.Calle} {usuario.Altura}, {usuario.Localidad}";
+
                         foreach (ListItem item in rbFormaEntrega.Items)
                         {
                             if (item.Value == "domicilio")
@@ -49,7 +46,8 @@ namespace TpFinalEquipo29
                 {
                     var usuario = (UsuarioEntity)Session["Login"];
 
-                    
+                    Session["DireccionDomicilio"] = $"{usuario.Calle} {usuario.Altura}, {usuario.Localidad}";
+
                     foreach (ListItem item in rbFormaEntrega.Items)
                     {
                         if (item.Value == "domicilio")
@@ -62,7 +60,7 @@ namespace TpFinalEquipo29
             }
             else
             {
-                
+                Session.Remove("DireccionDomicilio");
                 foreach (ListItem item in rbFormaEntrega.Items)
                 {
                     if (item.Value == "domicilio")
