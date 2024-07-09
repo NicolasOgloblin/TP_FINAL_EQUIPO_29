@@ -58,8 +58,9 @@
         <h2>Elije tu método de pago</h2>
         <div class="radio-list">
             <asp:RadioButtonList ID="rbMetodoPago" runat="server">
-                <asp:ListItem Value="efectivo">Pagar en efectivo</asp:ListItem>
-                <asp:ListItem Value="debito">Pagar con débito ó transferencia</asp:ListItem>
+                <asp:ListItem Value="Efectivo">Pagar en efectivo</asp:ListItem>
+                <asp:ListItem Value="Debito">Pagar con débito</asp:ListItem>
+                 <asp:ListItem Value="Transferencia">Pagar con transferencia</asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <asp:Button ID="btnConfirmarPago" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarPago_Click" />

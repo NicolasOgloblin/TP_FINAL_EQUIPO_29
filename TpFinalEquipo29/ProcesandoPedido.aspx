@@ -52,7 +52,7 @@
         
         setTimeout(function () {
             window.location.href = "FormaEntrega.aspx";
-        }, 7000);
+        }, 3000);
     </script>
 </asp:Content>
 
