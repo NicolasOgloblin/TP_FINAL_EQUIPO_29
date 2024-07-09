@@ -56,6 +56,10 @@
         .btn-confirmar:hover {
             background-color: #45a049;
         }
+        .total-label, .total-price {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
     </style>
 
     <div class="custom-container">
@@ -83,8 +87,14 @@
             <asp:Label ID="lblDireccion" runat="server" Text=""></asp:Label>
         </div>
 
+        <div class="total-container">
+        <span class="total-label">Monto Total:</span>
+        <asp:Label ID="lblMontoTotal" runat="server" Text="" CssClass="total-price"></asp:Label>
+    </div>
         <asp:Button ID="btnConfirmarCompra" runat="server" Text="Confirmar Compra" CssClass="btn-confirmar" OnClick="btnConfirmarCompra_Click" />
     </div>
+
+    
 
 
 </asp:Content>

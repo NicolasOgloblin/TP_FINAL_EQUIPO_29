@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI;
 
 namespace TpFinalEquipo29
@@ -9,6 +12,9 @@ namespace TpFinalEquipo29
         {
             if (!IsPostBack)
             {
+                decimal montoTotal = ObtenerMontoTotal();
+
+                lblMontoTotal.Text = $"${montoTotal.ToString("#,##0.00")}";
                 MostrarDetallesCompra();
             }
         }
@@ -60,6 +66,17 @@ namespace TpFinalEquipo29
                 default:
                     return "";
             }
+        }
+
+        private decimal ObtenerMontoTotal()
+        {
+            if (Session["articulosSeleccionados"] != null)
+            {
+                List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
+                decimal montoTotal = carrito.Sum(a => a.Precio * a.Stock);
+                return montoTotal;
+            }
+            return 0;
         }
 
         protected void btnConfirmarCompra_Click(object sender, EventArgs e)
