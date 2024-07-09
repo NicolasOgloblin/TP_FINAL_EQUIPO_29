@@ -17,7 +17,19 @@ namespace TpFinalEquipo29
             {
                 BindGrid();
                 ActualizarCarrito();
+
+                bool carritoVacio = EsCarritoVacio();
+                btnFinalizarCompra.Visible = !carritoVacio;
             }
+        }
+        private bool EsCarritoVacio()
+        {
+            if (Session["articulosSeleccionados"] != null)
+            {
+                List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
+                return carrito.Count == 0;
+            }
+            return true;
         }
 
         private void ActualizarCarrito()
@@ -72,10 +84,13 @@ namespace TpFinalEquipo29
                     }
 
                     lblTotal.Text = "Total: " + total.ToString("C");
+
+                    btnFinalizarCompra.Visible = carrito.Count > 0;
                 }
                 else
                 {
                     lblTotal.Text = "Total: $0.00";
+                    btnFinalizarCompra.Visible = false;
                 }
             }
             catch (Exception ex)
