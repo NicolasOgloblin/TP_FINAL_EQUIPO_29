@@ -75,7 +75,7 @@
                      <asp:Image runat="server" ID="Image1" CssClass="card-img-top" ImageUrl='<%# ResolveUrl("~/Imagenes/" + Eval("Imagenes[0].UrlImagen")) %>' />
                      <div class="card-body">
                          <h5 class="card-title"><%# Eval("Nombre") %></h5>
-                         <p class="card-text">Precio: <b>$<%# Eval("Precio") %></b></p> 
+                         <p class="card-text">Precio: <b>$<%# FormatearPrecio((decimal)Eval("Precio")) %></b></p>
                      <asp:LinkButton ID="btnAgregar" runat="server" CssClass="btn btn-success" OnClick="btnAgregar_Click" CommandArgument='<%# Eval("Id") %>' Text="Agregar" />   
                      <asp:LinkButton ID="btnDetalles" runat="server" CssClass="btn btn-outline-success" Onclick="btnDetalles_Click" CommandArgument='<%# Eval("Id") %>'  Text="Ver detalles" />   
                      </div>

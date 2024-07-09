@@ -55,6 +55,11 @@ namespace TpFinalEquipo29
             dgvArticulos.DataBind();
         }
 
+        public static string FormatearPrecio(decimal precio)
+        {
+            return precio.ToString("#,##0", new System.Globalization.CultureInfo("es-ES"));
+        }
+
         private void LoadData()
         {
             var articuloBusinees = new ArticuloBusiness();
@@ -262,19 +267,19 @@ namespace TpFinalEquipo29
 
                 }
                 
-                // Actualizar el control ListView con los artículos filtrados
+                
                 var pagedDataSource = new PagedDataSource
                 {
                     DataSource = articulosFiltrados,
                     AllowPaging = true,
                     PageSize = 8,
-                    CurrentPageIndex = 0 // Siempre comienza en la primera página después de filtrar
+                    CurrentPageIndex = 0 
                 };
 
                 dgvArticulos.DataSource = pagedDataSource;
                 dgvArticulos.DataBind();
 
-                // Generar paginación para los artículos filtrados
+                
                 int totalPages = (int)Math.Ceiling((double)articulosFiltrados.Count / 8);
                 StringBuilder paginationHtml = new StringBuilder();
                 for (int i = 1; i <= totalPages; i++)
@@ -304,7 +309,7 @@ namespace TpFinalEquipo29
             }
             catch (Exception ex)
             {
-                // Manejar cualquier excepción si ocurre al obtener el valor del QueryString
+                
                 Console.WriteLine($"Error al obtener el valor de 'buscar': {ex.Message}");
             }
             return searchTerm;
