@@ -33,15 +33,6 @@ namespace TpFinalEquipo29
         protected global::System.Web.UI.WebControls.Label lblFormaEntrega;
 
         /// <summary>
-        /// Control btnModificarEntrega.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnModificarEntrega;
-
-        /// <summary>
         /// Control lblMetodoPago.
         /// </summary>
         /// <remarks>
@@ -51,13 +42,22 @@ namespace TpFinalEquipo29
         protected global::System.Web.UI.WebControls.Label lblMetodoPago;
 
         /// <summary>
-        /// Control btnModificarPago.
+        /// Control divDireccionDomicilio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnModificarPago;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDireccionDomicilio;
+
+        /// <summary>
+        /// Control lblDireccion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDireccion;
 
         /// <summary>
         /// Control btnConfirmarCompra.

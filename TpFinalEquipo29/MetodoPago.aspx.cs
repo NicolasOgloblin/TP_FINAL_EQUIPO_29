@@ -25,7 +25,7 @@ namespace TpFinalEquipo29
 
             Session["MetodoPago"] = metodoPago;
 
-            Response.Redirect("FinalizarCompra.aspx");
+            Response.Redirect("DetalleCompra.aspx");
         }
 
         private decimal ObtenerMontoTotal()

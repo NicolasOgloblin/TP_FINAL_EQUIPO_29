@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DetalleCompra.aspx.cs" Inherits="TpFinalEquipo29.DetalleCompra" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
       <style>
         .custom-container {
@@ -60,26 +60,32 @@
 
     <div class="custom-container">
         <h2>Detalle de la Compra</h2>
-        
+
         <div class="detalle">
             <label>Artículo a Comprar:</label>
             <asp:Label ID="lblArticulo" runat="server" Text="Nombre del Artículo"></asp:Label>
         </div>
-        
+
         <div class="detalle">
             <label>Forma de Entrega:</label>
             <asp:Label ID="lblFormaEntrega" runat="server" Text="Punto de Encuentro"></asp:Label>
-            <asp:Button ID="btnModificarEntrega" runat="server" Text="Modificar" CssClass="btn-modificar" OnClick="btnModificarEntrega_Click" />
+            
         </div>
-        
+
         <div class="detalle">
             <label>Método de Pago:</label>
             <asp:Label ID="lblMetodoPago" runat="server" Text="Tarjeta de Crédito"></asp:Label>
-            <asp:Button ID="btnModificarPago" runat="server" Text="Modificar" CssClass="btn-modificar" OnClick="btnModificarPago_Click" />
+            
         </div>
-        
+
+         <div id="divDireccionDomicilio" runat="server" visible="false" class="detalle">
+            <label>Dirección de Envío:</label>
+            <asp:Label ID="lblDireccion" runat="server" Text=""></asp:Label>
+        </div>
+
         <asp:Button ID="btnConfirmarCompra" runat="server" Text="Confirmar Compra" CssClass="btn-confirmar" OnClick="btnConfirmarCompra_Click" />
     </div>
 
 
 </asp:Content>
+
