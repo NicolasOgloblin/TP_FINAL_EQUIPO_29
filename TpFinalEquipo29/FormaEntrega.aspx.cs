@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,7 +14,63 @@ namespace TpFinalEquipo29
         {
             if (!IsPostBack)
             {
-               
+                if (Session["Login"] != null)
+                {
+                    var usuario = (UsuarioEntity)Session["Login"];
+                    
+                    if (rbFormaEntrega.SelectedValue == "domicilio")
+                    {
+                        
+                        foreach (ListItem item in rbFormaEntrega.Items)
+                        {
+                            if (item.Value == "domicilio")
+                            {
+                                item.Text = $"Envío a domicilio - <span class='direccion'>{usuario.Calle} {usuario.Altura}, {usuario.Localidad}</span> <span class='gratis'>Costo adicional ($3,500)</span>";
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    
+                    Response.Redirect("Login.aspx");
+                }
+
+            }
+        }
+
+        protected void rbFormaEntrega_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            if (rbFormaEntrega.SelectedValue == "domicilio")
+            {
+                if (Session["Login"] != null)
+                {
+                    var usuario = (UsuarioEntity)Session["Login"];
+
+                    
+                    foreach (ListItem item in rbFormaEntrega.Items)
+                    {
+                        if (item.Value == "domicilio")
+                        {
+                            item.Text = $"Envío a domicilio - <span class='direccion'>{usuario.Calle} {usuario.Altura}, {usuario.Localidad}</span> <span class='gratis'>Costo adicional ($3,500)</span>";
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                
+                foreach (ListItem item in rbFormaEntrega.Items)
+                {
+                    if (item.Value == "domicilio")
+                    {
+                        item.Text = "Envío a domicilio - <span class='direccion'></span> <span class='gratis'>Costo adicional ($3,500)</span>";
+                        break;
+                    }
+                }
             }
         }
 
@@ -22,28 +79,10 @@ namespace TpFinalEquipo29
 
             string formaEntrega = rbFormaEntrega.SelectedValue;
 
-
             Session["FormaEntrega"] = formaEntrega;
-
-
-            switch (formaEntrega)
-            {
-                case "encuentro":
-
-                    Response.Redirect("MetodoPago.aspx");
-                    break;
-                case "tienda":
-
-                    Response.Redirect("MetodoPago.aspx");
-                    break;
-                case "domicilio":
-
-                    Response.Redirect("MisDirecciones.aspx");
-                    break;
-                default:
-
-                    break;
-            }
+            
+            Response.Redirect("MetodoPago.aspx");
+                    
         }
     }
 }

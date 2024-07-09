@@ -20,7 +20,11 @@ namespace TpFinalEquipo29
                 if (Session["Login"] != null)
                 {
                     var usuario = (Domain.Entities.UsuarioEntity)Session["Login"];
-                    lblEmail.Text = usuario.Email; 
+                    lblEmail.Text = usuario.Email;
+
+                    string direccionCompleta = $"{usuario.Calle} {usuario.Altura}, {usuario.Localidad}, {usuario.Provincia}, {usuario.CodPostal}";
+
+                    Session["DireccionUsuario"] = direccionCompleta;
                 }
                 else
                 {

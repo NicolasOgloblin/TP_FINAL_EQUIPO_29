@@ -49,24 +49,19 @@
         }
     </style>
 
-    <div class="custom-container">
+   <div class="custom-container">
         <h2>Elije tu forma de entrega</h2>
         <div class="radio-list">
-            <asp:RadioButtonList ID="rbFormaEntrega" runat="server">
-                <asp:ListItem Value="encuentro">
-                    Punto de encuentro - <span class="direccion">Plaza de San Miguel</span> <span class="gratis">Gratis</span>
-                </asp:ListItem>
-                <asp:ListItem Value="tienda">
-                    Retiro en la tienda - <span class="direccion">Tribulato 905, San Miguel</span> <span class="gratis">Gratis</span>
-                </asp:ListItem>
-               <asp:ListItem Value="domicilio">
-                Envío a domicilio - <span class="direccion">Tu dirección</span> <span class="gratis">Costo adicional ($3,500)</span>
-            </asp:ListItem>
+            <asp:RadioButtonList ID="rbFormaEntrega" runat="server" OnSelectedIndexChanged="rbFormaEntrega_SelectedIndexChanged" AutoPostBack="true">
+                <asp:ListItem Value="encuentro">Punto de encuentro - <span class="direccion">Plaza de San Miguel</span> <span class="gratis">Gratis</span></asp:ListItem>
+                <asp:ListItem Value="tienda">Retiro en la tienda - <span class="direccion">Tribulato 905, San Miguel</span> <span class="gratis">Gratis</span></asp:ListItem>
+                <asp:ListItem Value="domicilio">Envío a domicilio - <span class="direccion"></span> <span class="gratis">Costo adicional ($3,500)</span></asp:ListItem>
             </asp:RadioButtonList>
         </div>
         <asp:Button ID="btnConfirmarEntrega" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarEntrega_Click" />
-        <p class="note">Ambas formas de entrega son gratuitas.</p>
+       
     </div>
+
 </asp:Content>
 
 
