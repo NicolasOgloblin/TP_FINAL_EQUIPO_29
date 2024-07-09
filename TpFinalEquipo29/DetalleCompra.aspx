@@ -65,10 +65,7 @@
     <div class="custom-container">
         <h2>Detalle de la Compra</h2>
 
-        <div class="detalle">
-            <label>Artículo a Comprar:</label>
-            <asp:Label ID="lblArticulo" runat="server" Text="Nombre del Artículo"></asp:Label>
-        </div>
+        
 
         <div class="detalle">
             <label>Forma de Entrega:</label>
@@ -86,6 +83,18 @@
             <label>Dirección de Envío:</label>
             <asp:Label ID="lblDireccion" runat="server" Text=""></asp:Label>
         </div>
+
+        <div class="mt-4">
+            <h3>Su compra:</h3>
+            <asp:GridView ID="gvArticulosSeleccionados" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
+                <Columns>
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                    <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C}" />
+                    <asp:BoundField DataField="Stock" HeaderText="Cantidad" />
+                </Columns>
+            </asp:GridView>
+        </div>
+
 
         <div class="total-container">
         <span class="total-label">Monto Total:</span>

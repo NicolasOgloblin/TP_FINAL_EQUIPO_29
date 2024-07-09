@@ -15,15 +15,6 @@ namespace TpFinalEquipo29
     {
 
         /// <summary>
-        /// Control lblArticulo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblArticulo;
-
-        /// <summary>
         /// Control lblFormaEntrega.
         /// </summary>
         /// <remarks>
@@ -58,6 +49,15 @@ namespace TpFinalEquipo29
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDireccion;
+
+        /// <summary>
+        /// Control gvArticulosSeleccionados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvArticulosSeleccionados;
 
         /// <summary>
         /// Control lblMontoTotal.

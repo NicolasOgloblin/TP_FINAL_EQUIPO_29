@@ -16,8 +16,20 @@ namespace TpFinalEquipo29
 
                 lblMontoTotal.Text = $"${montoTotal.ToString("#,##0.00")}";
                 MostrarDetallesCompra();
+                MostrarArticulosSeleccionados();
             }
         }
+
+        private void MostrarArticulosSeleccionados()
+        {
+            if (Session["articulosSeleccionados"] != null)
+            {
+                List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
+                gvArticulosSeleccionados.DataSource = carrito;
+                gvArticulosSeleccionados.DataBind();
+            }
+        }
+
 
         private void MostrarDetallesCompra()
         {

@@ -202,6 +202,7 @@ namespace TpFinalEquipo29
                 }
 
                 var result = pedidoBusiness.AgregarPedido(pedido, usuarioLogueado.Id);
+                Session["articulosSeleccionados"] = carrito;
 
                 Response.Redirect("ProcesandoPedido.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
