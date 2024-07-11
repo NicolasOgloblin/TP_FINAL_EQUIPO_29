@@ -56,6 +56,18 @@
          </div>
     </div>
         
+              <div class="row justify-content-center">
+           <div class="col-md-6">
+              <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Mis Compras</h5>
+            <a href="MisPedidos.aspx" class="btn btn-success">Ver</a>
+              </div>
+         </div>
+     </div>
+</div>
+
+
     </div>
       
 </asp:Content>

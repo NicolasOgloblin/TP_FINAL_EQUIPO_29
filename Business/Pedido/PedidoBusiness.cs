@@ -1,6 +1,7 @@
 ﻿using Dao.Implements;
 using Domain.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Business.Pedido
 {
@@ -24,6 +25,32 @@ namespace Business.Pedido
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public List<PedidoEntity> ObtenerHistorialCompras(long usuarioId)
+        {
+            PedidoImp pedidoImp = new PedidoImp();
+            return pedidoImp.ObtenerHistorialCompras(usuarioId);
+        }
+
+
+
+        private UsuarioEntity ObtenerUsuarioPorId(long usuarioid)
+        {
+            var usuarioDao = new UsuarioImp();
+            try
+            {
+
+                var usuario = usuarioDao.ObtenerUsuarioPorId(usuarioid);
+
+
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error al obtener usuario por ID.", ex);
             }
         }
     }

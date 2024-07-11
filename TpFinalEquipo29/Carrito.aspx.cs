@@ -192,23 +192,18 @@ namespace TpFinalEquipo29
             decimal total = 0;
             var usuarioLogueado = (UsuarioEntity)Session["Login"];
             var carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
+
             try
-             {
+            {
                 var pedido = new PedidoEntity();
                 pedido.UsuarioId = usuarioLogueado.Id;
                 pedido.FechaPedido = DateTime.Now;
+                pedido.Detalles = new List<PedidoDetalleEntity>(); // Inicializar Detalles
 
                 foreach (var item in carrito)
                 {
                     total += item.Precio * item.Stock;
-                }
 
-                pedido.MontoTotal = total;
-                pedido.Estado = false;
-                pedido.Detalles = new List<PedidoDetalleEntity>();
-
-                foreach(var item in carrito)
-                {
                     var pedidoDetalle = new PedidoDetalleEntity();
                     pedidoDetalle.ArticuloId = item.Id;
                     pedidoDetalle.Cantidad = item.Stock;
@@ -216,16 +211,18 @@ namespace TpFinalEquipo29
                     pedido.Detalles.Add(pedidoDetalle);
                 }
 
+                pedido.MontoTotal = total;
+                pedido.Envio = false;
+                pedido.EstadoPedidoid = 1;
                 var result = pedidoBusiness.AgregarPedido(pedido, usuarioLogueado.Id);
                 Session["articulosSeleccionados"] = carrito;
 
                 Response.Redirect("ProcesandoPedido.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception("Ocurrio un problema: " + ex.Message);
+                throw new Exception("Ocurrió un problema: " + ex.Message);
             }
         }
 
