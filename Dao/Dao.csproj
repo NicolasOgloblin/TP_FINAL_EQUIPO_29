@@ -46,6 +46,7 @@
     <Compile Include="Implements\ArticuloImp.cs" />
     <Compile Include="Implements\CategoriaImp.cs" />
     <Compile Include="Implements\MarcaImp.cs" />
+    <Compile Include="Implements\MetodoPagoImp.cs" />
     <Compile Include="Implements\PedidoImp.cs" />
     <Compile Include="Implements\UsuarioImp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

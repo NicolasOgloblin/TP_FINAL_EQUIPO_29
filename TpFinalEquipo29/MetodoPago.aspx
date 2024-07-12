@@ -52,14 +52,20 @@
             font-weight: bold;
             font-size: 1.2em;
         }
+        .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 10px;
+    }
     </style>
+
+    <asp:Label ID="lblMensajeError" runat="server" CssClass="error-message" Visible="false"></asp:Label>
 
     <div class="custom-container">
         <h2>Elije tu método de pago</h2>
         <div class="radio-list">
             <asp:RadioButtonList ID="rbMetodoPago" runat="server">
                 <asp:ListItem Value="Efectivo">Pagar en efectivo</asp:ListItem>
-                <asp:ListItem Value="Debito">Pagar con débito</asp:ListItem>
                  <asp:ListItem Value="Transferencia">Pagar con transferencia</asp:ListItem>
             </asp:RadioButtonList>
         </div>

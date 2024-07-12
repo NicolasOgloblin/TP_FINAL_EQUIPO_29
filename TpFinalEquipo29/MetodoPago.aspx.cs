@@ -1,7 +1,9 @@
-﻿using Domain.Entities;
+﻿using Business.MetodoPago;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 
 namespace TpFinalEquipo29
 {
@@ -25,7 +27,20 @@ namespace TpFinalEquipo29
 
             Session["MetodoPago"] = metodoPago;
 
-            Response.Redirect("DetalleCompra.aspx");
+            MetodoPagoBusiness metodoPagoBusiness = new MetodoPagoBusiness();
+
+            try
+            {
+                int idMetodoPago = metodoPagoBusiness.GuardarMetodoPago(metodoPago);
+                Session["IdMetodoPago"] = idMetodoPago; 
+
+                Response.Redirect("DetalleCompra.aspx");
+            }
+            catch (Exception ex)
+            {
+                lblMensajeError.Text = "Error al guardar el método de pago. Por favor, inténtalo nuevamente.";
+                lblMensajeError.Visible = true;
+            }
         }
 
         private decimal ObtenerMontoTotal()

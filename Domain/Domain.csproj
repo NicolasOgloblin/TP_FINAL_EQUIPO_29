@@ -45,6 +45,7 @@
     <Compile Include="Entities\CategoriaEntity.cs" />
     <Compile Include="Entities\ImagenEntity.cs" />
     <Compile Include="Entities\MarcaEntity.cs" />
+    <Compile Include="Entities\MetodoPagoEntity.cs" />
     <Compile Include="Entities\PedidoEntity.cs" />
     <Compile Include="Entities\RolesEntity.cs" />
     <Compile Include="Entities\UsuarioEntity.cs" />
