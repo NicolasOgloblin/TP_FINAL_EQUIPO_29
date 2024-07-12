@@ -110,29 +110,28 @@ namespace Dao.Implements
         public List<PedidoEntity> ObtenerHistorialCompras(long usuarioId)
         {
             List<PedidoEntity> historialCompras = new List<PedidoEntity>();
-
             string consultaPedidos = @"
-                                            SELECT 
-                                                p.ID,
-                                                p.USUARIOID,
-                                                p.FECHA_PEDIDO,
-                                                p.MONTO_TOTAL,
-                                                p.ESTADOPEDIDOID,
-                                                ad.NOMBRE AS NombreArticulo,
-                                                pd.ARTICULOID,
-                                                pd.CANTIDAD,
-                                                pd.PRECIO_UNITARIO,
-                                                p.ENVIO
-                                            FROM 
-                                                PEDIDO p
-                                            JOIN 
-                                                PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
-                                            JOIN 
-                                                ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
-                                            WHERE 
-                                                p.USUARIOID = @UsuarioID
-                                            ORDER BY 
-                                                p.FECHA_PEDIDO DESC";
+                                SELECT 
+                                    p.ID,
+                                    p.USUARIOID,
+                                    p.FECHA_PEDIDO,
+                                    p.MONTO_TOTAL,
+                                    p.ESTADOPEDIDOID,
+                                    ad.NOMBRE AS NombreArticulo,
+                                    pd.ARTICULOID,
+                                    pd.CANTIDAD,
+                                    pd.PRECIO_UNITARIO,
+                                    p.ENVIO
+                                FROM 
+                                    PEDIDO p
+                                JOIN 
+                                    PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
+                                JOIN 
+                                    ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
+                                WHERE 
+                                    p.USUARIOID = @UsuarioID
+                                ORDER BY 
+                                    p.FECHA_PEDIDO DESC";
 
             DataAccess datos = new DataAccess();
 
@@ -155,8 +154,8 @@ namespace Dao.Implements
                             UsuarioId = datos.Reader.GetInt64(1),
                             FechaPedido = datos.Reader.GetDateTime(2),
                             MontoTotal = datos.Reader.GetDecimal(3),
-                            EstadoPedidoid = datos.Reader.IsDBNull(4) ? default(short) : (short)datos.Reader.GetInt16(4), 
-                            Envio = datos.Reader.GetBoolean(9), 
+                            EstadoPedidoid = datos.Reader.IsDBNull(4) ? default(short) : (short)datos.Reader.GetInt16(4),
+                            Envio = datos.Reader.GetBoolean(9),
                             Detalles = new List<PedidoDetalleEntity>()
                         };
                         historialCompras.Add(pedido);
@@ -164,10 +163,11 @@ namespace Dao.Implements
 
                     var detalle = new PedidoDetalleEntity
                     {
-                        ArticuloId = datos.Reader.GetInt64(6), 
-                        NombreArticulo = datos.Reader.GetString(5), 
+                        ArticuloId = datos.Reader.GetInt64(6),
+                        NombreArticulo = datos.Reader.GetString(5),
                         Cantidad = datos.Reader.GetInt32(7),
-                        PrecioUnitario = datos.Reader.GetDecimal(8)
+                        PrecioUnitario = datos.Reader.GetDecimal(8),
+                        Imagenes = ObtenerImagenesArticulo(datos.Reader.GetInt64(6)) // Obtener imágenes del artículo
                     };
 
                     pedido.Detalles.Add(detalle);
@@ -254,6 +254,40 @@ namespace Dao.Implements
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public List<ImagenEntity> ObtenerImagenesArticulo(long articuloId)
+        {
+            List<ImagenEntity> imagenes = new List<ImagenEntity>();
+            string consultaImagenes = "SELECT IMAGEN FROM Imagenes WHERE ArticuloID = @ArticuloID";
+
+            DataAccess datos = new DataAccess();
+
+            try
+            {
+                datos.setearConsulta(consultaImagenes);
+                datos.setearParametro("@ArticuloID", articuloId);
+                datos.ejecutarLectura();
+
+                while (datos.Reader.Read())
+                {
+                    ImagenEntity imagen = new ImagenEntity
+                    {
+                        UrlImagen = datos.Reader.GetString(0)
+                    };
+                    imagenes.Add(imagen);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener las imágenes del artículo desde ArticuloImp", ex);
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return imagenes;
         }
     }
 

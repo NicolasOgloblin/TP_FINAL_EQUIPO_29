@@ -1,4 +1,5 @@
-﻿using Dao.Implements;
+﻿using Business.Articulo;
+using Dao.Implements;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,11 @@ namespace Business.Pedido
 
                 throw new Exception("Error al obtener usuario por ID.", ex);
             }
+        }
+        public List<ImagenEntity> ObtenerImagenesArticulo(long articuloId)
+        {
+            ArticuloBusiness articuloBusiness = new ArticuloBusiness();
+            return articuloBusiness.getImagenByID(articuloId);
         }
     }
 }

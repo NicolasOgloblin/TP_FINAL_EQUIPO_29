@@ -16,15 +16,12 @@ namespace TpFinalEquipo29
         {
             if (!IsPostBack)
             {
-                
                 if (!UsuarioEstaConectado())
                 {
-                    
                     Response.Redirect("~/Login.aspx");
                 }
                 else
                 {
-                    
                     long usuarioId = ObtenerUsuarioPorId();
                     List<PedidoEntity> historialCompras = ObtenerHistorialCompras(usuarioId);
                     gvHistorialCompras.DataSource = historialCompras;
@@ -35,7 +32,6 @@ namespace TpFinalEquipo29
 
         private bool UsuarioEstaConectado()
         {
-            
             return Session["Login"] != null && Session["Login"] is UsuarioEntity;
         }
 
@@ -44,18 +40,23 @@ namespace TpFinalEquipo29
             try
             {
                 PedidoBusiness pedidoBusiness = new PedidoBusiness();
+                var historialCompras = pedidoBusiness.ObtenerHistorialCompras(usuarioId);
 
+                foreach (var pedido in historialCompras)
+                {
+                    foreach (var detalle in pedido.Detalles)
+                    {
+                        detalle.Imagenes = pedidoBusiness.ObtenerImagenesArticulo(detalle.ArticuloId);
+                    }
+                }
 
-                PedidoBusiness pedidoBusiness1 = pedidoBusiness;
-                return pedidoBusiness1.ObtenerHistorialCompras(usuarioId);
+                return historialCompras;
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al obtener el historial de compras desde PedidoBusiness", ex);
             }
-
         }
-
 
         private long ObtenerUsuarioPorId()
         {
