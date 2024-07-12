@@ -43,6 +43,11 @@ namespace TpFinalEquipo29
             }
         }
 
+        protected void lblUsername_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Default.aspx");
+        }
+
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             
