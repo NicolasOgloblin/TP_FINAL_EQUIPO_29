@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="MisPedidos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MisPedidos.aspx.cs" Inherits="TpFinalEquipo29.DatosTarjeta" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
      <h2>Mis pedidos realizados</h2>
-    <p>Este es el historial de pedidos asociados a tu cuenta.</p>
+    <p>Este es el historial de pedidos realizados.</p>
     <asp:GridView ID="gvHistorialCompras" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
         <Columns>
             <asp:TemplateField HeaderText="Foto">

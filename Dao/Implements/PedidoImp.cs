@@ -167,7 +167,7 @@ namespace Dao.Implements
                         NombreArticulo = datos.Reader.GetString(5),
                         Cantidad = datos.Reader.GetInt32(7),
                         PrecioUnitario = datos.Reader.GetDecimal(8),
-                        Imagenes = ObtenerImagenesArticulo(datos.Reader.GetInt64(6)) // Obtener imágenes del artículo
+                        Imagenes = ObtenerImagenesArticulo(datos.Reader.GetInt64(6)) 
                     };
 
                     pedido.Detalles.Add(detalle);
