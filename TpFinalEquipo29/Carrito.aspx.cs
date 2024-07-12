@@ -71,6 +71,7 @@ namespace TpFinalEquipo29
                     foreach (var item in carrito)
                     {
                         item.Stock = articuloBusiness.GetReservaStock(item.Id);
+                        item.Imagenes = articuloBusiness.getImagenByID(item.Id); // Mover aquí
                     }
 
                     gvCarrito.DataSource = carrito;
@@ -84,7 +85,6 @@ namespace TpFinalEquipo29
                     }
 
                     lblTotal.Text = "Total: " + total.ToString("C");
-
                     btnFinalizarCompra.Visible = carrito.Count > 0;
                 }
                 else
@@ -97,7 +97,6 @@ namespace TpFinalEquipo29
             {
                 throw new Exception("Ocurrio un problema: " + ex.Message);
             }
-            
         }
 
         protected void btnIncrementar_Click(object sender, EventArgs e)
