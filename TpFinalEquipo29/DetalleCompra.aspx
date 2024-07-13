@@ -103,8 +103,5 @@
         <asp:Button ID="btnConfirmarCompra" runat="server" Text="Confirmar Compra" CssClass="btn-confirmar" OnClick="btnConfirmarCompra_Click" />
     </div>
 
-    
-
-
 </asp:Content>
 

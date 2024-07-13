@@ -48,6 +48,8 @@ namespace TpFinalEquipo29
 
                     Session["DireccionDomicilio"] = $"{usuario.Calle} {usuario.Altura}, {usuario.Localidad}";
 
+                    Session["CostoEnvio"] = 3500m;
+
                     foreach (ListItem item in rbFormaEntrega.Items)
                     {
                         if (item.Value == "domicilio")
@@ -61,6 +63,8 @@ namespace TpFinalEquipo29
             else
             {
                 Session.Remove("DireccionDomicilio");
+                Session.Remove("CostoEnvio");
+
                 foreach (ListItem item in rbFormaEntrega.Items)
                 {
                     if (item.Value == "domicilio")

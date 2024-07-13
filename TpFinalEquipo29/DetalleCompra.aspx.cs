@@ -86,7 +86,15 @@ namespace TpFinalEquipo29
             {
                 List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
                 decimal montoTotal = carrito.Sum(a => a.Precio * a.Stock);
+                
+
+                if (Session["FormaEntrega"] != null && Session["FormaEntrega"].ToString() == "domicilio")
+                {
+                    montoTotal += 3500m;
+                }
+
                 return montoTotal;
+
             }
             return 0;
         }

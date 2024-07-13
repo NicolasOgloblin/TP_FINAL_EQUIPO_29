@@ -45,13 +45,20 @@ namespace TpFinalEquipo29
 
         private decimal ObtenerMontoTotal()
         {
+            decimal montoTotal = 0;
+
             if (Session["articulosSeleccionados"] != null)
             {
                 List<ArticuloEntity> carrito = (List<ArticuloEntity>)Session["articulosSeleccionados"];
-                decimal montoTotal = carrito.Sum(a => a.Precio * a.Stock);
-                return montoTotal;
+                montoTotal = carrito.Sum(a => a.Precio * a.Stock);
+                
             }
-            return 0; 
+
+            if (Session["CostoEnvio"] != null)
+            {
+                montoTotal += (decimal)Session["CostoEnvio"];
+            }
+            return montoTotal;
         }
 
 
