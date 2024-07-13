@@ -42,6 +42,10 @@ namespace TpFinalEquipo29
                 lblMensajeError.Visible = true;
             }
         }
+        protected void rbMetodoPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnConfirmarPago.Enabled = rbMetodoPago.SelectedIndex > -1;
+        }
 
         private decimal ObtenerMontoTotal()
         {

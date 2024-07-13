@@ -64,12 +64,12 @@
     <div class="custom-container">
         <h2>Elije tu método de pago</h2>
         <div class="radio-list">
-            <asp:RadioButtonList ID="rbMetodoPago" runat="server">
+            <asp:RadioButtonList ID="rbMetodoPago" runat="server" AutoPostBack="true" OnSelectedIndexChanged="rbMetodoPago_SelectedIndexChanged">
                 <asp:ListItem Value="Efectivo">Pagar en efectivo</asp:ListItem>
                  <asp:ListItem Value="Transferencia">Pagar con transferencia</asp:ListItem>
             </asp:RadioButtonList>
         </div>
-        <asp:Button ID="btnConfirmarPago" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarPago_Click" />
+        <asp:Button ID="btnConfirmarPago" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarPago_Click" Enabled="false" />
         <p class="note">Selecciona tu método de pago preferido.</p>
 
         <div class="total-container">

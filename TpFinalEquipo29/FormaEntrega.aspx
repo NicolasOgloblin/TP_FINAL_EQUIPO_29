@@ -58,7 +58,7 @@
                 <asp:ListItem Value="domicilio">Envío a domicilio - <span class="direccion"></span> <span class="gratis">Costo adicional ($3,500)</span></asp:ListItem>
             </asp:RadioButtonList>
         </div>
-        <asp:Button ID="btnConfirmarEntrega" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarEntrega_Click" />
+        <asp:Button ID="btnConfirmarEntrega" runat="server" Text="Confirmar" CssClass="btn-confirmar" OnClick="btnConfirmarEntrega_Click" Enabled="false" />
        
     </div>
 

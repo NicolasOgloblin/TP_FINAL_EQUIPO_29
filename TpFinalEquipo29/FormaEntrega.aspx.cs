@@ -59,6 +59,7 @@ namespace TpFinalEquipo29
                         }
                     }
                 }
+                
             }
             else
             {
@@ -74,17 +75,19 @@ namespace TpFinalEquipo29
                     }
                 }
             }
+            btnConfirmarEntrega.Enabled = rbFormaEntrega.SelectedValue != "";
         }
 
         protected void btnConfirmarEntrega_Click(object sender, EventArgs e)
         {
-
-            string formaEntrega = rbFormaEntrega.SelectedValue;
-
-            Session["FormaEntrega"] = formaEntrega;
             
-            Response.Redirect("MetodoPago.aspx");
-                    
+                string formaEntrega = rbFormaEntrega.SelectedValue;
+
+                Session["FormaEntrega"] = formaEntrega;
+
+                Response.Redirect("MetodoPago.aspx");
+            
+                   
         }
     }
 }
