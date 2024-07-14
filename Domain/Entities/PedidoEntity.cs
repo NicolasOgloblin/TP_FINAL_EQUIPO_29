@@ -13,6 +13,8 @@ namespace Domain.Entities
         public bool Envio { get; set; }
 
         public short EstadoPedidoid { get; set; }
+
+        public MetodoPagoEntity MetodoPago { get; set; }
     }
 
     public class PedidoDetalleEntity

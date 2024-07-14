@@ -109,29 +109,34 @@ namespace Dao.Implements
 
         public List<PedidoEntity> ObtenerHistorialCompras(long usuarioId)
         {
+            
             List<PedidoEntity> historialCompras = new List<PedidoEntity>();
             string consultaPedidos = @"
-                                SELECT 
-                                    p.ID,
-                                    p.USUARIOID,
-                                    p.FECHA_PEDIDO,
-                                    p.MONTO_TOTAL,
-                                    p.ESTADOPEDIDOID,
-                                    ad.NOMBRE AS NombreArticulo,
-                                    pd.ARTICULOID,
-                                    pd.CANTIDAD,
-                                    pd.PRECIO_UNITARIO,
-                                    p.ENVIO
-                                FROM 
-                                    PEDIDO p
-                                JOIN 
-                                    PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
-                                JOIN 
-                                    ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
-                                WHERE 
-                                    p.USUARIOID = @UsuarioID
-                                ORDER BY 
-                                    p.FECHA_PEDIDO DESC";
+                               SELECT 
+        p.ID,
+        p.USUARIOID,
+        p.FECHA_PEDIDO,
+        p.MONTO_TOTAL,
+        p.ESTADOPEDIDOID,
+        ad.NOMBRE AS NombreArticulo,
+        pd.ARTICULOID,
+        pd.CANTIDAD,
+        pd.PRECIO_UNITARIO,
+        p.ENVIO,
+        mp.ID AS MetodoPagoId,
+        mp.NOMBRE AS NombreMetodoPago
+    FROM 
+        PEDIDO p
+    JOIN 
+        PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
+    JOIN 
+        ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
+    LEFT JOIN 
+        METODO_PAGO mp ON p.USUARIOID = mp.ID
+    WHERE 
+        p.USUARIOID = @UsuarioID
+    ORDER BY 
+        p.FECHA_PEDIDO DESC";
 
             DataAccess datos = new DataAccess();
 
@@ -144,18 +149,24 @@ namespace Dao.Implements
                 while (datos.Reader.Read())
                 {
                     long pedidoId = datos.Reader.GetInt64(0);
-
+                   
                     var pedido = historialCompras.Find(p => p.Id == pedidoId);
                     if (pedido == null)
-                    {
+                    {   
                         pedido = new PedidoEntity
                         {
+                             
                             Id = pedidoId,
                             UsuarioId = datos.Reader.GetInt64(1),
                             FechaPedido = datos.Reader.GetDateTime(2),
                             MontoTotal = datos.Reader.GetDecimal(3),
                             EstadoPedidoid = datos.Reader.IsDBNull(4) ? default(short) : (short)datos.Reader.GetInt16(4),
                             Envio = datos.Reader.GetBoolean(9),
+                            MetodoPago = new MetodoPagoEntity
+                            {
+                                //Id = datos.Reader.IsDBNull(10) ? 0 : datos.Reader.GetInt32(10),
+                                Nombre = datos.Reader.IsDBNull(11) ? null : datos.Reader.GetString(11)
+                            },
                             Detalles = new List<PedidoDetalleEntity>()
                         };
                         historialCompras.Add(pedido);
@@ -172,6 +183,7 @@ namespace Dao.Implements
 
                     pedido.Detalles.Add(detalle);
                 }
+              
             }
             catch (Exception ex)
             {
