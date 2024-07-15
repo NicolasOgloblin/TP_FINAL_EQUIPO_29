@@ -71,7 +71,7 @@ namespace TpFinalEquipo29
                     foreach (var item in carrito)
                     {
                         item.Stock = articuloBusiness.GetReservaStock(item.Id);
-                        item.Imagenes = articuloBusiness.getImagenByID(item.Id); // Mover aquí
+                        item.Imagenes = articuloBusiness.getImagenByID(item.Id); 
                     }
 
                     gvCarrito.DataSource = carrito;
@@ -197,7 +197,7 @@ namespace TpFinalEquipo29
                 var pedido = new PedidoEntity();
                 pedido.UsuarioId = usuarioLogueado.Id;
                 pedido.FechaPedido = DateTime.Now;
-                pedido.Detalles = new List<PedidoDetalleEntity>(); // Inicializar Detalles
+                pedido.Detalles = new List<PedidoDetalleEntity>(); 
 
                 foreach (var item in carrito)
                 {

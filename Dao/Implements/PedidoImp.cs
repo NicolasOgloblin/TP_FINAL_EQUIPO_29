@@ -61,7 +61,7 @@ namespace Dao.Implements
                     datos.ejecutarAccion();
                 }
 
-                return 1; 
+                return 1;
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace Dao.Implements
             }
         }
 
-
+    
 
         public List<PedidoEntity> ObtenerHistorialCompras(long usuarioId)
         {
@@ -113,30 +113,30 @@ namespace Dao.Implements
             List<PedidoEntity> historialCompras = new List<PedidoEntity>();
             string consultaPedidos = @"
                                SELECT 
-        p.ID,
-        p.USUARIOID,
-        p.FECHA_PEDIDO,
-        p.MONTO_TOTAL,
-        p.ESTADOPEDIDOID,
-        ad.NOMBRE AS NombreArticulo,
-        pd.ARTICULOID,
-        pd.CANTIDAD,
-        pd.PRECIO_UNITARIO,
-        p.ENVIO,
-        mp.ID AS MetodoPagoId,
-        mp.NOMBRE AS NombreMetodoPago
-    FROM 
-        PEDIDO p
-    JOIN 
-        PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
-    JOIN 
-        ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
-    LEFT JOIN 
-        METODO_PAGO mp ON p.USUARIOID = mp.ID
-    WHERE 
-        p.USUARIOID = @UsuarioID
-    ORDER BY 
-        p.FECHA_PEDIDO DESC";
+                                        p.ID,
+                                        p.USUARIOID,
+                                        p.FECHA_PEDIDO,
+                                        p.MONTO_TOTAL,
+                                        p.ESTADOPEDIDOID,
+                                        ad.NOMBRE AS NombreArticulo,
+                                        pd.ARTICULOID,
+                                        pd.CANTIDAD,
+                                        pd.PRECIO_UNITARIO,
+                                        p.ENVIO,
+                                        mp.ID AS MetodoPagoId,
+                                        mp.NOMBRE AS NombreMetodoPago
+                                    FROM 
+                                        PEDIDO p
+                                    JOIN 
+                                        PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
+                                    JOIN 
+                                        ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
+                                    LEFT JOIN 
+                                        METODO_PAGO mp ON p.USUARIOID = mp.ID
+                                    WHERE 
+                                        p.USUARIOID = @UsuarioID
+                                    ORDER BY 
+                                        p.FECHA_PEDIDO DESC";
 
             DataAccess datos = new DataAccess();
 
@@ -164,8 +164,7 @@ namespace Dao.Implements
                             Envio = datos.Reader.GetBoolean(9),
                             MetodoPago = new MetodoPagoEntity
                             {
-                                //Id = datos.Reader.IsDBNull(10) ? 0 : datos.Reader.GetInt32(10),
-                                Nombre = datos.Reader.IsDBNull(11) ? null : datos.Reader.GetString(11)
+                            Nombre = datos.Reader.IsDBNull(11) ? null : datos.Reader.GetString(11)
                             },
                             Detalles = new List<PedidoDetalleEntity>()
                         };
@@ -175,7 +174,10 @@ namespace Dao.Implements
                     var detalle = new PedidoDetalleEntity
                     {
                         ArticuloId = datos.Reader.GetInt64(6),
-                        NombreArticulo = datos.Reader.GetString(5),
+                        Articulo = new ArticuloEntity()
+                        {
+                            Nombre = datos.Reader.GetString(5)
+                        },
                         Cantidad = datos.Reader.GetInt32(7),
                         PrecioUnitario = datos.Reader.GetDecimal(8),
                         Imagenes = ObtenerImagenesArticulo(datos.Reader.GetInt64(6)) 

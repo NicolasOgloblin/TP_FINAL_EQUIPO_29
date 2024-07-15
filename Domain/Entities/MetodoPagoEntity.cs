@@ -9,7 +9,7 @@ namespace Domain.Entities
     
         public class MetodoPagoEntity
         {
-            public int Id { get; set; } 
+            public short Id { get; set; } 
             public string Nombre { get; set; } 
             
         }

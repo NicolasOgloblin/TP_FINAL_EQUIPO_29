@@ -20,7 +20,7 @@ namespace Domain.Entities
     public class PedidoDetalleEntity
     {
         public long ArticuloId { get; set; }
-        public string NombreArticulo { get; set; }
+        public ArticuloEntity Articulo { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
 

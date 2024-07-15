@@ -21,14 +21,7 @@
                 <asp:TextBox ID="txtDNI" runat="server" CssClass="form-control" />
                 <span class="text-danger">*</span>
             </div>
-            <%--<div class="col-12">
-                <label for="txtFechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
-                <!-- Comentado por ahora, no implementado en la base de datos
-                <asp:TextBox ID="txtFechaNacimiento" runat="server" CssClass="form-control" />
-                -->
-                <input type="text" class="form-control" placeholder="dd/mm/aaaa" disabled />
-                <span class="text-muted">No implementado aún</span>
-            </div>--%>
+           
             <div class="col-12">
                 <label for="txtTelefono" class="form-label">Teléfono:</label>
                 <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />

@@ -19,7 +19,7 @@
                 <asp:Repeater ID="rptArticulosNombre" runat="server" DataSource='<%# Eval("Detalles") %>'>
                     <ItemTemplate>
                         <div class="info-articulo">
-                            <asp:Label ID="lblNombreArticulo" runat="server" Text='<%# Eval("NombreArticulo") %>' CssClass="d-block font-weight-bold"></asp:Label>
+                            <asp:Label ID="lblNombreArticulo" runat="server" Text='<%# Eval("Articulo.Nombre") %>' CssClass="d-block font-weight-bold"></asp:Label>
                             <asp:Label ID="lblCantidad" runat="server" Text='<%# Eval("Cantidad") %>'></asp:Label> unidad(es)
                         </div>
                     </ItemTemplate>
@@ -39,9 +39,15 @@
         </asp:TemplateField>
         <asp:TemplateField HeaderText="Estado">
             <ItemTemplate>
-                <%# Convert.ToBoolean(Eval("Envio")) ? "Pedido Entregado" : "En Proceso" %>
+                <asp:Label 
+                ID="lblEstado" 
+            runat="server" 
+            Text='<%# Convert.ToBoolean(Eval("Envio")) ? "Entregado" : "En Proceso" %>' 
+            CssClass='<%# Convert.ToBoolean(Eval("Envio")) ? "estado-verde" : "estado-naranja" %>'>
+                    </asp:Label >
             </ItemTemplate>
-        </asp:TemplateField>
+            </asp:TemplateField>
+       
         <asp:TemplateField HeaderText="Medio de Pago/Monto Total">
             <ItemTemplate>
                 <asp:Label ID="lblMetodoPago" runat="server" Text='<%# Eval("MetodoPago.Nombre") %>' CssClass="d-block"></asp:Label>
@@ -55,10 +61,19 @@
     </asp:GridView>
 
     <style>
-    .img-small {
-        width: 65px; /* para ajustar el tamaño de la foto */
-        height: auto;
+        .img-small {
+            width: 65px; 
+            height: auto;
+        }
+         .estado-verde {
+        color: green;
+        font-weight: bold;
     }
+         .estado-naranja {
+        color: #ff6600;
+        font-weight: bold;
+    }
+    
 </style>
 
 </asp:Content>

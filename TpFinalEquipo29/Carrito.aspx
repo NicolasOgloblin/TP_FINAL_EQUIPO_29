@@ -9,7 +9,7 @@
          <Columns>
 
 
-      <asp:TemplateField HeaderText="Imagen">
+      <asp:TemplateField HeaderText="">
               <ItemTemplate>
 
 
@@ -17,7 +17,7 @@
                </ItemTemplate>
        </asp:TemplateField>
 
-             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+             <asp:BoundField DataField="Nombre" HeaderText="Productos" />
              <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
              <asp:BoundField DataField="Precio" HeaderText="Precio" DataFormatString="{0:C}" />
              <asp:TemplateField HeaderText="Cantidad">
