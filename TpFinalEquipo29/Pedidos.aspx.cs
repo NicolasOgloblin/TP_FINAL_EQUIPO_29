@@ -1,4 +1,6 @@
-﻿using Business.Pedido;
+﻿using Business.Articulo;
+using Business.Pedido;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
@@ -26,11 +28,18 @@ namespace TpFinalEquipo29
                 {
                     if (pedido.EstadoPedido.StartsWith("E"))
                     {
-                        pedido.Pagado = true;
+                        pedido.Entregado = true;
+                        pedido.Despachado = true;
+                    }
+                    else if(pedido.EstadoPedido.StartsWith("D"))
+                    {
+                        pedido.Entregado = false;
+                        pedido.Despachado = true;
                     }
                     else
                     {
-                        pedido.Pagado = false;
+                        pedido.Entregado = false;
+                        pedido.Despachado = false;
                     }
                 }
 
@@ -46,28 +55,55 @@ namespace TpFinalEquipo29
 
         protected void gvPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Actualizar")
+            if (e.CommandName == "Entregado")
             {
-                int pedidoId = Convert.ToInt32(e.CommandArgument);
+                long usuarioId = Convert.ToInt32(e.CommandArgument);
                 GridViewRow row = ((Button)e.CommandSource).NamingContainer as GridViewRow;
 
-                CheckBox chkPagado = row.FindControl("chkPagado") as CheckBox;
-                bool pagado = chkPagado.Checked;
+                long pedidoId = long.Parse(row.Cells[0].Text);
 
-                // Aquí puedes actualizar el estado de pago en la base de datos
-                ActualizarEstadoPagado(pedidoId, pagado);
+                ActualizarEstadoPagado(usuarioId, pedidoId, 3);
+                
+                CargarPedidos();
+            }
 
-                // Recargar los pedidos para reflejar los cambios
+            if (e.CommandName == "Despachado")
+            {
+                long usuarioId = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = ((Button)e.CommandSource).NamingContainer as GridViewRow;
+
+                long pedidoId = long.Parse(row.Cells[0].Text);
+
+                ActualizarEstadoPagado(usuarioId, pedidoId, 2);
+
                 CargarPedidos();
             }
         }
 
-        private void ActualizarEstadoPagado(int pedidoId, bool pagado)
+        private void ActualizarEstadoPagado(long usuarioId, long pedidoId , short estado)
         {
-            // Implementa la lógica para actualizar el estado de pagado en la base de datos
-            // Este es solo un ejemplo
-            // Actualizar la base de datos con el nuevo estado de pagado
-            // ...
+            var articuloBusiness = new ArticuloBusiness();
+            var pedidoBusiness = new PedidoBusiness();
+            try
+            {
+                var pedido = new PedidoEntity();
+                pedido.Id = pedidoId;
+                pedido.EstadoPedidoid = estado;
+                if(estado == 3)
+                {
+                    articuloBusiness.FinalizarStock(usuarioId);
+                    pedidoBusiness.ModificarPedido(pedido);
+                }
+                else if(estado == 2)
+                {
+                    pedidoBusiness.ModificarPedido(pedido);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Algo salio mal: " + ex.Message);
+            }
         }
 
     }

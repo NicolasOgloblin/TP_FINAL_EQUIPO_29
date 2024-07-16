@@ -99,13 +99,9 @@ namespace TpFinalEquipo29
 
         protected void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
-            var articuloBusiness = new ArticuloBusiness();
-
             try
             {
-                var usuario = (UsuarioEntity)Session["Login"];
-
-                articuloBusiness.FinalizarStock(usuario.Id);
+                Session.Remove("articulosSeleccionados");
 
                 Response.Redirect("FinalizarCompra.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();

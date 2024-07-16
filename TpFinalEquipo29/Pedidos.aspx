@@ -10,10 +10,16 @@
                 <asp:BoundField DataField="MontoTotal" HeaderText="Monto Total" DataFormatString="{0:C}" />
                 <asp:BoundField DataField="EstadoPedido" HeaderText="Estado" />
                 <asp:BoundField DataField="MetodoPago.Nombre" HeaderText="Método de Pago" />
-                <asp:TemplateField HeaderText="Pagado">
+                <asp:TemplateField HeaderText="Entregado">
                     <ItemTemplate>
-                        <asp:CheckBox ID="chkPagado" runat="server" Checked='<%# Eval("Pagado") %>' />
-                        <asp:Button ID="btnActualizar" runat="server" CommandName="Actualizar" CommandArgument='<%# Eval("Id") %>' Text="Actualizar" CssClass="btn btn-primary btn-sm ml-2" />
+                        <asp:CheckBox ID="chkPagado" runat="server" Checked='<%# Eval("Entregado") %>' />
+                        <asp:Button ID="btnActualizar" runat="server" CommandName="Entregado" CommandArgument='<%# Eval("UsuarioId") %>' Text="Actualizar" CssClass="btn btn-primary btn-sm ml-2" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Despachado">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkDespachado" runat="server" Checked='<%# Eval("Despachado") %>' />
+                        <asp:Button ID="btnActualizarDesp" runat="server" CommandName="Despachado" CommandArgument='<%# Eval("UsuarioId") %>' Text="Actualizar" CssClass="btn btn-primary btn-sm ml-2" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

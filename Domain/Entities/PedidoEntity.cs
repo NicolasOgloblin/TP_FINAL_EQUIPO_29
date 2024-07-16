@@ -15,7 +15,8 @@ namespace Domain.Entities
         public short? EstadoPedidoid { get; set; }
         public string EstadoPedido { get; set; }
         public MetodoPagoEntity MetodoPago { get; set; }
-        public bool Pagado {  get; set; } 
+        public bool Entregado {  get; set; } 
+        public bool Despachado { get; set; }
     }
 
     public class PedidoDetalleEntity

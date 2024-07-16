@@ -275,6 +275,7 @@ namespace Dao.Implements
             string consulta = @"SELECT 
                                 P.ID,
                                 U.USUARIO,
+                                U.ID AS USUARIOID,
                                 P.FECHA_PEDIDO,
                                 P.MONTO_TOTAL,
                                 EP.NOMBRE AS EPNOMBRE,
@@ -296,6 +297,7 @@ namespace Dao.Implements
                     var pedido = new PedidoEntity();
                     pedido.Id = (long)datos.Reader["ID"];
                     pedido.UsuarioNombre = (string)datos.Reader["USUARIO"];
+                    pedido.UsuarioId = (long)datos.Reader["USUARIOID"];
                     pedido.FechaPedido = (DateTime)datos.Reader["FECHA_PEDIDO"];
                     pedido.MontoTotal = (decimal)datos.Reader["MONTO_TOTAL"];
                     pedido.EstadoPedido = (string)datos.Reader["EPNOMBRE"];
