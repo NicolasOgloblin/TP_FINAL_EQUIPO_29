@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
      <h2>Mis pedidos realizados</h2>
     <p>Este es el historial de pedidos realizados.</p>
-    <asp:GridView ID="gvHistorialCompras" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
+    <asp:GridView ID="gvHistorialCompras" runat="server" AutoGenerateColumns="False" CssClass="table table-striped" OnRowDataBound="gvHistorialCompras_RowDataBound">
         
            <Columns>
         <asp:TemplateField HeaderText="">
@@ -40,10 +40,7 @@
         <asp:TemplateField HeaderText="Estado">
             <ItemTemplate>
                 <asp:Label 
-                ID="lblEstado" 
-            runat="server" 
-            Text='<%# Eval("EstadoPedido") %>' >
-            <%--CssClass='<%# Convert.ToBoolean(Eval("Envio")) ? "estado-verde" : "estado-naranja" %>'>--%>
+                ID="lblEstado" runat="server" Text='<%# Eval("EstadoPedido") %>' >
                     </asp:Label >
             </ItemTemplate>
             </asp:TemplateField>
@@ -61,6 +58,7 @@
     </asp:GridView>
 
     <style>
+
         .img-small {
             width: 65px; 
             height: auto;
@@ -69,8 +67,12 @@
         color: green;
         font-weight: bold;
     }
-         .estado-naranja {
-        color: #ff6600;
+    .estado-rojo {
+        color: red;
+        font-weight: bold;
+    }
+    .estado-naranja-fuerte {
+        color: darkorange;
         font-weight: bold;
     }
     

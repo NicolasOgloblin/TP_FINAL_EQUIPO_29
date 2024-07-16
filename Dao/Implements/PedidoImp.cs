@@ -134,9 +134,12 @@ namespace Dao.Implements
                                  PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
                              JOIN 
                                  ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
-                             LEFT JOIN 
-                                 METODO_PAGO mp ON p.USUARIOID = mp.ID
+                             LEFT JOIN
+
+                                 METODO_PAGO mp ON p.METODOPAGOID = mp.ID
+
                              LEFT JOIN ESTADO_PEDIDO EP ON(P.ESTADOPEDIDOID = EP.ID)
+
                              WHERE 
                                  p.USUARIOID = @UsuarioID
                              ORDER BY 

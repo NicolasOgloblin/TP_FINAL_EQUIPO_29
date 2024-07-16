@@ -67,6 +67,29 @@ namespace TpFinalEquipo29
             }
             return usuarioLogueado.Id;
         }
-    }
 
+        protected void gvHistorialCompras_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblEstado = (Label)e.Row.FindControl("lblEstado");
+                if (lblEstado != null)
+                {
+                    string estado = lblEstado.Text.ToLower();
+                    switch (estado)
+                    {
+                        case "pendiente":
+                            lblEstado.CssClass = "estado-rojo";
+                            break;
+                        case "despachado":
+                            lblEstado.CssClass = "estado-naranja-fuerte";
+                            break;
+                        case "entregado":
+                            lblEstado.CssClass = "estado-verde";
+                            break;
+                    }
+                }
+            }
+        }
+    }
 }
