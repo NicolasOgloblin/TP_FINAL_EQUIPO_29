@@ -26,6 +26,15 @@ namespace TpFinalEquipo29
 
                 foreach(var pedido in pedidos)
                 {
+                    if ((bool)pedido.Envio)
+                    {
+                        pedido.EnvioPedido = "SI";
+                    }
+                    else
+                    {
+                        pedido.EnvioPedido = "NO";
+                    }
+
                     if (pedido.EstadoPedido.StartsWith("E"))
                     {
                         pedido.Entregado = true;
