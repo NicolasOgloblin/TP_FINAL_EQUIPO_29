@@ -9,6 +9,7 @@
                 <asp:BoundField DataField="FechaPedido" HeaderText="Fecha Pedido" DataFormatString="{0:dd/MM/yyyy}" />
                 <asp:BoundField DataField="MontoTotal" HeaderText="Monto Total" DataFormatString="{0:C}" />
                 <asp:BoundField DataField="EstadoPedido" HeaderText="Estado" />
+                <asp:BoundField DataField="EnvioPedido" HeaderText="Envio" />
                 <asp:BoundField DataField="MetodoPago.Nombre" HeaderText="Método de Pago" />
                 <asp:TemplateField HeaderText="Entregado">
                     <ItemTemplate>
