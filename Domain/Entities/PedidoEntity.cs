@@ -7,14 +7,15 @@ namespace Domain.Entities
     {
         public long Id { get; set; }
         public long UsuarioId { get; set; }
+        public string UsuarioNombre { get; set; }
         public DateTime FechaPedido { get; set; }
         public decimal MontoTotal { get; set; }
         public List<PedidoDetalleEntity> Detalles { get; set; }
-        public bool Envio { get; set; }
-
-        public short EstadoPedidoid { get; set; }
-
+        public bool? Envio { get; set; }
+        public short? EstadoPedidoid { get; set; }
+        public string EstadoPedido { get; set; }
         public MetodoPagoEntity MetodoPago { get; set; }
+        public bool Pagado {  get; set; } 
     }
 
     public class PedidoDetalleEntity
@@ -27,14 +28,6 @@ namespace Domain.Entities
         public List<ImagenEntity> Imagenes { get; set; }
     }
 
-
-    public class EstadoPedidoEntity
-    {
-
-        public short EstadoPedidoid { get; set; }
-        public string Nombre { get; set; }
-
-    }
 
 }
 

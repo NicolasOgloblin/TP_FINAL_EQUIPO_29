@@ -56,7 +56,7 @@
             <div class="col-md-6 mb-3">
             <div class="card shadow-sm">
                <div class="card-body text-center">
-                 <h5 class="card-title">Mis Compras</h5>
+                 <h5 class="card-title">MIS PEDIDOS</h5>
                         <a href="MisPedidos.aspx" class="btn btn-outline-success"><i class="fas fa-shopping-cart"></i> Ver Mas</a>
              </div>
           </div>

@@ -8,7 +8,7 @@ namespace Business.Pedido
 {
     public class PedidoBusiness
     {
-        public int AgregarPedido(PedidoEntity pedido, long usuarioId)
+        public long AgregarPedido(PedidoEntity pedido, long usuarioId)
         {
             PedidoImp pedidoImp = new PedidoImp();
             try
@@ -18,10 +18,28 @@ namespace Business.Pedido
                 if (result > 0)
                 {
                     pedido.Id = result;
-                    return pedidoImp.AgregarDetallePedido(pedido);
+                    result = pedidoImp.AgregarDetallePedido(pedido);
+
+                    if(result == 1)
+                    {
+                        return pedido.Id;
+                    }
                 }
 
                 return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<PedidoEntity> GetPedidos()
+        {
+            PedidoImp pedidoImp = new PedidoImp();
+            try
+            {
+                return pedidoImp.GetPedidos();
             }
             catch (Exception ex)
             {
@@ -35,7 +53,18 @@ namespace Business.Pedido
             return pedidoImp.ObtenerHistorialCompras(usuarioId);
         }
 
-
+        public int ModificarPedido(PedidoEntity pedido)
+        {
+            PedidoImp pedidoImp = new PedidoImp();
+            try
+            {
+                return pedidoImp.ModificarPedido(pedido);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         private UsuarioEntity ObtenerUsuarioPorId(long usuarioid)
         {

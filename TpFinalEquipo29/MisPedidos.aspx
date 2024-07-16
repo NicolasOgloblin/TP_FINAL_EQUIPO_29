@@ -42,8 +42,8 @@
                 <asp:Label 
                 ID="lblEstado" 
             runat="server" 
-            Text='<%# Convert.ToBoolean(Eval("Envio")) ? "Entregado" : "En Proceso" %>' 
-            CssClass='<%# Convert.ToBoolean(Eval("Envio")) ? "estado-verde" : "estado-naranja" %>'>
+            Text='<%# Eval("EstadoPedido") %>' >
+            <%--CssClass='<%# Convert.ToBoolean(Eval("Envio")) ? "estado-verde" : "estado-naranja" %>'>--%>
                     </asp:Label >
             </ItemTemplate>
             </asp:TemplateField>

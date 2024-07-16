@@ -3,7 +3,6 @@
     <main aria-labelledby="title">
         <h2 id="title"><%: Title %>.</h2>
         
-        <!-- Agregar botones o enlaces para acceder a las páginas de administración -->
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
@@ -34,5 +33,18 @@
                 </div>
             </div>
         </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestión de Pedidos</h5>
+                        <p class="card-text">Administrar los pedidos de los clientes.</p>
+                        <a href="Pedidos.aspx" class="btn btn-success">Ir a Pedidos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </main>
 </asp:Content>

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Business.Pedido;
+using Domain.Entities;
 using System;
 using System.Web.UI.WebControls;
 
@@ -12,10 +13,16 @@ namespace TpFinalEquipo29
             {
                 if (Session["Login"] != null)
                 {
-                    var usuario = (UsuarioEntity)Session["Login"];
                     
-                    if (rbFormaEntrega.SelectedValue == "domicilio")
+
+                    var usuario = (UsuarioEntity)Session["Login"];
+
+                    
+
+                    if (rbFormaEntrega.SelectedValue.Equals("domicilio"))
                     {
+                        
+
                         Session["DireccionDomicilio"] = $"{usuario.Calle} {usuario.Altura}, {usuario.Localidad}";
 
                         foreach (ListItem item in rbFormaEntrega.Items)
@@ -39,12 +46,25 @@ namespace TpFinalEquipo29
 
         protected void rbFormaEntrega_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            var pedidoBusiness = new PedidoBusiness();
+            var pedido = new PedidoEntity();
+            pedido.Id = (long)Session["PedidoEnCurso"];
+
             if (rbFormaEntrega.SelectedValue == "domicilio")
             {
                 if (Session["Login"] != null)
                 {
                     var usuario = (UsuarioEntity)Session["Login"];
+                    
+                    pedido.Envio = true;
+                    try
+                    {
+                        pedidoBusiness.ModificarPedido(pedido);
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new Exception("Algo salio mal: " + ex.Message);
+                    }
 
                     Session["DireccionDomicilio"] = $"{usuario.Calle} {usuario.Altura}, {usuario.Localidad}";
 
@@ -63,6 +83,16 @@ namespace TpFinalEquipo29
             }
             else
             {
+                pedido.Envio = false;
+                try
+                {
+                    pedidoBusiness.ModificarPedido(pedido);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Algo salio mal: " + ex.Message);
+                }
+
                 Session.Remove("DireccionDomicilio");
                 Session.Remove("CostoEnvio");
 

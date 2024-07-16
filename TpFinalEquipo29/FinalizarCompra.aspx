@@ -8,10 +8,12 @@
                 <img src='<%= ResolveUrl("~/Imagenes/mercadopago.png") %>' alt="Mercado Pago" class="img-fluid my-4" />
                 <div class="alert alert-info">
                     <h4 class="alert-heading">Alias de Transferencia</h4>
-                    <p>Transferir al siguiente alias:</p>
+                    <p>Transferir al siguiente alias: <b>ALIAS.FICTICIO.MP</b> </p>
                     <asp:Label ID="lblAlias" runat="server" CssClass="h5"></asp:Label>
                 </div>
+                <asp:Button ID="btnMisPedidos" runat="server" CssClass="btn btn-primary mt-4" Text="Ver Mis Pedidos" OnClick="btnMisPedidos_Click" />
             </div>
         </div>
     </div>
 </asp:Content>
+

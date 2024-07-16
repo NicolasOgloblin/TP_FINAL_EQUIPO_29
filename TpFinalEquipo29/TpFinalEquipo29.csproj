@@ -144,6 +144,7 @@
     <Content Include="MisDirecciones.aspx" />
     <Content Include="ModificarMail.aspx" />
     <Content Include="Pagos.aspx" />
+    <Content Include="Pedidos.aspx" />
     <Content Include="ProcesandoPedido.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -373,6 +374,13 @@
     </Compile>
     <Compile Include="Pagos.aspx.designer.cs">
       <DependentUpon>Pagos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pedidos.aspx.cs">
+      <DependentUpon>Pedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pedidos.aspx.designer.cs">
+      <DependentUpon>Pedidos.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcesandoPedido.aspx.cs">
       <DependentUpon>ProcesandoPedido.aspx</DependentUpon>

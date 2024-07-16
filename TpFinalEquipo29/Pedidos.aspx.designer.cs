@@ -11,25 +11,16 @@ namespace TpFinalEquipo29
 {
 
 
-    public partial class FinalizarCompra
+    public partial class Pedidos
     {
 
         /// <summary>
-        /// Control lblAlias.
+        /// Control gvPedidos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlias;
-
-        /// <summary>
-        /// Control btnMisPedidos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMisPedidos;
+        protected global::System.Web.UI.WebControls.GridView gvPedidos;
     }
 }

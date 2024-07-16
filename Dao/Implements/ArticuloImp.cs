@@ -350,6 +350,34 @@ namespace Dao.Implements
             }
         }
 
+        public int FinalizarStock(long usuarioId)
+        {
+            DataAccess datos = new DataAccess();
+
+            #region Consulta
+            string consulta = @"DELETE RESERVA_STOCK
+                                WHERE USUARIOID = @usuarioId";
+            #endregion
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@usuarioId", usuarioId);
+
+                var result = datos.ejecutarAccion();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public int AgregarImagenes(List<ImagenEntity> imagenes)
         {
             #region Consulta

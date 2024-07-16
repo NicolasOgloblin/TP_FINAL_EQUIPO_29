@@ -28,6 +28,19 @@ namespace Business.Articulo
             }
         }
 
+        public int FinalizarStock(long usuarioId)
+        {
+            ArticuloImp artImp = new ArticuloImp();
+            try
+            {
+                return artImp.FinalizarStock(usuarioId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public int DevolverStock(ArticuloEntity articulo, long usuarioId)
         {
             ArticuloImp artImp = new ArticuloImp();

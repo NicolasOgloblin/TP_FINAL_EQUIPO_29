@@ -1,7 +1,9 @@
-﻿using Domain.Entities;
+﻿using Business.Articulo;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 
 namespace TpFinalEquipo29
@@ -50,11 +52,7 @@ namespace TpFinalEquipo29
                 }
             }
 
-            if (Session["MetodoPago"] != null)
-            {
-                string metodoPago = Session["MetodoPago"].ToString();
-                lblMetodoPago.Text = metodoPago;
-            }
+            
         }
 
         private string ObtenerTextoFormaEntrega(string formaEntrega)
@@ -101,8 +99,21 @@ namespace TpFinalEquipo29
 
         protected void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
-            
-            Response.Redirect("~/FinalizarCompra.aspx");
+            var articuloBusiness = new ArticuloBusiness();
+
+            try
+            {
+                var usuario = (UsuarioEntity)Session["Login"];
+
+                articuloBusiness.FinalizarStock(usuario.Id);
+
+                Response.Redirect("FinalizarCompra.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Algo salio mal: " + ex.Message);
+            }
         }
     }
 }

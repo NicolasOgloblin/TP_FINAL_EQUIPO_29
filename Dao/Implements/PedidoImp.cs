@@ -2,9 +2,6 @@
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Dao.Implements
 {
@@ -16,8 +13,8 @@ namespace Dao.Implements
 
             #region Consulta
             string consulta = @"
-                                INSERT INTO PEDIDO (USUARIOID,FECHA_PEDIDO,MONTO_TOTAL,ENVIO,ESTADOPEDIDOID)
-                                VALUES(@usuarioId,@fechaPedido,@montoTotal,@envio,@estadopedidoid) SELECT SCOPE_IDENTITY() AS ID";
+                                INSERT INTO PEDIDO (USUARIOID,FECHA_PEDIDO,MONTO_TOTAL,ESTADOPEDIDOID)
+                                VALUES(@usuarioId,@fechaPedido,@montoTotal,1) SELECT SCOPE_IDENTITY() AS ID;";
             #endregion
 
             try
@@ -26,8 +23,6 @@ namespace Dao.Implements
                 datos.setearParametro("@usuarioId", usuarioId);
                 datos.setearParametro("@fechaPedido", pedido.FechaPedido);
                 datos.setearParametro("@montoTotal", pedido.MontoTotal);
-                datos.setearParametro("@envio", pedido.Envio);
-                datos.setearParametro("@estadopedidoid", pedido.EstadoPedidoid);
 
                 var result = datos.ejecutarScalar();
 
@@ -48,53 +43,27 @@ namespace Dao.Implements
             string consulta = @"INSERT INTO PEDIDO_DETALLE (PEDIDOID, ARTICULOID, CANTIDAD, PRECIO_UNITARIO)
                         VALUES (@pedidoId, @articuloId, @cantidad, @precioUnitario)";
 
-            DataAccess datos = new DataAccess();
+            
             try
             {
-                datos.setearConsulta(consulta);
+                
                 foreach (var detalle in pedido.Detalles)
                 {
-                    datos.setearParametro("@pedidoId", pedido.Id);
-                    datos.setearParametro("@articuloId", detalle.ArticuloId);
-                    datos.setearParametro("@cantidad", detalle.Cantidad);
-                    datos.setearParametro("@precioUnitario", detalle.PrecioUnitario);
-                    datos.ejecutarAccion();
-                }
-
-                return 1;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-
-        public int AgregarEstadoPedido(EstadoPedidoEntity pedido)
-        {
-            #region Consulta
-            string consulta = @"INSERT INTO PEDIDO_DETALLE (ID, NOMBRE)
-                                VALUES(@pedidoId,@nombre)";
-            #endregion
-
-            try
-            {
-                DataAccess datos = new DataAccess();
-                try
-                {
+                    DataAccess datos = new DataAccess();
                     datos.setearConsulta(consulta);
-                    datos.setearParametro("@pedidoId", pedido.EstadoPedidoid);
-                    datos.setearParametro("@articuloId", pedido.Nombre);
-
-
-                    datos.ejecutarAccion();
-                }
-                finally
-                {
-                    datos.cerrarConexion();
+                    try
+                    {
+                        datos.setearParametro("@pedidoId", pedido.Id);
+                        datos.setearParametro("@articuloId", detalle.ArticuloId);
+                        datos.setearParametro("@cantidad", detalle.Cantidad);
+                        datos.setearParametro("@precioUnitario", detalle.PrecioUnitario);
+                        datos.ejecutarAccion();
+                    }
+                    finally
+                    {
+                        datos.cerrarConexion();
+                    }
+                        
                 }
 
                 return 1;
@@ -103,7 +72,40 @@ namespace Dao.Implements
             {
                 throw ex;
             }
+            
         }
+
+        //public int AgregarEstadoPedido(EstadoPedidoEntity pedido)
+        //{
+        //    #region Consulta
+        //    string consulta = @"INSERT INTO PEDIDO_DETALLE (ID, NOMBRE)
+        //                        VALUES(@pedidoId,@nombre)";
+        //    #endregion
+
+        //    try
+        //    {
+        //        DataAccess datos = new DataAccess();
+        //        try
+        //        {
+        //            datos.setearConsulta(consulta);
+        //            datos.setearParametro("@pedidoId", pedido.EstadoPedidoid);
+        //            datos.setearParametro("@articuloId", pedido.Nombre);
+
+
+        //            datos.ejecutarAccion();
+        //        }
+        //        finally
+        //        {
+        //            datos.cerrarConexion();
+        //        }
+
+        //        return 1;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
     
 
@@ -113,30 +115,32 @@ namespace Dao.Implements
             List<PedidoEntity> historialCompras = new List<PedidoEntity>();
             string consultaPedidos = @"
                                SELECT 
-                                        p.ID,
-                                        p.USUARIOID,
-                                        p.FECHA_PEDIDO,
-                                        p.MONTO_TOTAL,
-                                        p.ESTADOPEDIDOID,
-                                        ad.NOMBRE AS NombreArticulo,
-                                        pd.ARTICULOID,
-                                        pd.CANTIDAD,
-                                        pd.PRECIO_UNITARIO,
-                                        p.ENVIO,
-                                        mp.ID AS MetodoPagoId,
-                                        mp.NOMBRE AS NombreMetodoPago
-                                    FROM 
-                                        PEDIDO p
-                                    JOIN 
-                                        PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
-                                    JOIN 
-                                        ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
-                                    LEFT JOIN 
-                                        METODO_PAGO mp ON p.USUARIOID = mp.ID
-                                    WHERE 
-                                        p.USUARIOID = @UsuarioID
-                                    ORDER BY 
-                                        p.FECHA_PEDIDO DESC";
+                                 p.ID,
+                                 p.USUARIOID,
+                                 p.FECHA_PEDIDO,
+                                 p.MONTO_TOTAL,
+                                 p.ESTADOPEDIDOID,
+                                 ad.NOMBRE AS NombreArticulo,
+                                 pd.ARTICULOID,
+                                 pd.CANTIDAD,
+                                 pd.PRECIO_UNITARIO,
+                                 ISNULL(p.ENVIO,0) AS ENVIO,
+                                 mp.ID AS MetodoPagoId,
+                                 mp.NOMBRE AS NombreMetodoPago,
+                                 EP.NOMBRE AS NombreEstado
+                             FROM 
+                                 PEDIDO p
+                             JOIN 
+                                 PEDIDO_DETALLE pd ON p.ID = pd.PEDIDOID
+                             JOIN 
+                                 ARTICULOS_DETALLE ad ON pd.ARTICULOID = ad.ARTICULOID
+                             LEFT JOIN 
+                                 METODO_PAGO mp ON p.USUARIOID = mp.ID
+                             LEFT JOIN ESTADO_PEDIDO EP ON(P.ESTADOPEDIDOID = EP.ID)
+                             WHERE 
+                                 p.USUARIOID = @UsuarioID
+                             ORDER BY 
+                                 p.FECHA_PEDIDO DESC";
 
             DataAccess datos = new DataAccess();
 
@@ -161,6 +165,7 @@ namespace Dao.Implements
                             FechaPedido = datos.Reader.GetDateTime(2),
                             MontoTotal = datos.Reader.GetDecimal(3),
                             EstadoPedidoid = datos.Reader.IsDBNull(4) ? default(short) : (short)datos.Reader.GetInt16(4),
+                            EstadoPedido = datos.Reader.GetString(12),
                             Envio = datos.Reader.GetBoolean(9),
                             MetodoPago = new MetodoPagoEntity
                             {
@@ -198,7 +203,122 @@ namespace Dao.Implements
 
             return historialCompras;
         }
-    
+
+        public int ModificarPedido(PedidoEntity pedido)
+        {
+            DataAccess datos = new DataAccess();
+            
+
+            string consulta = string.Empty;
+
+            try
+            {
+                if (pedido.Envio.HasValue)
+                {
+                    consulta = @"UPDATE PEDIDO
+                            SET ENVIO = @envio
+                            WHERE ID = @pedidoId";
+                }
+
+                if (pedido.EstadoPedidoid.HasValue)
+                {
+                    consulta = @"UPDATE PEDIDO
+                            SET ESTADOPEDIDOID = @estadoPedido
+                            WHERE ID = @pedidoId";
+                }
+
+                if (pedido.MetodoPago != null)
+                {
+                    consulta = @"UPDATE PEDIDO
+                            SET METODOPAGOID = @metodopagoId
+                            WHERE ID = @pedidoId";
+                }
+
+                if (pedido.Envio.HasValue)
+                {
+                    datos.setearConsulta(consulta);
+                    datos.setearParametro("@pedidoId", pedido.Id);
+                    datos.setearParametro("@envio", pedido.Envio);
+                }
+
+                if (pedido.EstadoPedidoid.HasValue)
+                {
+                    datos.setearConsulta(consulta);
+                    datos.setearParametro("@pedidoId", pedido.Id);
+                    datos.setearParametro("@estadoPedido", pedido.EstadoPedidoid);
+                }
+
+                if (pedido.MetodoPago != null)
+                {
+                    datos.setearConsulta(consulta);
+                    datos.setearParametro("@pedidoId", pedido.Id);
+                    datos.setearParametro("@metodopagoId", pedido.MetodoPago.Id);
+                }
+
+                return datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<PedidoEntity> GetPedidos()
+        {
+            DataAccess datos = new DataAccess();
+            var listPedidos = new List<PedidoEntity>();
+
+            string consulta = @"SELECT 
+                                P.ID,
+                                U.USUARIO,
+                                P.FECHA_PEDIDO,
+                                P.MONTO_TOTAL,
+                                EP.NOMBRE AS EPNOMBRE,
+                                M.NOMBRE AS MNOMBRE,
+                                P.ENVIO
+                                FROM PEDIDO P
+                                INNER JOIN USUARIOS U ON(P.USUARIOID = U.ID)
+                                INNER JOIN ESTADO_PEDIDO EP ON(P.ESTADOPEDIDOID = EP.ID)
+                                INNER JOIN METODO_PAGO M ON(P.METODOPAGOID = M.ID)";
+
+
+            try
+            {
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+
+                while (datos.Reader.Read())
+                {
+                    var pedido = new PedidoEntity();
+                    pedido.Id = (long)datos.Reader["ID"];
+                    pedido.UsuarioNombre = (string)datos.Reader["USUARIO"];
+                    pedido.FechaPedido = (DateTime)datos.Reader["FECHA_PEDIDO"];
+                    pedido.MontoTotal = (decimal)datos.Reader["MONTO_TOTAL"];
+                    pedido.EstadoPedido = (string)datos.Reader["EPNOMBRE"];
+                    pedido.MetodoPago = new MetodoPagoEntity();
+                    pedido.MetodoPago.Nombre = (string)datos.Reader["MNOMBRE"];
+                    pedido.Envio = (bool)datos.Reader["ENVIO"];
+
+                    listPedidos.Add(pedido);
+                }
+
+                return listPedidos;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public UsuarioEntity ObtenerUsuarioPorId(long usuarioid)
         {
             UsuarioEntity usuario = null;

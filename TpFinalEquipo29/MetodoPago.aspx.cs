@@ -1,4 +1,5 @@
 ﻿using Business.MetodoPago;
+using Business.Pedido;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -25,20 +26,32 @@ namespace TpFinalEquipo29
            
             string metodoPago = rbMetodoPago.SelectedValue;
 
-            Session["MetodoPago"] = metodoPago;
-
-            MetodoPagoBusiness metodoPagoBusiness = new MetodoPagoBusiness();
+            var pedidoBusiness = new PedidoBusiness();
 
             try
             {
-                int idMetodoPago = metodoPagoBusiness.GuardarMetodoPago(metodoPago);
-                Session["IdMetodoPago"] = idMetodoPago; 
+                var pedido = new PedidoEntity();
+                pedido.MetodoPago = new MetodoPagoEntity();
+                pedido.Id = (long)Session["PedidoEnCurso"];
+                pedido.Envio = null;
+                pedido.EstadoPedidoid = null;
+
+                if (metodoPago.StartsWith("T"))
+                {
+                    pedido.MetodoPago.Id = 1;
+                }
+                else
+                {
+                    pedido.MetodoPago.Id = 2;
+                }
+
+                pedidoBusiness.ModificarPedido(pedido);
 
                 Response.Redirect("DetalleCompra.aspx");
             }
             catch (Exception ex)
             {
-                lblMensajeError.Text = "Error al guardar el método de pago. Por favor, inténtalo nuevamente.";
+                lblMensajeError.Text = $"Error al guardar el método de pago {ex.Message}. Por favor, inténtalo nuevamente.";
                 lblMensajeError.Visible = true;
             }
         }
