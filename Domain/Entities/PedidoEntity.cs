@@ -12,6 +12,7 @@ namespace Domain.Entities
         public decimal MontoTotal { get; set; }
         public List<PedidoDetalleEntity> Detalles { get; set; }
         public bool? Envio { get; set; }
+        public string EnvioPedido {  get; set; } = string.Empty;
         public short? EstadoPedidoid { get; set; }
         public string EstadoPedido { get; set; }
         public MetodoPagoEntity MetodoPago { get; set; }
