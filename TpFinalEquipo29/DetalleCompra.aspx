@@ -75,7 +75,7 @@
 
         <div class="detalle">
             <label>Método de Pago:</label>
-            <asp:Label ID="lblMetodoPago" runat="server" Text="Tarjeta de Crédito"></asp:Label>
+            <asp:Label ID="lblMetodoPago" runat="server" Text=""></asp:Label>
             
         </div>
 

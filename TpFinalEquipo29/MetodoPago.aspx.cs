@@ -25,7 +25,7 @@ namespace TpFinalEquipo29
         {
            
             string metodoPago = rbMetodoPago.SelectedValue;
-
+            Session["MetodoPago"] = metodoPago;
             var pedidoBusiness = new PedidoBusiness();
 
             try

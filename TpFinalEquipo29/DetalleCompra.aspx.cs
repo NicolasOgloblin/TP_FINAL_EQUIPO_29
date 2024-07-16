@@ -51,8 +51,12 @@ namespace TpFinalEquipo29
                     divDireccionDomicilio.Visible = false;
                 }
             }
+            if (Session["MetodoPago"] != null)
+            {
+                string metodoPago = Session["MetodoPago"].ToString();
+                lblMetodoPago.Text = metodoPago; 
 
-            
+            }
         }
 
         private string ObtenerTextoFormaEntrega(string formaEntrega)

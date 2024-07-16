@@ -75,40 +75,6 @@ namespace Dao.Implements
             
         }
 
-        //public int AgregarEstadoPedido(EstadoPedidoEntity pedido)
-        //{
-        //    #region Consulta
-        //    string consulta = @"INSERT INTO PEDIDO_DETALLE (ID, NOMBRE)
-        //                        VALUES(@pedidoId,@nombre)";
-        //    #endregion
-
-        //    try
-        //    {
-        //        DataAccess datos = new DataAccess();
-        //        try
-        //        {
-        //            datos.setearConsulta(consulta);
-        //            datos.setearParametro("@pedidoId", pedido.EstadoPedidoid);
-        //            datos.setearParametro("@articuloId", pedido.Nombre);
-
-
-        //            datos.ejecutarAccion();
-        //        }
-        //        finally
-        //        {
-        //            datos.cerrarConexion();
-        //        }
-
-        //        return 1;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-    
-
         public List<PedidoEntity> ObtenerHistorialCompras(long usuarioId)
         {
             
