@@ -14,13 +14,13 @@
                 <asp:TemplateField HeaderText="Entregado">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkPagado" runat="server" Checked='<%# Eval("Entregado") %>' />
-                        <asp:Button ID="btnActualizar" runat="server" CommandName="Entregado" CommandArgument='<%# Eval("UsuarioId") %>' Text="Actualizar" CssClass="btn btn-primary btn-sm ml-2" />
+                        <asp:Button ID="btnActualizar" runat="server" CommandName="Entregado" CommandArgument='<%# Eval("UsuarioId") %>' Text="Actualizar" CssClass="btn btn-success btn-sm ml-2" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Despachado">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkDespachado" runat="server" Checked='<%# Eval("Despachado") %>' />
-                        <asp:Button ID="btnActualizarDesp" runat="server" CommandName="Despachado" CommandArgument='<%# Eval("UsuarioId") %>' Text="Actualizar" CssClass="btn btn-primary btn-sm ml-2" />
+                        <asp:Button ID="btnActualizarDesp" runat="server" CommandName="Despachado" CommandArgument='<%# Eval("UsuarioId") %>' Text="Actualizar" CssClass="btn btn-success btn-sm ml-2" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

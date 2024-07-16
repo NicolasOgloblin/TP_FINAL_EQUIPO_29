@@ -11,7 +11,7 @@
                     <p>Transferir al siguiente alias: <b>ALIAS.FICTICIO.MP</b> </p>
                     <asp:Label ID="lblAlias" runat="server" CssClass="h5"></asp:Label>
                 </div>
-                <asp:Button ID="btnMisPedidos" runat="server" CssClass="btn btn-primary mt-4" Text="Ver Mis Pedidos" OnClick="btnMisPedidos_Click" />
+                <asp:Button ID="btnMisPedidos" runat="server" CssClass="btn btn-success mt-4" Text="Ver Mis Pedidos" OnClick="btnMisPedidos_Click" />
             </div>
         </div>
     </div>
