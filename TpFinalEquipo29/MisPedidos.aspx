@@ -44,7 +44,15 @@
                     </asp:Label >
             </ItemTemplate>
             </asp:TemplateField>
-       
+
+                <asp:TemplateField HeaderText="Envio">
+            <ItemTemplate>
+                <div class="info-envio">
+                    <asp:Label ID="lblEnvio" runat="server" Text='<%# Eval("EnvioPedido") %>' CssClass="d-block"></asp:Label>
+                </div>
+            </ItemTemplate>
+        </asp:TemplateField>
+
         <asp:TemplateField HeaderText="Medio de Pago/Monto Total">
             <ItemTemplate>
                 <asp:Label ID="lblMetodoPago" runat="server" Text='<%# Eval("MetodoPago.Nombre") %>' CssClass="d-block"></asp:Label>

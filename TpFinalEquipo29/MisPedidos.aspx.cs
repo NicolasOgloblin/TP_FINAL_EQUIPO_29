@@ -1,5 +1,6 @@
 ﻿using Business.Pedido;
 using Domain.Entities;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,18 @@ namespace TpFinalEquipo29
 
                 foreach (var pedido in historialCompras)
                 {
+                    if ((bool)pedido.Envio)
+                    {
+                        pedido.EnvioPedido = "SI";
+
+
+                    } else {
+
+                        pedido.EnvioPedido = "NO";
+                            
+                            }
+
+
                     foreach (var detalle in pedido.Detalles)
                     {
                         detalle.Imagenes = pedidoBusiness.ObtenerImagenesArticulo(detalle.ArticuloId);
